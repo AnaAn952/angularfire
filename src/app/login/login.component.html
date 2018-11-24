@@ -1,0 +1,104 @@
+<!-- Button trigger modal -->
+<button *ngIf="!authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+    Creeaza cont
+</button>
+
+<button *ngIf="!authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Login
+</button>
+
+<button *ngIf="authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+    Logout
+</button>
+
+<!--Log In Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="userform" method="post" #formCtrl="ngForm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" id="exampleInputEmail1" name="example1" class="form-control" [(ngModel)]="user.email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" id="exampleInputPassword1" name="example2" class="form-control" [(ngModel)]="user.password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="signInWithEmail()" [disabled]="formCtrl.form.invalid">
+                            Login with Email
+                        </button>
+                    </div>
+                </form>
+                <div class="form-group" >
+                    <button type="button" class="btn btn-block" (click)="googleSignIn()">
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                        Login with Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Log Out Modal -->
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to log out?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="col-lg-8 col-md-8 col-xs-8"></div>
+                <button type="button" class="btn btn-primary" (click)="logout()">Lalala</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inregistrare -->
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="userform" method="post" #formCtrl="ngForm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" id="exampleInputEmail3" name="example1" class="form-control" [(ngModel)]="user.email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" id="exampleInputPassword3" name="example2" class="form-control" [(ngModel)]="user.password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="createAccount()" [disabled]="formCtrl.form.invalid">
+                            Creeaza cont
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
