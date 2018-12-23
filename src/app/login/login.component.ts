@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { UserDataService } from '../services/userData.service';
+import { Location } from '@angular/common';
 
 declare let $:any;
 
@@ -9,7 +12,8 @@ declare let $:any;
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+    public dbRef: any;
     user = {
         email: '',
         password: ''
@@ -17,39 +21,53 @@ export class LoginComponent {
 
     constructor(
         public authService: AuthService,
-        public router: Router
+        public router: Router,
+        public userData: UserDataService,
     ) {}
 
-    public googleSignIn() {
+    ngOnInit() {}
+
+    googleSignIn() {
         this.authService.googleSignIn()
             .then(() => {
                 $('#exampleModal').modal('hide');
+                window.localStorage.setItem('email', this.user.email);
+                this.authService.onLogin.emit(this.user.email);
             });
-    }
-
-    public logout() {
-        this.authService.logout();
-        $('#exampleModal2').modal('hide');
     }
 
     signInWithEmail() {
         this.authService.signInRegular(this.user.email, this.user.password)
-            .then((res) => {
+            .then(() => {
                 $('#exampleModal').modal('hide');
-                this.router.navigate(['']);
+                window.localStorage.setItem('email', this.user.email);
+                this.authService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
     }
 
     createAccount() {
-        console.log('here');
         this.authService.createNewUser(this.user.email, this.user.password)
-            .then((res) => {
-            this.authService.logout();
-            console.log('lala');
-                $('#exampleModal').modal('hide');
+            .then(() => {
+                this.authService.logout();
+                $('#exampleModal3').modal('hide');
+                this.dbRef.push({email: this.user.email});
                 this.router.navigate(['']);
             })
             .catch((err) => console.log(err));
+    }
+
+
+    public logout() {
+        this.authService.logout();
+        $('#exampleModal2').modal('hide');
+        this.userData.setUserData({});
+        window.localStorage.removeItem('email');
+
+        window.location.replace(window.location.origin + '/#/');
+    }
+
+    public isLoggedIn(): boolean {
+        return !!window.localStorage.getItem('email');
     }
 }

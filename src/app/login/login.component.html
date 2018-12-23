@@ -1,13 +1,13 @@
 <!-- Button trigger modal -->
-<button *ngIf="!authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+<button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
     Creeaza cont
 </button>
 
-<button *ngIf="!authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Login
 </button>
 
-<button *ngIf="authService.loggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+<button *ngIf="isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
     Logout
 </button>
 

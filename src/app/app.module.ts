@@ -13,7 +13,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 import { FetchBooksService } from './services/fetch-books.service';
 import { environment } from '../environments/environment';
-
+import { ProfileComponent } from './profile/profile.component';
+import { UserDataService } from './services/userData.service';
+import { DatabaseService } from './services/database.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { environment } from '../environments/environment';
     BooksCatalogueComponent,
     SearchFormComponent,
     ItemComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,10 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     AuthService,
+    DatabaseService,
     FetchBooksService,
+    UserDataService,
+    Location,
   ],
   bootstrap: [AppComponent]
 })
