@@ -7,13 +7,13 @@ export class UserDataService {
         username: '',
         email: '',
         carti: [],
-        set: false,
+        chosenBooks: {},
     };
 
     constructor() {}
 
     public setUserData(data: any) {
         this.userData = data;
-        this.userData.set = true;
+        console.log('data', this.userData);
     }
 }

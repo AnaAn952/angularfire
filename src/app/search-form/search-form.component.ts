@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FetchBooksService } from '../services/fetch-books.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'search-form',
@@ -14,10 +15,18 @@ export class SearchFormComponent {
 
     constructor(
         public fetchBooksService: FetchBooksService,
+        public router: Router,
     ) {}
 
     method(value: any) {
-        this.fetchBooksService.data.emit(value);
+        if (window.location.href.indexOf('books') < 0) {
+            this.router.navigate(['/books']);
+            setTimeout(() => {
+                this.fetchBooksService.data.emit(value);
+            });
+        } else {
+            this.fetchBooksService.data.emit(value);
+        }
     }
 
 }

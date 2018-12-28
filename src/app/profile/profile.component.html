@@ -1,4 +1,20 @@
 <ng-container *ngIf="userDataService.userData.username">
-    <span> hello {{userDataService.userData.email}} </span>
-    <span> stuff {{userDataService.userData.username}} </span>
+    <span> Hello {{userDataService.userData.username}} </span>
+
+    <br>
+    <div>
+    Books
+    <br>
+    <ng-container *ngFor="let item of myBooks">
+        <catalogue-item [item]="item"></catalogue-item>
+    </ng-container>
+    </div>
+    <br>
+    <div style="clear: left">
+    Chosen books
+    <br>
+    <ng-container *ngFor="let item of chosenBooks">
+        <catalogue-item [item]="item"></catalogue-item>
+    </ng-container>
+    </div>
 </ng-container>

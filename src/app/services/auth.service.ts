@@ -14,7 +14,6 @@ export class AuthService {
 
     constructor(
         private _fAuth: AngularFireAuth,
-        private router: Router
     ) {
         this.user = _fAuth.authState;
 
@@ -22,6 +21,7 @@ export class AuthService {
             (user) => {
                 if (user) {
                     this.userDetails = user;
+                    console.log(this.userDetails);
                 }
                 else {
                     this.userDetails = null;

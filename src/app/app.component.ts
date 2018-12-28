@@ -31,9 +31,9 @@ export class AppComponent implements OnInit {
   public resetUserData(email: any) {
     if (!email) return;
     let list = this.db.list('/users', ref => ref.orderByChild('email').equalTo(email));
+    console.log('dsadasd', list,  this.db.list('/users'));
     let a = list.valueChanges().subscribe((userData: any) => {
       if (userData[0].email) {
-        console.log('the user details', userData[0]);
         this.userDataService.setUserData(userData[0]);
       }
       a.unsubscribe();
