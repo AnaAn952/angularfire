@@ -1,6 +1,5 @@
+<!--
 <ng-container *ngIf="userDataService.userData.username">
-    <span> Hello {{userDataService.userData.username}} </span>
-
     <br>
     <div>
     Books
@@ -17,4 +16,60 @@
         <catalogue-item [item]="item"></catalogue-item>
     </ng-container>
     </div>
+    <div style="clear: left">
+        Change books
+        <br>
+        <ng-container *ngFor="let item of bks">
+            <catalogue-item [item]="item" [zona_de_raspuns]="true"></catalogue-item>
+        </ng-container>
+    </div>
 </ng-container>
+-->
+
+<nav class="menu-custom">
+    <div class="nav nav-tabs custom-profile-nav" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Informatii personale</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Carti solicitate</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Propuneri de schimb</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        {{userDataService.userData.username}}
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <ng-container *ngFor="let item of myBooks">
+            <catalogue-item [item]="item"></catalogue-item>
+        </ng-container>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <ng-container *ngFor="let item of bks">
+            <catalogue-item [item]="item" [zona_de_raspuns]="true"></catalogue-item>
+        </ng-container>
+    </div>
+</div>
+
+<!--Modal pt raspuns-->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 700px;margin-left: -100px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">LALA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Propune o carte: <br>
+                <ng-container *ngFor="let item of myBooks">
+                    <catalogue-item [item]="item" [pe_asta]="true"></catalogue-item>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <div class="col-lg-7 col-md-7 col-xs-7"></div>
+                <button type="button" class="btn btn-primary" (click)="databaseService.refuza()">Refuza oferta </button>
+            </div>
+        </div>
+    </div>
+</div>

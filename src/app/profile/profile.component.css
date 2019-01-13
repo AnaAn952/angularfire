@@ -1,0 +1,21 @@
+.custom-profile-nav {
+    background-color: white;
+}
+
+.custom-profile-nav a {
+    color: #191229;
+    border-radius: 0;
+    width: 33.3%;
+    border-top-color: #ddd;
+    border-bottom-color: #ddd;
+    border-left-color: #ddd;
+}
+
+.custom-profile-nav a.active {
+    color: white;
+    background-color: #191229;
+}
+
+.nav-tabs {
+    border-top: 1px solid #fff !important;
+}

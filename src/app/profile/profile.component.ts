@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
     selector: 'profile',
     templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
 
     public dbBooks: any;
-    public myBooks: any[];
-    public chosenBooks: any[];
+    public myBooks: any[] = [];
+    public chosenBooks: any[] = [];
+    public bks: any[] = [];
 
     constructor(
         public userDataService: UserDataService,
         private db: AngularFireDatabase,
+        public databaseService: DatabaseService,
     ) {
         this.dbBooks = db.list('/cartile');
     }
@@ -36,6 +39,22 @@ export class ProfileComponent implements OnInit {
                 for (let i of chosenBooksIds) {
                     if (i == book.id)
                         return true;
+                }
+                return false;
+            });
+
+            this.bks = items.filter((book) => {
+                let chosenBooksArray = Object.keys(this.userDataService.userData.bks).map((key) => {
+                    let bk = this.userDataService.userData.bks[key];
+                    book['databaseKey'] = key;
+                    return bk;
+                });
+
+                let chosenBooksIds: any[] = chosenBooksArray.map((book) => book.id);
+
+                for (let i of chosenBooksIds) {
+                    if (i == book.id)
+                       return true;
                 }
                 return false;
             });

@@ -1,20 +1,20 @@
 <!-- Button trigger modal -->
-<button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+<button *ngIf="!isLoggedIn()" type="button" class="btn login-buttons button-creeaza-cont" data-toggle="modal" data-target="#exampleModal3">
     Creeaza cont
 </button>
 
-<button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button *ngIf="!isLoggedIn()" type="button" class="btn login-buttons" data-toggle="modal" data-target="#exampleModal">
     Login
 </button>
 
-<button *ngIf="isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+<button *ngIf="isLoggedIn()" type="button" class="btn login-buttons" data-toggle="modal" data-target="#exampleModal2">
     Logout
 </button>
 
 <!--Log In Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" style="margin-top: 200px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-grey">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -50,9 +50,9 @@
 
 <!--Log Out Modal -->
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+<div class="modal fade" style="margin-top: 200px;" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-grey">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">Logout</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -63,9 +63,9 @@
                 Are you sure you want to log out?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <div class="col-lg-8 col-md-8 col-xs-8"></div>
-                <button type="button" class="btn btn-primary" (click)="logout()">Lalala</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="col-xs-7"></div>
+                <button type="button" class="btn btn-primary" (click)="logout()">Yes</button>
             </div>
         </div>
     </div>
@@ -73,9 +73,9 @@
 
 <!-- Inregistrare -->
 
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+<div class="modal fade" style="margin-top: 200px;" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-grey">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

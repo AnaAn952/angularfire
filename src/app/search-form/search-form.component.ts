@@ -6,10 +6,11 @@ import { Router } from '@angular/router';
     selector: 'search-form',
     template: `
         <form>
-            <input #input class="form-control col-xs-6" style='display: inline !important; width: 500px !important;' type="text" placeholder="Search" aria-label="Search">
-            <button type="submit" class="btn btn-primary" (click)="method(input.value)"> Search </button>
+            <input id="input-search" #input class="form-control col-xs-6" style='display: inline !important; width: 500px !important;' type="text" placeholder="Search" aria-label="Search">
+            <button type="submit" class="btn btn-primary" style="display: none;" (click)="method(input.value)"> Search </button>
         </form>
     `,
+    styleUrls: ['./search-form.component.css'],
 })
 export class SearchFormComponent {
 
