@@ -1,14 +1,16 @@
 .custom-profile-nav {
     background-color: white;
+    width: 100%;
 }
 
 .custom-profile-nav a {
     color: #191229;
     border-radius: 0;
-    width: 33.3%;
+    width: 100%;
     border-top-color: #ddd;
     border-bottom-color: #ddd;
     border-left-color: #ddd;
+    height: 50px;
 }
 
 .custom-profile-nav a.active {

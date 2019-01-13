@@ -10,6 +10,7 @@ export class DatabaseService {
     public userRef: any;
     public booksRef: any;
     public elementSelectatDinPropuneri: any;
+    public thatPersonsBooks: any;
 
     constructor(
         public db: AngularFireDatabase,

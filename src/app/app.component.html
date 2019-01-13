@@ -8,13 +8,13 @@
   </div>
   <div class="menu-pages">
    <div>
-    <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/profile"> Profil </a>
+    <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/books"> Carti </a>
    </div>
    <div>
      <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/evenimente"> Evenimente </a>
    </div>
    <div>
-     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/notificari"> Notificari </a>
+     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/profile"> Profil </a>
    </div>
   </div>
   <div class="name-span"> {{userDataService.userData.username}} </div>

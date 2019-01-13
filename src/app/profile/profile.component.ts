@@ -43,20 +43,19 @@ export class ProfileComponent implements OnInit {
                 return false;
             });
 
-            this.bks = items.filter((book) => {
-                let chosenBooksArray = Object.keys(this.userDataService.userData.bks).map((key) => {
-                    let bk = this.userDataService.userData.bks[key];
-                    book['databaseKey'] = key;
-                    return bk;
-                });
+            // cartile din bks cu tot cu object key-ul
+            let chosenBksArray = Object.keys(this.userDataService.userData.bks).map((key) => {
+                let bk = this.userDataService.userData.bks[key];
+                bk['databaseKey'] = key;
+                return bk;
+            });
 
-                let chosenBooksIds: any[] = chosenBooksArray.map((book) => book.id);
-
-                for (let i of chosenBooksIds) {
-                    if (i == book.id)
-                       return true;
-                }
-                return false;
+            this.bks = chosenBksArray.map((book) => {
+                let bookDetails = items.filter((item) => {
+                    return item.id == book.id;
+                })[0];
+                Object.assign(book, bookDetails);
+                return book;
             });
 
             if (this.myBooks)
