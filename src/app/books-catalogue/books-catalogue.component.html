@@ -3,3 +3,35 @@
         <catalogue-item [item]="item"></catalogue-item>
     </div>
 </div>
+
+<!--Modal pt ales-->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modallabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 700px;margin-left: -100px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">
+                    Schimba cartea
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="myBooks.length >= 1">
+                    Alege o carte pe care sa o oferi la schimb: <br>
+                    <ng-container *ngFor="let item of myBooks">
+                        <catalogue-item [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
+                    </ng-container>
+                </div>
+                <div *ngIf="myBooks.length == 0">
+                    Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <div class="col-lg-7 col-md-7 col-xs-7"></div>
+                <button type="button" class="btn btn-primary" (click)="databaseService.trimiteOferta()">Trimite oferta </button>
+            </div>
+        </div>
+    </div>
+</div>

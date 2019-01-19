@@ -12,6 +12,7 @@ export class ItemComponent {
     @Input('zona_de_raspuns') zona_de_raspuns: any = false;
     @Input('pe_asta') pe_asta: any = false;
     @Input('allowedActiune') allowedActiune: any = true;
+    @Input('alege_catalog') alege_catalog: any = false;
 
     public dbBooks: any;
 
@@ -23,9 +24,15 @@ export class ItemComponent {
     }
 
     public tradeBook() {
-        console.log('clicked', this.item);
+        this.databaseService.itemForNewTrade = this.item;
+    }
 
-        this.databaseService.addChosenBook(this.item);
+    public chooseBookTrade() {
+        this.databaseService.chosenBookTrade = this.item.id;
+    }
+
+    public acceptaAceastaCarte() {
+        this.databaseService.adaugaLaSchimburiAcceptate(this.item);
     }
 
     public isNotMine() {
@@ -35,9 +42,11 @@ export class ItemComponent {
     public selectat() {
         this.databaseService.elementSelectatDinPropuneri = this.item;
 
+        console.log(this.item);
+
         let x = this.dbBooks.valueChanges().subscribe((items: any) => {
             let u = items.filter((book) => {
-                return book.id.split('.com_')[0] + '.com' === this.item.trader;
+                return book.id === this.item.book;
             });
 
             this.databaseService.thatPersonsBooks = u;

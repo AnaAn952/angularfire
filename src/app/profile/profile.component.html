@@ -5,13 +5,15 @@
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Informatii personale</a>
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Carti solicitate</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Schimburi propuse</a>
-                <a class="nav-item nav-link" id="nav-1-tab" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="false">Schimburi refuzate</a>
                 <a class="nav-item nav-link" id="nav-2-tab" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">Notificari</a>
                 <a class="nav-item nav-link" id="nav-3-tab" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">Evenimentele mele</a>
+                <a class="nav-item nav-link" id="nav-4-tab" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Schimburi in desfasurate</a>
+                <a class="nav-item nav-link" id="nav-5-tab" data-toggle="tab" href="#nav-5" role="tab" aria-controls="nav-5" aria-selected="false">Schimburi finalizate</a>
             </div>
         </nav>
     </div>
-    <div class="col-lg-10" style="padding: 0">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-8" style="padding: 0; padding-left: 48px;">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             </div>
@@ -31,7 +33,12 @@
             </div>
             <div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab">
             </div>
+            <div class="tab-pane fade" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">
+            </div>
+            <div class="tab-pane fade" id="nav-5" role="tabpanel" aria-labelledby="nav-5-tab">
+            </div>
         </div>
+        <div class="col-lg-1"></div>
     </div>
 </div>
 
@@ -40,16 +47,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 700px;margin-left: -100px;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">LALA</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">
+                    Schimba cartea
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Propune o carte: <br>
-                <ng-container *ngFor="let item of databaseService.thatPersonsBooks">
-                    <catalogue-item [item]="item" [pe_asta]="true" [allowedActiune]="false"></catalogue-item>
-                </ng-container>
+                <div *ngIf="databaseService.thatPersonsBooks.length >= 1">
+                    Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>
+                    <ng-container *ngFor="let item of databaseService.thatPersonsBooks">
+                        <catalogue-item [item]="item" [pe_asta]="true" [allowedActiune]="false"></catalogue-item>
+                    </ng-container>
+                </div>
+                <div *ngIf="databaseService.thatPersonsBooks.length == 0">
+                    Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>

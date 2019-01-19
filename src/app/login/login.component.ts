@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit {
         public authService: AuthService,
         public router: Router,
         public userData: UserDataService,
-    ) {}
+        public db: AngularFireDatabase,
+    ) {
+        this.dbRef = db.list('/users');
+    }
 
     ngOnInit() {}
 
@@ -51,7 +54,8 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 this.authService.logout();
                 $('#exampleModal3').modal('hide');
-                this.dbRef.push({email: this.user.email});
+                let index = this.user.email.split(".").join("!");
+                this.dbRef.set(index, {email: this.user.email});
                 this.router.navigate(['']);
             })
             .catch((err) => console.log(err));

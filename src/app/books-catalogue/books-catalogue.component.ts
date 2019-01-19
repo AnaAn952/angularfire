@@ -1,20 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FetchBooksService } from '../services/fetch-books.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { UserDataService } from '../services/userData.service';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
     selector: 'app-book-c',
     templateUrl: './books-catalogue.component.html',
     styleUrls: ['./books-catalogue.component.css']
 })
-export class BooksCatalogueComponent {
+export class BooksCatalogueComponent implements OnInit {
 
     public items: any = [];
     public dbRef: any;
+    public myBooks: any = [];
 
     constructor(
         public fetchBooksService: FetchBooksService,
-        private db: AngularFireDatabase
+        private db: AngularFireDatabase,
+        private userDataService: UserDataService,
+        public databaseService: DatabaseService,
     ) {
         this.dbRef = db.list("/cartile");
 
@@ -38,4 +43,17 @@ export class BooksCatalogueComponent {
         })
     }
 
+    ngOnInit() {
+        let x = this.dbRef.valueChanges().subscribe((items: any) => {
+            this.myBooks = items.filter((book) => {
+                return book.id.split('.com_')[0] + '.com' === this.userDataService.userData.email;
+            });
+
+            console.log("here", this.myBooks);
+
+            if (this.myBooks) {
+                x.unsubscribe();
+            }
+        });
+    }
 }

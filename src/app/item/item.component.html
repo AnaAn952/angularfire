@@ -2,7 +2,8 @@
     <img class="item-img" src="{{item.poza}}"> <br>
     <div class="item-text"> {{item.titlu}} </div> <br>
     <div *ngIf="item.trader" class="item-text"> {{item.trader}} </div>
-    <button *ngIf="isNotMine() && allowedActiune" (click)="tradeBook()"> Actiune </button>
-    <button *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modal1" (click)="selectat()"> Raspunde </button>
-    <button *ngIf="pe_asta"> Aceasta </button>
+    <button class="custom-button" *ngIf="isNotMine() && allowedActiune" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Solicita schimb </button>
+    <button class="custom-button" *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modal1" (click)="selectat()"> Raspunde </button>
+    <button class="custom-button" *ngIf="pe_asta" (click)="acceptaAceastaCarte()"> Alege </button>
+    <button class="custom-button" *ngIf="alege_catalog" (click)="chooseBookTrade()"> Alege </button>
 </div>
