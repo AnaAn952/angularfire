@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksCatalogueComponent } from './books-catalogue/books-catalogue.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileCanActivate } from './profile/profile-can-activate';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [ProfileCanActivate],
     component: ProfileComponent,
   },
   {

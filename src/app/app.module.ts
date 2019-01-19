@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { ProfileComponent } from './profile/profile.component';
 import { UserDataService } from './services/userData.service';
 import { DatabaseService } from './services/database.service';
+import { ProfileCanActivate } from './profile/profile-can-activate';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DatabaseService } from './services/database.service';
     FetchBooksService,
     UserDataService,
     Location,
+    ProfileCanActivate,
   ],
   bootstrap: [AppComponent]
 })

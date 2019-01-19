@@ -3,7 +3,8 @@
         <nav class="menu-custom">
             <div class="nav nav-tabs custom-profile-nav" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Informatii personale</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Carti solicitate</a>
+                <a class="nav-item nav-link" id="nav-6-tab" data-toggle="tab" href="#nav-6" role="tab" aria-controls="nav-6" aria-selected="false"> Cartile mele </a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Carti solicitate de mine</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Schimburi propuse</a>
                 <a class="nav-item nav-link" id="nav-2-tab" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">Notificari</a>
                 <a class="nav-item nav-link" id="nav-3-tab" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">Evenimentele mele</a>
@@ -17,13 +18,18 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade" id="nav-6" role="tabpanel" aria-labelledby="nav-6-tab">
                 <ng-container *ngFor="let item of myBooks">
                     <catalogue-item [item]="item"></catalogue-item>
                 </ng-container>
             </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <ng-container *ngFor="let item of chosenByMe">
+                    <catalogue-item [item]="item"></catalogue-item>
+                </ng-container>
+            </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <ng-container *ngFor="let item of bks">
+                <ng-container *ngFor="let item of solicitate">
                     <catalogue-item [item]="item" [zona_de_raspuns]="true"></catalogue-item>
                 </ng-container>
             </div>
@@ -48,21 +54,23 @@
         <div class="modal-content" style="width: 700px;margin-left: -100px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">
-                    Schimba cartea
+                    <!--Schimba cartea-->
+                    {{databaseService.modal1.title}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div *ngIf="databaseService.thatPersonsBooks.length >= 1">
-                    Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>
-                    <ng-container *ngFor="let item of databaseService.thatPersonsBooks">
-                        <catalogue-item [item]="item" [pe_asta]="true" [allowedActiune]="false"></catalogue-item>
+                <div *ngIf="databaseService.booksInModal.length >= 1">
+                    <!--Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>-->
+                    {{databaseService.modal1.body}}
+                    <ng-container *ngFor="let item of databaseService.booksInModal">
+                        <catalogue-item [item]="item"></catalogue-item>
                     </ng-container>
                 </div>
-                <div *ngIf="databaseService.thatPersonsBooks.length == 0">
-                    Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.
+                <div *ngIf="databaseService.booksInModal.length == 0">
+                    <!--Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.-->
                 </div>
             </div>
             <div class="modal-footer">

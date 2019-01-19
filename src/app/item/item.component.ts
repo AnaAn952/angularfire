@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 
@@ -11,10 +11,13 @@ export class ItemComponent {
     @Input('item') item: any;
     @Input('zona_de_raspuns') zona_de_raspuns: any = false;
     @Input('pe_asta') pe_asta: any = false;
-    @Input('allowedActiune') allowedActiune: any = true;
+    @Input('allowedActiune') allowedActiune: any = false;
     @Input('alege_catalog') alege_catalog: any = false;
 
+    @ViewChild('itemDiv') itemDiv: any;
+
     public dbBooks: any;
+    public showDeselect: any = false;
 
     constructor(
         public databaseService: DatabaseService,
@@ -28,7 +31,15 @@ export class ItemComponent {
     }
 
     public chooseBookTrade() {
-        this.databaseService.chosenBookTrade = this.item.id;
+        this.showDeselect = true;
+        this.databaseService.chosenBookTrade += this.item.id + ",";
+    }
+
+    public anuleazaAlegerea() {
+        this.showDeselect = false;
+        let books = this.databaseService.chosenBookTrade;
+
+        this.databaseService.chosenBookTrade = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
     }
 
     public acceptaAceastaCarte() {
@@ -37,23 +48,5 @@ export class ItemComponent {
 
     public isNotMine() {
         return !(this.item.id.split('.com_')[0] + '.com' === localStorage.email);
-    }
-
-    public selectat() {
-        this.databaseService.elementSelectatDinPropuneri = this.item;
-
-        console.log(this.item);
-
-        let x = this.dbBooks.valueChanges().subscribe((items: any) => {
-            let u = items.filter((book) => {
-                return book.id === this.item.book;
-            });
-
-            this.databaseService.thatPersonsBooks = u;
-
-            if (u.length) {
-                x.unsubscribe();
-            }
-        });
     }
 }

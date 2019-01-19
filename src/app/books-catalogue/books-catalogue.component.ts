@@ -49,8 +49,6 @@ export class BooksCatalogueComponent implements OnInit {
                 return book.id.split('.com_')[0] + '.com' === this.userDataService.userData.email;
             });
 
-            console.log("here", this.myBooks);
-
             if (this.myBooks) {
                 x.unsubscribe();
             }

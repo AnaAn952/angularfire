@@ -1,5 +1,5 @@
 .item-class {
-    height: 300px;
+    height: auto;
     width: 200px;
     margin: 20px;
     border: 1px solid #d0c5c5;
@@ -20,4 +20,8 @@
 .custom-button {
     background-color: transparent;
     font-size: 16px;
+}
+
+.trade {
+    background-color: green !important;
 }

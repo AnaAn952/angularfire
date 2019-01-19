@@ -1,6 +1,6 @@
 <div class="book-catalogue">
     <div *ngFor="let item of items">
-        <catalogue-item [item]="item"></catalogue-item>
+        <catalogue-item [item]="item" [allowedActiune]="true"></catalogue-item>
     </div>
 </div>
 
@@ -30,7 +30,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.trimiteOferta()">Trimite oferta </button>
+                <button [disabled] = "!this.databaseService.chosenBookTrade" type="button" class="btn btn-primary" (click)="databaseService.trimiteOferta()">Trimite oferta </button>
             </div>
         </div>
     </div>

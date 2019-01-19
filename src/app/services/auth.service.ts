@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/index';
 
@@ -21,7 +20,6 @@ export class AuthService {
             (user) => {
                 if (user) {
                     this.userDetails = user;
-                    console.log(this.userDetails);
                 }
                 else {
                     this.userDetails = null;

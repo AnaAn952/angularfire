@@ -7,22 +7,21 @@ export class UserDataService {
         username: '',
         email: '',
         carti: [],
-        chosenBooks: {},
-        bks: {},
+        chosenByMe: {},
+        solicitate: {},
+        bookNumber: 0,
     };
 
     constructor() {}
 
     public setUserData(data: any) {
         this.userData = data;
-        if (this.userData.chosenBooks === undefined) {
-            this.userData.chosenBooks = {};
+        if (this.userData.chosenByMe === undefined) {
+            this.userData.chosenByMe = {};
         }
 
-        if (this.userData.bks === undefined) {
-            this.userData.bks = {};
+        if (this.userData.solicitate === undefined) {
+            this.userData.solicitate = {};
         }
-
-        console.log('data', this.userData);
     }
 }

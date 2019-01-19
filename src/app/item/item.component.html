@@ -1,9 +1,13 @@
-<div class="col-xs-5 float-left item-class">
+<div #itemDiv class="col-xs-5 float-left item-class">
     <img class="item-img" src="{{item.poza}}"> <br>
     <div class="item-text"> {{item.titlu}} </div> <br>
     <div *ngIf="item.trader" class="item-text"> {{item.trader}} </div>
     <button class="custom-button" *ngIf="isNotMine() && allowedActiune" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Solicita schimb </button>
-    <button class="custom-button" *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modal1" (click)="selectat()"> Raspunde </button>
-    <button class="custom-button" *ngIf="pe_asta" (click)="acceptaAceastaCarte()"> Alege </button>
-    <button class="custom-button" *ngIf="alege_catalog" (click)="chooseBookTrade()"> Alege </button>
+    <button class="custom-button" *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modal1" (click)="databaseService.rs(item)"> Raspunde </button>
+    <button class="custom-button" *ngIf="item.pe_asta" (click)="acceptaAceastaCarte()"> Alege </button>
+    <button class="custom-button" *ngIf="alege_catalog && !showDeselect" (click)="chooseBookTrade()"> Selecteaza </button>
+    <button class="custom-button" *ngIf="alege_catalog && showDeselect" (click)="anuleazaAlegerea()"> Deselecteaza </button>
+    <button class="custom-button" *ngIf="item.oferi_schimb" data-toggle="modal" data-target="#modal1" id="chosenBooks_seeBooksInExchange" (click)="databaseService.seeBooksInExchange(item.id)">
+        Vezi cartile pe care le oferi la schimb
+    </button>
 </div>
