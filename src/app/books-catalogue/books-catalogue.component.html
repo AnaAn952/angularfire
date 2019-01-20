@@ -1,3 +1,6 @@
+<carousel></carousel>
+
+
 <div class="book-catalogue">
     <div *ngFor="let item of items">
         <catalogue-item [item]="item" [allowedActiune]="true"></catalogue-item>
@@ -7,7 +10,7 @@
 <!--Modal pt ales-->
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modallabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 700px;margin-left: -100px;">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">
                     Schimba cartea
@@ -16,7 +19,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y: scroll;height: 400px !important;">
                 <div *ngIf="myBooks.length >= 1">
                     Alege o carte pe care sa o oferi la schimb: <br>
                     <ng-container *ngFor="let item of myBooks">

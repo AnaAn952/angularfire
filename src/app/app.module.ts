@@ -17,6 +17,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserDataService } from './services/userData.service';
 import { DatabaseService } from './services/database.service';
 import { ProfileCanActivate } from './profile/profile-can-activate';
+import { TwoItemsContainer } from './two-items-container/two-items-container.component';
+import { CarouselComponent } from './carrousel/carousel.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { ProfileCanActivate } from './profile/profile-can-activate';
     BooksCatalogueComponent,
     SearchFormComponent,
     ItemComponent,
-    ProfileComponent
+    ProfileComponent,
+    TwoItemsContainer,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,8 @@ import { ProfileCanActivate } from './profile/profile-can-activate';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'book-website-sharing'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFontAwesomeModule,
   ],
   providers: [
     AuthService,

@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
     public myBooks: any[] = [];
     public chosenByMe: any[] = [];
     public solicitate: any[] = [];
+    public acceptate: any[] = [];
 
     constructor(
         public userDataService: UserDataService,
@@ -19,9 +20,18 @@ export class ProfileComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+
         this.getChosenByMe();
         this.getSolicitate();
         this.getMyBooks();
+        this.getAcceptate();
+
+        setTimeout(() => {
+            console.log("ch", this.chosenByMe);
+            console.log("so", this.solicitate);
+            console.log("my", this.myBooks);
+            console.log("ac", this.acceptate);
+        }, 4000);
     }
 
     public getChosenByMe() {
@@ -47,5 +57,21 @@ export class ProfileComponent implements OnInit {
         }
 
         this.databaseService.setBooksArray(myBooksIds, this.myBooks, []);
+    }
+
+    public getAcceptate() {
+        let acceptateIds: any = Object.keys(this.userDataService.userData.acceptate);
+
+        for (let index in acceptateIds) {
+            acceptateIds[index] = acceptateIds[index].split("__");
+        }
+
+        for (let i = 0; i< acceptateIds.length; i++) {
+            this.acceptate[i] = [];
+        }
+
+        for (let i in acceptateIds) {
+            this.databaseService.setBooksArray(acceptateIds[i], this.acceptate[i], []);
+        }
     }
 }

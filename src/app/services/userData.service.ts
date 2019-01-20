@@ -10,6 +10,7 @@ export class UserDataService {
         chosenByMe: {},
         solicitate: {},
         bookNumber: 0,
+        acceptate: {},
     };
 
     constructor() {}

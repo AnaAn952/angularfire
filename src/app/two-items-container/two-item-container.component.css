@@ -1,0 +1,22 @@
+.items-container {
+    border: 1px solid lightgrey !important;
+    width: 700px;
+    height: 360px;
+    padding: 20px;
+    background-color: whitesmoke;
+    margin: 20px;
+    margin-left: 237px !important;
+}
+
+.icon-div {
+    height: 300px;
+    width: 178px;
+    background-color: whitesmoke;
+    float: left;
+}
+
+.custom-button {
+    margin-left: 31px;
+    margin-top: 135px;
+    font-size: 16px;
+}

@@ -40,6 +40,11 @@
             <div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab">
             </div>
             <div class="tab-pane fade" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">
+                <ng-container *ngFor="let items of acceptate">
+                    <ng-container *ngIf="items[0] && items[1]">
+                        <two-items-container [itemArray]="items"></two-items-container>
+                    </ng-container>
+                </ng-container>
             </div>
             <div class="tab-pane fade" id="nav-5" role="tabpanel" aria-labelledby="nav-5-tab">
             </div>
@@ -74,10 +79,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Close</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.refuza()">Refuza oferta </button>
+                <button type="button" class="btn btn-primary" (click)="databaseService.refuza(databaseService.modal1.rightButton)"> {{databaseService.modal1.rightButton}} </button>
             </div>
         </div>
     </div>
 </div>
+
+<carousel></carousel>
