@@ -1,23 +1,25 @@
-.custom-profile-nav {
-    background-color: white;
-    width: 100%;
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.custom-profile-nav a {
-    color: #191229;
-    border-radius: 0;
-    width: 100%;
-    border-top-color: #ddd;
-    border-bottom-color: #ddd;
-    border-left-color: #ddd;
-    height: 50px;
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
 }
 
-.custom-profile-nav a.active {
-    color: white;
-    background-color: #191229;
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #dedbdb;
 }
 
-.nav-tabs {
-    border-top: 1px solid #fff !important;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #dedbdb;
+}
+
+.profile {
+    padding-top: 40px;
+    padding-left: 110px;
+    padding-right: 120px;
 }

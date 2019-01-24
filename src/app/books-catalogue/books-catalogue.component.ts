@@ -25,29 +25,20 @@ export class BooksCatalogueComponent implements OnInit {
 
         fetchBooksService.data.subscribe((data: any) => {
             this.items = [];
-
-            this.dbRef.valueChanges().subscribe((items: any) => {
-                for (let item of items) {
-                    let found = false;
-                    if (item.titlu.indexOf(data) >= 0) {
-                        for(let i of this.items) {
-                            if (i.titlu == item.titlu)
-                                found = true;
-                        }
-                        if(found == false) {
-                            this.items.push(item);
-                        }
-                    }
-                }
-            });
+            this.exposeAllBooks(data);
         });
     }
 
     ngOnInit() {
-        this.dbRef.valueChanges().subscribe((items: any) => {
+        this.exposeAllBooks("");
+        this.getMyBooks();
+    }
+
+    public exposeAllBooks(search: string) {
+        let a = this.dbRef.valueChanges().subscribe((items: any) => {
             for (let item of items) {
                 let found = false;
-                if (item.titlu.indexOf("") >= 0) {
+                if (item.titlu.indexOf(search) >= 0) {
                     for(let i of this.items) {
                         if (i.titlu == item.titlu)
                             found = true;
@@ -57,8 +48,12 @@ export class BooksCatalogueComponent implements OnInit {
                     }
                 }
             }
-        });
 
+            if (items) a.unsubscribe();
+        });
+    }
+
+    public getMyBooks() {
         let x = this.dbRef.valueChanges().subscribe((items: any) => {
             this.myBooks = items.filter((book) => {
                 return book.id.split('.com_')[0] + '.com' === this.userDataService.userData.email;
@@ -68,5 +63,9 @@ export class BooksCatalogueComponent implements OnInit {
                 x.unsubscribe();
             }
         });
+    }
+
+    public tradeBook() {
+        this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
     }
 }

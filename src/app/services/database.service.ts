@@ -14,6 +14,7 @@ export class DatabaseService {
     public itemForNewTrade: any = [];
     public chosenBookTrade: any = '';
     public elementSelectatPentruRaspuns: any = '';
+    public itemModalDetalii: any;
     public modal1 = { title: '', body: '', rightButton: '' };
 
     constructor(
@@ -51,19 +52,6 @@ export class DatabaseService {
     public refuza(buttonText) {
         let currentUser = localStorage.getItem('email').replace('.', '!');
 
-        // sterg din lista lui PROPRIE
-        let dbReference = this.db.list('/users/'+ currentUser + '/solicitate');
-
-        dbReference.remove(this.elementSelectatDinPropuneri.databaseKey);
-
-        // sterge din lista cererilor celuilalt
-
-        let theOtherUser = this.elementSelectatDinPropuneri.trader.split(".").join("!");
-
-        dbReference = this.db.list('/users/'+ theOtherUser + '/chosenByMe');
-
-        dbReference.remove(this.elementSelectatDinPropuneri.id.split(".").join("!"));
-
         if (buttonText === "Anuleaza oferta") {
             // sterg din lista lui PROPRIE
             let dbReference = this.db.list('/users/'+ currentUser + '/chosenByMe');
@@ -71,11 +59,24 @@ export class DatabaseService {
             dbReference.remove(this.elementSelectatDinPropuneri.id);
 
             //sterg din lista celuilalt
-            theOtherUser = this.elementSelectatDinPropuneri.id.split("_")[0];
+            let theOtherUser = this.elementSelectatDinPropuneri.id.split("_")[0];
 
             dbReference = this.db.list('/users/'+ theOtherUser + '/solicitate');
 
             dbReference.remove(this.elementSelectatDinPropuneri.id + "__" + this.userData.userData.email.split(".").join("!"));
+        } else {
+            // sterg din lista lui PROPRIE
+            let dbReference = this.db.list('/users/' + currentUser + '/solicitate');
+
+            dbReference.remove(this.elementSelectatDinPropuneri.databaseKey);
+
+            // sterge din lista cererilor celuilalt
+
+            let theOtherUser = this.elementSelectatDinPropuneri.trader.split(".").join("!");
+
+            dbReference = this.db.list('/users/' + theOtherUser + '/chosenByMe');
+
+            dbReference.remove(this.elementSelectatDinPropuneri.id.split(".").join("!"));
         }
 
         $('#modal1').modal('hide');
@@ -86,6 +87,7 @@ export class DatabaseService {
         this.addChosenBook(this.itemForNewTrade);
 
         $('#modal2').modal('hide');
+        $('#modalDetalii').modal('hide');
     }
 
     public adaugaLaSchimburiAcceptate(item: any) {

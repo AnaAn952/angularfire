@@ -1,67 +1,36 @@
-<div class="row" style="height: calc(100vh - 130px); margin: 0;">
-    <div class="col-lg-2" style="background-color: #ffffff; padding: 0;">
-        <nav class="menu-custom">
-            <div class="nav nav-tabs custom-profile-nav" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Informatii personale</a>
-                <a class="nav-item nav-link" id="nav-6-tab" data-toggle="tab" href="#nav-6" role="tab" aria-controls="nav-6" aria-selected="false"> Cartile mele </a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Carti solicitate de mine</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Schimburi propuse</a>
-                <a class="nav-item nav-link" id="nav-2-tab" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">Notificari</a>
-                <a class="nav-item nav-link" id="nav-3-tab" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">Evenimentele mele</a>
-                <a class="nav-item nav-link" id="nav-4-tab" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Schimburi in desfasurate</a>
-                <a class="nav-item nav-link" id="nav-5-tab" data-toggle="tab" href="#nav-5" role="tab" aria-controls="nav-5" aria-selected="false">Schimburi finalizate</a>
-            </div>
-        </nav>
+<div class="profile">
+    <div style="width: 100%; clear: right">
+        <div style="width: 100%">Cartile mele</div>
+        <ng-container *ngFor="let item of myBooks">
+            <catalogue-item [item]="item"></catalogue-item>
+        </ng-container>
     </div>
-    <div class="col-lg-10" style="padding: 0; padding-left: 48px;">
-        <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-11">
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            </div>
-            <div class="tab-pane fade" id="nav-6" role="tabpanel" aria-labelledby="nav-6-tab">
-                <ng-container *ngFor="let item of myBooks">
-                    <catalogue-item [item]="item"></catalogue-item>
-                </ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <ng-container *ngFor="let item of chosenByMe">
-                    <catalogue-item [item]="item"></catalogue-item>
-                </ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <ng-container *ngFor="let item of solicitate">
-                    <catalogue-item [item]="item" [zona_de_raspuns]="true"></catalogue-item>
-                </ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab">
-                <ng-container></ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab">
-                <ng-container></ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab">
-            </div>
-            <div class="tab-pane fade" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">
-                <ng-container *ngFor="let items of acceptate">
-                    <ng-container *ngIf="items[0] && items[1]">
-                        <two-items-container [itemArray]="items"></two-items-container>
-                    </ng-container>
-                </ng-container>
-            </div>
-            <div class="tab-pane fade" id="nav-5" role="tabpanel" aria-labelledby="nav-5-tab">
-            </div>
-        </div>
-        </div>
-        </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100%">Carti solicitate de mine</div>
+        <ng-container *ngFor="let item of chosenByMe">
+            <catalogue-item [item]="item"></catalogue-item>
+        </ng-container>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100%">Schimburi propuse</div>
+        <ng-container *ngFor="let item of solicitate">
+            <catalogue-item [item]="item" [zona_de_raspuns]="true"></catalogue-item>
+        </ng-container>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;">Schimburi in desfasurate</div>
+        <ng-container *ngFor="let items of acceptate">
+            <ng-container *ngIf="items[0] && items[1]">
+                <two-items-container [itemArray]="items"></two-items-container>
+            </ng-container>
+        </ng-container>
     </div>
 </div>
 
 <!--Modal pt raspuns-->
 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 700px;margin-left: -100px;">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">
                     <!--Schimba cartea-->
@@ -71,12 +40,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
                 <div *ngIf="databaseService.booksInModal.length >= 1">
                     <!--Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>-->
                     {{databaseService.modal1.body}}
                     <ng-container *ngFor="let item of databaseService.booksInModal">
-                        <catalogue-item [item]="item"></catalogue-item>
+                        <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
                     </ng-container>
                 </div>
                 <div *ngIf="databaseService.booksInModal.length == 0">

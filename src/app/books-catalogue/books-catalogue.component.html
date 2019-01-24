@@ -4,8 +4,25 @@
     </div>
 </div>
 
-<!--Modal pt ales-->
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modallabel2" aria-hidden="true">
+<!--Modal detalii carti-->
+<div class="modal fade" id="modalDetalii" tabindex="-1" role="dialog" aria-labelledby="modalDetalii" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px; height:558px;">
+            <div class="row" style="padding: 15px;">
+                <div class="col-lg-4">
+                    <img class="item-img" src="{{databaseService.itemModalDetalii.poza}}"> <br>
+                </div>
+                <div>
+                    <span> {{databaseService.itemModalDetalii.titlu}} </span>
+                    <button class="custom-button" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal pt o carte din pagina de carti-->
+<div class="modal" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modallabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
@@ -16,11 +33,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="overflow-y: scroll;height: 400px !important;">
-                <div *ngIf="myBooks.length >= 1">
+            <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
+                <div class="inside" *ngIf="myBooks.length >= 1">
                     Alege o carte pe care sa o oferi la schimb: <br>
                     <ng-container *ngFor="let item of myBooks">
-                        <catalogue-item [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
+                        <catalogue-item [useOthers] = "true" [squareSelector]="true" [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
                     </ng-container>
                 </div>
                 <div *ngIf="myBooks.length == 0">

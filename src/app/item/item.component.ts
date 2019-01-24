@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+declare let $;
 
 @Component({
     selector: 'catalogue-item',
@@ -13,8 +14,12 @@ export class ItemComponent {
     @Input('pe_asta') pe_asta: any = false;
     @Input('allowedActiune') allowedActiune: any = false;
     @Input('alege_catalog') alege_catalog: any = false;
+    @Input('useOthers') useOthers: any = false;
+    @Input('squareSelector') squareSelector: any = false;
 
     @ViewChild('itemDiv') itemDiv: any;
+    @ViewChild('button1') button1: any;
+    @ViewChild('select') div: any;
 
     public dbBooks: any;
     public showDeselect: any = false;
@@ -32,11 +37,13 @@ export class ItemComponent {
 
     public chooseBookTrade() {
         this.showDeselect = true;
+        this.div.nativeElement.classList.add("square-background");
         this.databaseService.chosenBookTrade += this.item.id + ",";
     }
 
     public anuleazaAlegerea() {
         this.showDeselect = false;
+        this.div.nativeElement.classList = ["select-square"];
         let books = this.databaseService.chosenBookTrade;
 
         this.databaseService.chosenBookTrade = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
@@ -49,5 +56,26 @@ export class ItemComponent {
     public isNotMine() {
         if (!this.item) return false;
         return !(this.item.id.split('.com_')[0] + '.com' === localStorage.email);
+    }
+
+    public doAction() {
+        console.log("do action");
+
+        if (this.isNotMine() && this.allowedActiune) {
+            $('#modalDetalii').modal('show');
+            this.databaseService.itemModalDetalii = this.item;
+        } else if (this.alege_catalog && !this.showDeselect) {
+            this.chooseBookTrade();
+        } else if (this.alege_catalog && this.showDeselect) {
+            this.anuleazaAlegerea();
+        } else if (this.item && this.item.oferi_schimb) {
+            $('#modal1').modal('show');
+            this.databaseService.seeBooksInExchange(this.item);
+        } else if (this.zona_de_raspuns) {
+            $('#modal1').modal('show');
+            this.databaseService.rs(this.item);
+        } else if (this.item && this.item.pe_asta) {
+            this.acceptaAceastaCarte();
+        }
     }
 }
