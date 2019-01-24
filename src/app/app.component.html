@@ -1,6 +1,6 @@
-<div class="totNav">  </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav">
-  <div class="logo"> B S </div>
+  <div class="totNav" style="margin-left: -20px;">  </div>
+    <div class="logo"> B S </div>
   <div class="search-form-div col-xs-10" id="navbarSupportedContent">
     <div class="col-xs-8">
       <search-form></search-form>
@@ -11,7 +11,7 @@
     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/books"> Carti </a>
    </div>
    <div>
-     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/evenimente"> Evenimente </a>
+     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/events"> Evenimente </a>
    </div>
    <div>
      <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/profile"> Profil </a>

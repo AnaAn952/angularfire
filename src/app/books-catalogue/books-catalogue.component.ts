@@ -40,7 +40,7 @@ export class BooksCatalogueComponent implements OnInit {
                     }
                 }
             });
-        })
+        });
     }
 
     ngOnInit() {

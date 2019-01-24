@@ -1,7 +1,8 @@
 .bg-color {
     background-color: #f1f1f1;
     margin-top: 130px;
-    min-height: calc(100vh - 130px);
+    height: calc(100vh - 130px);
+    overflow: scroll !important;
 }
 
 .custom-nav {
@@ -68,4 +69,24 @@
 .search-form-div {
     position: fixed;
     left: 3%;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #dedbdb;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #dedbdb;
 }

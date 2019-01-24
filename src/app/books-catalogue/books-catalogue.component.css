@@ -1,5 +1,25 @@
 .book-catalogue {
     padding-top: 40px;
-    padding-left: 120px;
+    padding-left: 110px;
     padding-right: 120px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #dedbdb;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #dedbdb;
 }

@@ -20,6 +20,7 @@ import { ProfileCanActivate } from './profile/profile-can-activate';
 import { TwoItemsContainer } from './two-items-container/two-items-container.component';
 import { CarouselComponent } from './carrousel/carousel.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ProfileComponent,
     TwoItemsContainer,
     CarouselComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,
