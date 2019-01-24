@@ -46,7 +46,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     DatabaseService,
     FetchBooksService,
     UserDataService,
-    Location,
     ProfileCanActivate,
   ],
   bootstrap: [AppComponent]

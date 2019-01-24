@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/index';
 export class AuthService {
 
     public user: Observable<firebase.User>;
-    private userDetails: firebase.User;
+    public userDetails: firebase.User;
 
     public onLogin = new EventEmitter<any> ();
 

@@ -1,4 +1,5 @@
 .item-class {
+    min-height: 305px;
     height: auto;
     width: 200px;
     margin: 20px;

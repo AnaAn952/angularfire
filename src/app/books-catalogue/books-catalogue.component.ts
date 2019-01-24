@@ -44,6 +44,21 @@ export class BooksCatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.dbRef.valueChanges().subscribe((items: any) => {
+            for (let item of items) {
+                let found = false;
+                if (item.titlu.indexOf("") >= 0) {
+                    for(let i of this.items) {
+                        if (i.titlu == item.titlu)
+                            found = true;
+                    }
+                    if(found == false) {
+                        this.items.push(item);
+                    }
+                }
+            }
+        });
+
         let x = this.dbRef.valueChanges().subscribe((items: any) => {
             this.myBooks = items.filter((book) => {
                 return book.id.split('.com_')[0] + '.com' === this.userDataService.userData.email;
