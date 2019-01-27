@@ -10,12 +10,13 @@ declare let $;
 })
 export class ItemComponent {
     @Input('item') item: any;
-    @Input('zona_de_raspuns') zona_de_raspuns: any = false;
     @Input('pe_asta') pe_asta: any = false;
     @Input('allowedActiune') allowedActiune: any = false;
     @Input('alege_catalog') alege_catalog: any = false;
     @Input('useOthers') useOthers: any = false;
     @Input('squareSelector') squareSelector: any = false;
+    @Input('carousel') carousel: any = false;
+    @Input('profile') profile: any = false;
 
     @ViewChild('itemDiv') itemDiv: any;
     @ViewChild('button1') button1: any;
@@ -71,7 +72,7 @@ export class ItemComponent {
         } else if (this.item && this.item.oferi_schimb) {
             $('#modal1').modal('show');
             this.databaseService.seeBooksInExchange(this.item);
-        } else if (this.zona_de_raspuns) {
+        } else if (this.item.zona_de_raspuns) {
             $('#modal1').modal('show');
             this.databaseService.rs(this.item);
         } else if (this.item && this.item.pe_asta) {

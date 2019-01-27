@@ -173,4 +173,27 @@ export class DatabaseService {
             booksRef.unsubscribe();
         });
     }
+
+    addNewBook(downloadUrl: string, title: string) {
+        let booksRef = this.db.list('/cartile');
+        let bookNumber = this.userData.userData.bookNumber + 1;
+        this.userData.userData.bookNumber ++;
+        let customId = localStorage.getItem('email').split('.').join('!') + "_" + bookNumber;
+        booksRef.set(customId, {
+            id: localStorage.getItem('email') + "_" + bookNumber,
+            titlu: title,
+            poza: downloadUrl
+        });
+        let currentUser = localStorage.getItem('email').replace('.', '!');
+        let dbReference = this.db.object('/users/' + currentUser);
+
+        dbReference.update({bookNumber: bookNumber});
+    }
+
+    updateProfilePicture(downloadUrl: string) {
+        let currentUser = localStorage.getItem('email').replace('.', '!');
+        let dbReference = this.db.object('/users/' + currentUser);
+
+        dbReference.update({profilePicture: downloadUrl});
+    }
 }

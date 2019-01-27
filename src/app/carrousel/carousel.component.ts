@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 
@@ -10,6 +10,8 @@ declare let $: any;
     styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements OnInit {
+
+    @Input('items') items: any;
 
     constructor(
         public databaseService: DatabaseService,

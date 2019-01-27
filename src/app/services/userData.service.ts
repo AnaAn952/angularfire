@@ -11,6 +11,7 @@ export class UserDataService {
         solicitate: {},
         bookNumber: 0,
         acceptate: {},
+        profilePicture: '',
     };
 
     constructor() {}

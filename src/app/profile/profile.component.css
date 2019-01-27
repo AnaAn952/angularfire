@@ -20,6 +20,48 @@
 
 .profile {
     padding-top: 40px;
-    padding-left: 110px;
-    padding-right: 120px;
+    padding-left: 230px;
+}
+
+.adaugaCarte {
+    margin-left: 130px !important;
+    background-color: #191229;
+    color: #f1f1f1;
+    border-radius: 20px;
+    width: 138px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.grow {
+    -webkit-transition:all 0.5s ease-out;
+    -moz-transition:all 0.5s ease-out;
+    -o-transition:all 0.5s ease-out;
+    transition:all 0.5s ease-out;
+}
+
+.grow:hover {
+    -webkit-transform:scale(1.1);
+    -moz-transform:scale(1.1);
+    -o-transform:scale(1.1);
+    transform:scale(1.1);
+}
+
+.profile-pic-add {
+    height: 290px;
+    width: 257px;
+    border: 1px solid black;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.profile-picture-div {
+    margin-left: 65px;
+}
+
+.info-div {
+    height: 290px;
+    margin-left: 570px;
+    padding-top: 56px;
 }

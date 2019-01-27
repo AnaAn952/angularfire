@@ -21,6 +21,8 @@ import { TwoItemsContainer } from './two-items-container/two-items-container.com
 import { CarouselComponent } from './carrousel/carousel.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { EventsComponent } from './events/events.component';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
+
 
 @NgModule({
   declarations: [
@@ -38,10 +40,11 @@ import { EventsComponent } from './events/events.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'book-website-sharing'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFontAwesomeModule,
+    AngularFireStorageModule,
   ],
   providers: [
     AuthService,
@@ -49,6 +52,7 @@ import { EventsComponent } from './events/events.component';
     FetchBooksService,
     UserDataService,
     ProfileCanActivate,
+    AngularFireStorage,
   ],
   bootstrap: [AppComponent]
 })

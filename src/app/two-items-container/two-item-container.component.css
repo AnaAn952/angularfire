@@ -5,7 +5,7 @@
     padding: 20px;
     background-color: whitesmoke;
     margin: 20px;
-    margin-left: 237px !important;
+    float: left;
 }
 
 .icon-div {

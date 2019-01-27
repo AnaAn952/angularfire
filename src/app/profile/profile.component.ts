@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+declare let $:any;
 
 @Component({
     selector: 'profile',
@@ -13,9 +15,12 @@ export class ProfileComponent implements OnInit {
     public chosenByMe: any[] = [];
     public solicitate: any[] = [];
     public acceptate: any[] = [];
+    public fileToUpload: any = null;
+    public profilePhotoToUpload: any = null;
 
     constructor(
         public userDataService: UserDataService,
+        public storage: AngularFireStorage,
         public databaseService: DatabaseService,
     ) {}
 
@@ -46,7 +51,7 @@ export class ProfileComponent implements OnInit {
             itemInfoSolicitate.push(this.userDataService.userData.solicitate[item]);
         }
 
-        this.databaseService.setBooksArray(itemInfoSolicitate.map(item => item.id.split(".").join("!")), this.solicitate, [], itemInfoSolicitate);
+        this.databaseService.setBooksArray(itemInfoSolicitate.map(item => item.id.split(".").join("!")), this.solicitate, ['zona_de_raspuns'], itemInfoSolicitate);
     }
 
     public getMyBooks() {
@@ -73,5 +78,54 @@ export class ProfileComponent implements OnInit {
         for (let i in acceptateIds) {
             this.databaseService.setBooksArray(acceptateIds[i], this.acceptate[i], []);
         }
+    }
+
+    public addBookOpen() {
+        $('#modalAdaugaCarte').modal('show');
+    }
+
+    public submitBook(title) {
+        this.uploadBookPicture(this.fileToUpload, title);
+        $('#modalAdaugaCarte').modal('hide');
+    }
+
+    public uploadPoza(event) {
+        this.fileToUpload = event;
+    }
+
+    uploadBookPicture(event, title) {
+        const randomId = Math.random().toString(36).substring(2);
+        let ref = this.storage.ref(randomId);
+        let task = ref.put(event.target.files[0]).then((result) => {
+            ref.getDownloadURL().subscribe((obj: any) => {
+               let downloadUrl = obj;
+               this.databaseService.addNewBook(downloadUrl, title);
+            });
+        })
+    }
+
+    public modalPozaProfil() {
+        $('#modalprofil').modal("show");
+    }
+
+    public uploadProfilePhoto(event) {
+        this.profilePhotoToUpload = event;
+    }
+
+    submitPhoto() {
+        this.uploadPicture(this.profilePhotoToUpload);
+        $('#modalprofil').modal("hide");
+    }
+
+    uploadPicture(event) {
+        const randomId = Math.random().toString(36).substring(2);
+        let ref = this.storage.ref(randomId);
+        let task = ref.put(event.target.files[0]).then((result) => {
+            ref.getDownloadURL().subscribe((obj: any) => {
+                let downloadUrl = obj;
+                this.databaseService.updateProfilePicture(downloadUrl);
+                this.userDataService.userData.profilePicture = downloadUrl;
+            });
+        })
     }
 }

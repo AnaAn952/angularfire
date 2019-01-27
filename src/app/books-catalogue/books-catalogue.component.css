@@ -23,3 +23,17 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #dedbdb;
 }
+
+.item-img {
+    width: 280px;
+    height: 370px;
+}
+
+.custom-div {
+    border: 1px solid #e0d6d6;
+    background: #e0d6d6;
+    margin-top: 282px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+}

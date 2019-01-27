@@ -78,3 +78,16 @@
 .square-background {
     background-color: #191229;
 }
+
+.carousel .item-img {
+    height: 290px !important;
+    width: 257px !important;
+}
+
+.carousel .item-text {
+    width: 257px;
+}
+
+.profile {
+    margin-right: 33px;
+}

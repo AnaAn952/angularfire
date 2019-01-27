@@ -1,4 +1,4 @@
-<div #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': !useOthers}" (click)="doAction()">
+<div #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': (!useOthers || carousel || profile), 'carousel': carousel, 'profile': profile}" (click)="doAction()">
     <img class="item-img" src="{{item.poza}}"> <br>
     <div class="item-text"> {{item.titlu}} </div> <br>
     <div #select class="select-square" *ngIf="squareSelector"></div>

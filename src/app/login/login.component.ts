@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     public dbRef: any;
     user = {
         email: '',
-        password: ''
+        password: '',
+        username: '',
     };
 
     constructor(
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
                 this.authService.logout();
                 $('#exampleModal3').modal('hide');
                 let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email});
+                this.dbRef.set(index, {email: this.user.email, username: this.user.username});
                 this.router.navigate(['']);
             })
             .catch((err) => console.log(err));

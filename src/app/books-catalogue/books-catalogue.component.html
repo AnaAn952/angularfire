@@ -7,14 +7,17 @@
 <!--Modal detalii carti-->
 <div class="modal fade" id="modalDetalii" tabindex="-1" role="dialog" aria-labelledby="modalDetalii" aria-hidden="true" >
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px; height:558px;">
-            <div class="row" style="padding: 15px;">
-                <div class="col-lg-4">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 180px; height:400px;">
+            <div *ngIf="databaseService.itemModalDetalii" class="row" style="padding: 14px 20px;">
+                <div class="col-lg-5">
                     <img class="item-img" src="{{databaseService.itemModalDetalii.poza}}"> <br>
                 </div>
-                <div>
-                    <span> {{databaseService.itemModalDetalii.titlu}} </span>
-                    <button class="custom-button" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </button>
+                <div class="col-lg-7">
+                    <div>
+                    <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
+                    <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.id.split('_')[0]}} </span> <br>
+                    </div>
+                    <div class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
                 </div>
             </div>
         </div>
