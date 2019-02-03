@@ -4,6 +4,7 @@ import { BooksCatalogueComponent } from './books-catalogue/books-catalogue.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileCanActivate } from './profile/profile-can-activate';
 import { EventsComponent } from './events/events.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'events',
     component: EventsComponent,
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
   },
   {
     path: '**',

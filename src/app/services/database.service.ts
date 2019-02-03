@@ -83,6 +83,12 @@ export class DatabaseService {
         window.location.reload();
     }
 
+    public sendChatResponse(a: any) {
+        let dbReference = this.db.list('/chat/');
+        dbReference.push(a);
+        console.log(a);
+    }
+
     public trimiteOferta() {
         this.addChosenBook(this.itemForNewTrade);
 

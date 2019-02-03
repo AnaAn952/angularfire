@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     }
 
     signInWithEmail() {
+        console.log("logg inn");
         this.authService.signInRegular(this.user.email, this.user.password)
             .then(() => {
                 $('#exampleModal').modal('hide');
@@ -74,5 +75,15 @@ export class LoginComponent implements OnInit {
 
     public isLoggedIn(): boolean {
         return !!window.localStorage.getItem('email');
+    }
+
+    public openModal() {
+        $('#exampleModal3').modal('hide');
+        $('#exampleModal').modal('show');
+    }
+
+    public openModal3() {
+        $('#exampleModal').modal('hide');
+        $('#exampleModal3').modal('show');
     }
 }

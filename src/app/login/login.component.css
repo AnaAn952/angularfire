@@ -8,6 +8,15 @@
     margin-right: 10px;
 }
 
-.bg-grey {
-    background-color: grey;
+.modal-header {
+    border-bottom: 1px solid #dadada;
+}
+
+#exampleModal2 .modal-footer {
+    border-top: 1px solid #dadada;
+}
+
+.bg-custom-grey {
+    border: 1px solid #b6b6b6;
+    background-color: #f1f1f1;
 }

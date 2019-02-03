@@ -1,0 +1,40 @@
+.chat {
+    margin-left: 8%;
+    margin-right: 8%;
+    border-color: #d2c7e6;
+    border-width: 5px;
+    border-style: none groove none groove;
+    padding: 10px;
+    min-height: calc(100vh - 150px);
+}
+
+.add-comment {
+    position: fixed;
+    background: white;
+    width: 1574px;
+    bottom: 20px;
+    height: 100px;
+    padding: 20px;
+    border: 1px solid #d2c7e6;
+}
+
+.specil-input {
+    border: none;
+    width: 80%;
+    margin-top: 8px;
+}
+
+.special-button {
+    margin-top: -67px;
+    background-color: #d1c5f2;
+    border-color: #d1c5f2;
+    color: #111111;
+}
+
+.special-button:focus {
+    box-shadow: 0 0 0 3px #c7b7f4 !important;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}

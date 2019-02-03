@@ -22,7 +22,8 @@ import { CarouselComponent } from './carrousel/carousel.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { EventsComponent } from './events/events.component';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
-
+import { ChatComponent } from './chat/chat.component';
+import { ChatItemComponent } from './chat/chat-item/chat-item.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     TwoItemsContainer,
     CarouselComponent,
     EventsComponent,
+    ChatComponent,
+    ChatItemComponent,
   ],
   imports: [
     BrowserModule,

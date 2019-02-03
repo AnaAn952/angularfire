@@ -1,0 +1,13 @@
+<div class="chat">
+    <div id="chatdata" style="height: 600px; overflow-y: scroll">
+        <div *ngFor="let item of items">
+            <chat-item [item]="item"></chat-item>
+        </div>
+    </div>
+    <div class="add-comment">
+        <div class="form-group">
+            <input #input type="text" class="form-control specil-input" id="textHere" placeholder="Text">
+        </div>
+        <button type="submit" class="btn btn-primary pull-right special-button" (click)="trimiteRaspuns(input.value)">Trimite</button>
+    </div>
+</div>

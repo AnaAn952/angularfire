@@ -16,6 +16,9 @@
    <div>
      <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/profile"> Profil </a>
    </div>
+   <div>
+     <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/chat"> Chat </a>
+   </div>
   </div>
   <div class="name-span"> {{userDataService.userData.username}} </div>
   <div class="login-div">

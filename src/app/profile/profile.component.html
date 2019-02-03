@@ -8,7 +8,7 @@
                 <div style="margin-top: 115px;"> Click here to add a profile picture </div>
             </div>
             <div *ngIf="userDataService.userData.profilePicture" class="profile-pic-add">
-                <img style="margin-top: -1px;margin-left: -31px;width: 257px;height: 289px;" src="{{userDataService.userData.profilePicture}}">
+                <img style="margin-top: -1px;margin-left: -31px;width: 257px;height: 290px;" src="{{userDataService.userData.profilePicture}}">
             </div>
         </div>
         <div class="info-div">
@@ -23,7 +23,7 @@
     <div style="width: 100%; clear: right">
         <div style="width: 100%">
             <div style="float: left">Cartile mele</div>
-            <div class="adaugaCarte grow" (click)="addBookOpen()"> Adauga carte </div>
+            <div class="adaugaCarte grow" (click)="addBookOpen()"> Adaugă carte </div>
         </div>
         <carousel *ngIf="myBooks.length>4" [items]="myBooks"></carousel>
         <div *ngIf="myBooks.length<5" style="margin-left: 34px">
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
                 <button type="button" class="btn btn-primary" (click)="databaseService.refuza(databaseService.modal1.rightButton)"> {{databaseService.modal1.rightButton}} </button>
             </div>
@@ -100,7 +100,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabelAdauga">
-                    Adauga o carte
+                    Adaugă o carte
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -109,19 +109,19 @@
             <div class="modal-body" style="overflow-y: scroll;height: 300px !important;">
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Titlul cartii</label>
-                        <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceti titlul">
+                        <label for="exampleInputEmail1">Titlul cărții</label>
+                        <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Poza cartii</label> <br>
+                        <label for="exampleInputPassword1">Poza cărtii</label> <br>
                         <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
-                            <input type="button" id="loadFileXml" value="Alegeti o poza" (click)="input2.click();" placeholder="Alegeti o poza"/>
+                            <input type="button" id="loadFileXml" value="Alegeți o poză" (click)="input2.click();" placeholder="Alegeți o poză"/>
                             <span *ngIf="input2.value"> {{input2.value.split("\\").pop()}} </span>
                         </div>
-                        <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeti o poza"
+                        <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
                                (change)="uploadPoza($event)" style="display: none;">
                     </div>
-                    <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value)">Adauga</button>
+                    <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value)">Adaugă</button>
                 </form>
             </div>
         </div>
