@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './services/userData.service';
+import { EventsService } from './services/fetch-books.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
       public authService: AuthService,
       public db: AngularFireDatabase,
       public userDataService: UserDataService,
+      public eventsService: EventsService,
   ) {
     // check if there is already a logged in user -> there is already an email in the local storage
     let email = localStorage.getItem('email');
@@ -23,7 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // set user data each time a user logs in
-    this.authService.onLogin.subscribe((email: string) => {
+    this.eventsService.onLogin.subscribe((email: string) => {
       this.resetUserData(email);
     });
   }

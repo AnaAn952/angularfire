@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FetchBooksService } from '../services/fetch-books.service';
+import { EventsService } from '../services/fetch-books.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class SearchFormComponent {
     @ViewChild("inputsearch") input: any;
 
     constructor(
-        public fetchBooksService: FetchBooksService,
+        public eventsService: EventsService,
         public router: Router,
     ) {}
 
@@ -25,10 +25,10 @@ export class SearchFormComponent {
         if (window.location.href.indexOf('books') < 0) {
             this.router.navigate(['/books']);
             setTimeout(() => {
-                this.fetchBooksService.data.emit(value);
+                this.eventsService.searchField.emit(value);
             });
         } else {
-            this.fetchBooksService.data.emit(value);
+            this.eventsService.searchField.emit(value);
         }
 
         this.input.nativeElement.value = "";

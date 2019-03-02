@@ -61,13 +61,13 @@
 </div>
 
 <!--Modal pt raspuns-->
-<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
+<div class="modal fade" id="modalChosenSolicitate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">
                     <!--Schimba cartea-->
-                    {{databaseService.modal1.title}}
+                    {{databaseService.modalChosenSolicitate.title}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -76,7 +76,7 @@
             <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
                 <div *ngIf="databaseService.booksInModal.length >= 1">
                     <!--Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>-->
-                    {{databaseService.modal1.body}}
+                    {{databaseService.modalChosenSolicitate.body}}
                     <ng-container *ngFor="let item of databaseService.booksInModal">
                         <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
                     </ng-container>
@@ -88,7 +88,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.refuza(databaseService.modal1.rightButton)"> {{databaseService.modal1.rightButton}} </button>
+                <button type="button" class="btn btn-primary" (click)="databaseService.chosenSolicitateAction(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
             </div>
         </div>
     </div>

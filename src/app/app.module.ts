@@ -11,7 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
-import { FetchBooksService } from './services/fetch-books.service';
+import { EventsService } from './services/fetch-books.service';
 import { environment } from '../environments/environment';
 import { ProfileComponent } from './profile/profile.component';
 import { UserDataService } from './services/userData.service';
@@ -52,7 +52,7 @@ import { ChatItemComponent } from './chat/chat-item/chat-item.component';
   providers: [
     AuthService,
     DatabaseService,
-    FetchBooksService,
+    EventsService,
     UserDataService,
     ProfileCanActivate,
     AngularFireStorage,

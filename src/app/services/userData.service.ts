@@ -27,5 +27,9 @@ export class UserDataService {
         if (this.userData.solicitate === undefined) {
             this.userData.solicitate = {};
         }
+
+        if (this.userData.acceptate === undefined) {
+            this.userData.acceptate = {};
+        }
     }
 }

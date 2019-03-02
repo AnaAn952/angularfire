@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/index';
@@ -8,8 +8,6 @@ export class AuthService {
 
     public user: Observable<firebase.User>;
     public userDetails: firebase.User;
-
-    public onLogin = new EventEmitter<any> ();
 
     constructor(
         private _fAuth: AngularFireAuth,

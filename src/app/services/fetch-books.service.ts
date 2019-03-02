@@ -1,10 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable()
-export class FetchBooksService {
+export class EventsService {
 
-    constructor(
-    ) {}
+    constructor() {}
 
-    data = new EventEmitter<any> ();
+    searchField = new EventEmitter<any> ();
+    onLogin = new EventEmitter<any> ();
 }

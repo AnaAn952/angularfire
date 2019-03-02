@@ -22,32 +22,28 @@ export class ItemComponent {
     @ViewChild('button1') button1: any;
     @ViewChild('select') div: any;
 
-    public dbBooks: any;
     public showDeselect: any = false;
 
     constructor(
         public databaseService: DatabaseService,
-        private db: AngularFireDatabase,
-    ) {
-        this.dbBooks = db.list('/cartile');
-    }
+    ) {}
 
-    public tradeBook() {
+    public setItemForNewTrade() {
         this.databaseService.itemForNewTrade = this.item;
     }
 
     public chooseBookTrade() {
         this.showDeselect = true;
         this.div.nativeElement.classList.add("square-background");
-        this.databaseService.chosenBookTrade += this.item.id + ",";
+        this.databaseService.tradeBooksForChosenBooks += this.item.id + ",";
     }
 
     public anuleazaAlegerea() {
         this.showDeselect = false;
         this.div.nativeElement.classList = ["select-square"];
-        let books = this.databaseService.chosenBookTrade;
+        let books = this.databaseService.tradeBooksForChosenBooks;
 
-        this.databaseService.chosenBookTrade = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
+        this.databaseService.tradeBooksForChosenBooks = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
     }
 
     public acceptaAceastaCarte() {
@@ -60,8 +56,6 @@ export class ItemComponent {
     }
 
     public doAction() {
-        console.log("do action");
-
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');
             this.databaseService.itemModalDetalii = this.item;
@@ -70,11 +64,11 @@ export class ItemComponent {
         } else if (this.alege_catalog && this.showDeselect) {
             this.anuleazaAlegerea();
         } else if (this.item && this.item.oferi_schimb) {
-            $('#modal1').modal('show');
+            $('#modalChosenSolicitate').modal('show');
             this.databaseService.seeBooksInExchange(this.item);
         } else if (this.item.zona_de_raspuns) {
-            $('#modal1').modal('show');
-            this.databaseService.rs(this.item);
+            $('#modalChosenSolicitate').modal('show');
+            this.databaseService.answerOffer(this.item);
         } else if (this.item && this.item.pe_asta) {
             this.acceptaAceastaCarte();
         }

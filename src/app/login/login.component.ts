@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
-import { Location } from '@angular/common';
+import { EventsService } from '../services/fetch-books.service';
 
 declare let $:any;
 
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
         public router: Router,
         public userData: UserDataService,
         public db: AngularFireDatabase,
+        public eventService: EventsService,
     ) {
         this.dbRef = db.list('/users');
     }
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
-                this.authService.onLogin.emit(this.user.email);
+                this.eventService.onLogin.emit(this.user.email);
             });
     }
 
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
-                this.authService.onLogin.emit(this.user.email);
+                this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
     }

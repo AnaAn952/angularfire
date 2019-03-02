@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FetchBooksService } from '../services/fetch-books.service';
+import { Component, OnInit } from '@angular/core';
+import { EventsService } from '../services/fetch-books.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
@@ -16,14 +16,14 @@ export class BooksCatalogueComponent implements OnInit {
     public myBooks: any = [];
 
     constructor(
-        public fetchBooksService: FetchBooksService,
+        public eventsService: EventsService,
         private db: AngularFireDatabase,
         private userDataService: UserDataService,
         public databaseService: DatabaseService,
     ) {
         this.dbRef = db.list("/cartile");
 
-        fetchBooksService.data.subscribe((data: any) => {
+        eventsService.searchField.subscribe((data: any) => {
             this.items = [];
             this.exposeAllBooks(data);
         });

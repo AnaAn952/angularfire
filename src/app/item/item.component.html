@@ -3,12 +3,12 @@
     <div class="item-text"> {{item.titlu}} </div> <br>
     <div #select class="select-square" *ngIf="squareSelector"></div>
     <div *ngIf="false" class="item-text"> {{item.trader}} </div>
-    <button #button1 class="custom-button" *ngIf="isNotMine() && allowedActiune" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Solicita schimb </button>
-    <button class="custom-button" *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modal1" (click)="databaseService.rs(item)"> Raspunde </button>
+    <button #button1 class="custom-button" *ngIf="isNotMine() && allowedActiune" data-toggle="modal" data-target="#modal2" (click)="setItemForNewTrade()"> Solicita schimb </button>
+    <button class="custom-button" *ngIf="zona_de_raspuns" data-toggle="modal" data-target="#modalChosenSolicitate" (click)="databaseService.answerOffer(item)"> Raspunde </button>
     <button class="custom-button" *ngIf="item && item.pe_asta" (click)="acceptaAceastaCarte()"> Alege </button>
     <button class="custom-button" *ngIf="alege_catalog && !showDeselect" (click)="chooseBookTrade()"> Selecteaza </button>
     <button class="custom-button" *ngIf="alege_catalog && showDeselect" (click)="anuleazaAlegerea()"> Deselecteaza </button>
-    <button class="custom-button" *ngIf="item && item.oferi_schimb" data-toggle="modal" data-target="#modal1" id="chosenBooks_seeBooksInExchange" (click)="databaseService.seeBooksInExchange(item)">
+    <button class="custom-button" *ngIf="item && item.oferi_schimb" data-toggle="modal" data-target="#modalChosenSolicitate" id="chosenBooks_seeBooksInExchange" (click)="databaseService.seeBooksInExchange(item)">
         Vezi cartile pe care le oferi la schimb
     </button>
 </div>
