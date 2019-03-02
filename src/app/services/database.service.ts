@@ -48,15 +48,15 @@ export class DatabaseService {
     }
 
     public chosenSolicitateAction(buttonText) {
-        // the user who proposed the offer cancels it
+        let ref, id;
         switch (buttonText) {
             case "Anuleaza oferta":
                 // sterg din lista lui PROPRIE
                 this.databaseRemove('/users/'+ this.currentUser + '/chosenByMe', this.elementSelectatDinPropuneri.id);
 
                 //sterg din lista celuilalt
-                let ref = '/users/'+ this.elementSelectatDinPropuneri.id.split("_")[0] + '/solicitate',
-                    id = this.elementSelectatDinPropuneri.id + "__" + this.convertToDatabaseFormat(this.userData.userData.email);
+                ref = '/users/'+ this.elementSelectatDinPropuneri.id.split("_")[0] + '/solicitate';
+                id = this.elementSelectatDinPropuneri.id + "__" + this.convertToDatabaseFormat(this.userData.userData.email);
                 this.databaseRemove(ref, id);
 
                 break;
@@ -66,8 +66,8 @@ export class DatabaseService {
                 this.databaseRemove('/users/' + this.currentUser + '/solicitate', this.elementSelectatDinPropuneri.databaseKey);
 
                 // sterge din lista cererilor celuilalt
-                let ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe',
-                    id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
+                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
+                id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
                 this.databaseRemove(ref, id);
 
                 break;
@@ -152,6 +152,12 @@ export class DatabaseService {
         let dbReference = this.db.object('/users/' + this.currentUser);
 
         dbReference.update({profilePicture: downloadUrl});
+    }
+
+    changeInformation(values: any) {
+        let dbReference = this.db.object('/users/' + this.currentUser);
+
+        dbReference.update(values);
     }
 
     public sendChatResponse(a: any) {

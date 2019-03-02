@@ -1,7 +1,8 @@
 <div class="profile">
     <div style="width: 100%; clear: left; margin-bottom: 50px;">
         <div style="width: 100%; margin-bottom: 35px;">
-            <div>Informatii personale</div>
+            <div style="float: left">Informatii personale</div>
+            <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> Editează informatiile </div>
         </div>
         <div class="profile-picture-div float-left" (click)="modalPozaProfil()">
             <div *ngIf="!userDataService.userData.profilePicture" class="profile-pic-add">
@@ -14,10 +15,10 @@
         <div class="info-div">
             <div> <b>Nume utilizator: </b> {{userDataService.userData.username}} </div>
             <div> <b>Email: </b> {{userDataService.userData.email}} </div>
-            <div> <b>Telefon: </b> {{userDataService.userData.phone || "-"}} </div>
-            <div> <b>Vârstă: </b> {{userDataService.userData.age || "-"}} </div>
-            <div> <b>Oraş: </b> {{userDataService.userData.city || "-"}} </div>
-            <div> <b>Ocupație: </b> {{userDataService.userData.ocupation || "-"}} </div>
+            <div> <b>Telefon: </b> {{userDataService.userData.telefon || "-"}} </div>
+            <div> <b>Vârstă: </b> {{userDataService.userData.varsta || "-"}} </div>
+            <div> <b>Oraş: </b> {{userDataService.userData.oras || "-"}} </div>
+            <div> <b>Ocupație: </b> {{userDataService.userData.ocupatie || "-"}} </div>
         </div>
     </div>
     <div style="width: 100%; clear: right">
@@ -144,6 +145,47 @@
                                (change)="uploadProfilePhoto($event)" style="display: none;">
                     </div>
                     <button [disabled]="!input3.value" type="submit" class="btn btn-primary pull-right" (click)="submitPhoto()">Utilizeaza fotografia</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal pt informatii-->
+<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modallabelinfo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 180px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modallabelinfo">
+                    Editeaza informatiile
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 400px !important;padding: 10px !important;">
+                <form>
+                    <div class="form-group">
+                        <label for="numeutilizator" class="col-lg-3 fl-editeaza">Nume utilizator</label>
+                        <input #name type="text" class="form-control col-lg-8 fc-editeaza" id="numeutilizator" [value]="userDataService.userData.username" placeholder="Introduceți numele">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefon" class="col-lg-3 fl-editeaza">Telefon</label>
+                        <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
+                    </div>
+                    <div class="form-group">
+                        <label for="varsta" class="col-lg-3 fl-editeaza">Varsta</label>
+                        <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" placeholder="Introduceti varsta">
+                    </div>
+                    <div class="form-group">
+                        <label for="oras" class="col-lg-3 fl-editeaza">Oras</label>
+                        <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" placeholder="Introduceți orasul">
+                    </div>
+                    <div class="form-group">
+                        <label for="ocupatie" class="col-lg-3 fl-editeaza">Ocupatie</label>
+                        <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
+                    </div>
+                    <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value)">Modifica</button>
                 </form>
             </div>
         </div>

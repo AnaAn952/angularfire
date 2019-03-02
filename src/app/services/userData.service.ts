@@ -6,6 +6,10 @@ export class UserDataService {
     public userData: any = {
         username: '',
         email: '',
+        telefon: '',
+        oras: '',
+        varsta: '',
+        ocupatie: '',
         carti: [],
         chosenByMe: {},
         solicitate: {},

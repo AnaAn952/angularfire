@@ -33,6 +33,16 @@
     cursor: pointer;
 }
 
+.editeazaInformatii {
+    margin-left: 202px !important;
+    background-color: #191229;
+    color: #f1f1f1;
+    border-radius: 20px;
+    width: 210px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .grow {
     -webkit-transition:all 0.5s ease-out;
     -moz-transition:all 0.5s ease-out;
@@ -45,6 +55,16 @@
     -moz-transform:scale(1.1);
     -o-transform:scale(1.1);
     transform:scale(1.1);
+}
+
+.fc-editeaza {
+    width: 534px !important;
+}
+
+.fl-editeaza {
+    float: left !important;
+    margin-right: 10px !important;
+    margin-top: 8px !important;
 }
 
 .profile-pic-add {

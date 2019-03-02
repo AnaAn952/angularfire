@@ -89,6 +89,37 @@ export class ProfileComponent implements OnInit {
         $('#modalAdaugaCarte').modal('hide');
     }
 
+    public editeazaInformatii() {
+        $('#modalInfo').modal('show');
+    }
+
+    public changeInfo(name: string, phone: string, age: string, town: string, ocupation: string) {
+        let great = {};
+        if (name !== undefined) {
+            great["username"] = name;
+            this.userDataService.userData.username = name;
+        }
+        if (phone !== undefined) {
+            great["telefon"] = phone;
+            this.userDataService.userData.telefon = phone;
+        }
+        if (age !== undefined) {
+            great["varsta"] = age;
+            this.userDataService.userData.varsta = age;
+        }
+        if (town !== undefined) {
+            great["oras"] = town;
+            this.userDataService.userData.oras = town;
+        }
+        if (ocupation !== undefined) {
+            great["ocupatie"] = ocupation;
+            this.userDataService.userData.ocupatie = ocupation;
+        }
+
+        $("#modalInfo").modal("hide");
+        this.databaseService.changeInformation(great);
+    }
+
     public uploadPoza(event) {
         this.fileToUpload = event;
     }
