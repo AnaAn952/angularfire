@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { BooksCatalogueComponent } from './books-catalogue/books-catalogue.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileCanActivate } from './profile/profile-can-activate';
-import { EventsComponent } from './events/events.component';
 import { ChatComponent } from './chat/chat.component';
+import { OrganizedEventsComponent } from './organized-events/organized-events.component';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'events',
-    component: EventsComponent,
+    component: OrganizedEventsComponent,
   },
   {
     path: 'chat',

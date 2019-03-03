@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-
-
-declare let $: any;
 
 @Component({
     selector: 'chat',
@@ -13,6 +10,8 @@ declare let $: any;
 })
 export class ChatComponent {
 
+    @ViewChild("input1") input: any;
+
     constructor(
         public userDataService: UserDataService,
         public databaseService: DatabaseService,
@@ -20,14 +19,14 @@ export class ChatComponent {
     ) {
         let list = this.db.list('/chat/');
         let a = list.valueChanges().subscribe((data: any) => {
-            console.log(data);
-            this.items = data;
+            this.items = data.reverse();
         });
     }
 
     public items: any[] = [];
 
     public trimiteRaspuns(value: string) {
+        this.input.nativeElement.value = "";
         this.databaseService.sendChatResponse({
              text: value,
              profilePicture: this.userDataService.userData.profilePicture || this.userDataService.defaultProfilePicture,

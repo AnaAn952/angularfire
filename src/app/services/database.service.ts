@@ -193,6 +193,10 @@ export class DatabaseService {
         return bookRef.valueChanges();
     }
 
+    public participateAtEvent(name: string, values: any) {
+        let event = this.db.object('/events/' + name);
+        event.update({participanti: values});
+    }
 
     convertToDatabaseFormat(value: string) {
         return value.split(".").join("!");

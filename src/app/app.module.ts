@@ -20,10 +20,11 @@ import { ProfileCanActivate } from './profile/profile-can-activate';
 import { TwoItemsContainer } from './two-items-container/two-items-container.component';
 import { CarouselComponent } from './carrousel/carousel.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { EventsComponent } from './events/events.component';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { ChatComponent } from './chat/chat.component';
 import { ChatItemComponent } from './chat/chat-item/chat-item.component';
+import { EventItemComponent } from './organized-events/event-item/event-item.component';
+import { OrganizedEventsComponent } from './organized-events/organized-events.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,10 @@ import { ChatItemComponent } from './chat/chat-item/chat-item.component';
     ProfileComponent,
     TwoItemsContainer,
     CarouselComponent,
-    EventsComponent,
     ChatComponent,
     ChatItemComponent,
+    OrganizedEventsComponent,
+    EventItemComponent,
   ],
   imports: [
     BrowserModule,
