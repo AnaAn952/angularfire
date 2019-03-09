@@ -35,7 +35,7 @@
     </div>
     <div style="width: 100%; clear: left;">
         <div style="width: 100%" class="titlu_sectiune">Carti solicitate de mine</div>
-        <carousel *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel>
+        <carousel-one *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel-one>
         <div *ngIf="chosenByMe.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let item of chosenByMe">
                 <catalogue-item [profile]="true" [item]="item"></catalogue-item>
@@ -44,7 +44,7 @@
     </div>
     <div style="width: 100%; clear: left;">
         <div style="width: 100%" class="titlu_sectiune">Schimburi propuse</div>
-        <carousel *ngIf="solicitate.length>4" [items]="solicitate"></carousel>
+        <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
         <div *ngIf="solicitate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let item of solicitate">
                 <catalogue-item [profile]="true" [item]="item"></catalogue-item>
@@ -53,9 +53,12 @@
     </div>
     <div style="width: 100%; clear: left;">
         <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurate</div>
-        <ng-container *ngFor="let items of acceptate">
-            <ng-container *ngIf="items[0] && items[1]">
-                <two-items-container [itemArray]="items"></two-items-container>
+        <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
+        <ng-container *ngIf="acceptate.length<5">
+            <ng-container *ngFor="let items of acceptate">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
             </ng-container>
         </ng-container>
     </div>

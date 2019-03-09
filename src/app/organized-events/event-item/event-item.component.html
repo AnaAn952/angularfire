@@ -26,9 +26,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="height: 300px !important;">
-               <div *ngFor="let elem of participanti">
-                   {{elem}}
+            <div class="modal-body" style="overflow-y: scroll;height: 300px !important;">
+               <div *ngFor="let elem of participantiDetaliat">
+                   <person-item [item]="elem"></person-item>
                </div>
             </div>
         </div>

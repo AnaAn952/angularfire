@@ -1,22 +1,19 @@
 .items-container {
-    border: 1px solid lightgrey !important;
-    width: 700px;
-    height: 360px;
-    padding: 20px;
-    background-color: whitesmoke;
+    width: 258px;
+    height: 290px;
     margin: 20px;
     float: left;
 }
 
-.icon-div {
-    height: 300px;
-    width: 178px;
-    background-color: whitesmoke;
-    float: left;
+.img-1 {
+    height: 230px;
+    width: 180px;
+    margin-top: 58px;
 }
 
-.custom-button {
-    margin-left: 31px;
-    margin-top: 135px;
-    font-size: 16px;
+.img-2 {
+    height: 230px;
+    width: 180px;
+    margin-top: -375px;
+    margin-left: 76px;
 }

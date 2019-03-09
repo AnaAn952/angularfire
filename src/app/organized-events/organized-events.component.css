@@ -1,0 +1,29 @@
+.custom-div {
+    border: 1px solid black;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    width: 500px;
+    float: left;
+    margin-right: 65px;
+    margin-bottom: 20px;
+}
+
+.custom-div:hover {
+    opacity: 0.9;
+    background-color: #ffffff;
+}
+
+.selected {
+    background-color: #ffffff;
+}
+
+.event {
+    clear: left;
+}
+
+.buttons {
+    margin-left: 140px;
+    margin-top: 20px;
+}

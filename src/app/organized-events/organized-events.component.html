@@ -1,5 +1,11 @@
+<div class="buttons">
+    <div #all class="custom-div selected" (click)="allEvents()"> Toate evenimentele </div>
+    <div #my class="custom-div" (click)="myEvents()"> Evenimente organizate de mine </div>
+    <div #going class="custom-div" (click)="goingEvents()"> Evenimente la care particip </div>
+</div>
+
 <div class="event">
-    <div *ngFor="let item of items">
+    <div *ngFor="let item of selectedItems">
         <event-item [item]="item"></event-item>
     </div>
 </div>

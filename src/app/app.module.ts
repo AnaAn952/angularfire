@@ -18,13 +18,17 @@ import { UserDataService } from './services/userData.service';
 import { DatabaseService } from './services/database.service';
 import { ProfileCanActivate } from './profile/profile-can-activate';
 import { TwoItemsContainer } from './two-items-container/two-items-container.component';
-import { CarouselComponent } from './carrousel/carousel.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { ChatComponent } from './chat/chat.component';
 import { ChatItemComponent } from './chat/chat-item/chat-item.component';
 import { EventItemComponent } from './organized-events/event-item/event-item.component';
 import { OrganizedEventsComponent } from './organized-events/organized-events.component';
+import { PersonItemComponent } from './person/person-item/person-item.component';
+import { CarouselCustomComponent } from './carrousel/carousel-custom/carousel-custom.component';
+import { CarouselOneComponent } from './carrousel/carousel-chosenByMe/carousel-1.component';
+import { CarouselTwoComponent } from './carrousel/carousel-solicitate/carousel-2.component';
+import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +40,14 @@ import { OrganizedEventsComponent } from './organized-events/organized-events.co
     ProfileComponent,
     TwoItemsContainer,
     CarouselComponent,
+    CarouselCustomComponent,
     ChatComponent,
     ChatItemComponent,
     OrganizedEventsComponent,
     EventItemComponent,
+    PersonItemComponent,
+    CarouselOneComponent,
+    CarouselTwoComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,14 +18,16 @@ export class EventItemComponent {
     }
 
     public participanti = [];
+    public participantiDetaliat = [];
 
     modalParticipanti() {
         this.participanti = [];
+        this.participantiDetaliat = [];
         for (let item in this.item.participanti) {
             this.participanti.push(item);
         }
 
-        console.log(this.participanti);
+        this.databaseService.setPersonsArray(this.participanti.filter(elem => this.item.participanti[elem] == "going"), this.participantiDetaliat);
         $("#modalParticipanti").modal("show");
     }
 

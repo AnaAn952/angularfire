@@ -193,6 +193,26 @@ export class DatabaseService {
         return bookRef.valueChanges();
     }
 
+    public setPersonsArray(ids: any[], placeToPush: any[]) {
+        placeToPush.length = 0;
+
+        for (let i in ids) {
+            let a = this.getPersonDetails(ids[i]).subscribe((details: any) => {
+                console.log(details);
+                placeToPush.push(details);
+
+                if(details) {
+                    a.unsubscribe();
+                }
+            });
+        }
+    }
+
+    public getPersonDetails(id: any) {
+        let personRef = this.db.object('/users/' + id);
+        return personRef.valueChanges();
+    }
+
     public participateAtEvent(name: string, values: any) {
         let event = this.db.object('/events/' + name);
         event.update({participanti: values});

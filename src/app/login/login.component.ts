@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
         email: '',
         password: '',
         username: '',
+        profilePicture: 'https://firebasestorage.googleapis.com/v0/b/book-website-sharing.appspot.com/o/2ydq27fp2wg?alt=media&token=8c44703d-b739-4d35-ad2f-e383ac4d4780',
     };
 
     constructor(
@@ -47,7 +48,8 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
-                this.eventService.onLogin.emit(this.user.email);
+                window.location.reload();
+                // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
     }
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit {
                 this.authService.logout();
                 $('#exampleModal3').modal('hide');
                 let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email, username: this.user.username});
+                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture});
                 this.router.navigate(['']);
             })
             .catch((err) => console.log(err));

@@ -1,0 +1,29 @@
+.person-item {
+    height: 80px;
+    width: 350px;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    float: left;
+    border: 1px solid #c7c3c3;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.person-img {
+    width: 70px;
+    height: 70px;
+    margin-top: 4px;
+    float: left;
+    margin-left: 4px;
+    border-radius: 14px;
+}
+
+.person-text {
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-left: 10px;
+    margin-top: 7px;
+    cursor: pointer;
+}
