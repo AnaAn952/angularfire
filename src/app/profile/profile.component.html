@@ -29,7 +29,7 @@
         <carousel *ngIf="myBooks.length>4" [items]="myBooks"></carousel>
         <div *ngIf="myBooks.length<5" style="margin-left: 34px">
         <ng-container *ngFor="let item of myBooks">
-            <catalogue-item [profile]="true" [item]="item"></catalogue-item>
+            <catalogue-item [profile]="true" [item]="item" [category]="'myBooks'"></catalogue-item>
         </ng-container>
         </div>
     </div>

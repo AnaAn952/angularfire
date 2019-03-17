@@ -14,6 +14,7 @@ export class DatabaseService {
     public tradeBooksForChosenBooks: any = '';
     public itemModalDetalii: any;
     public modalChosenSolicitate = { title: '', body: '', rightButton: '' };
+    public solicitate: any = [];
 
     constructor(
         public db: AngularFireDatabase,
@@ -47,7 +48,7 @@ export class DatabaseService {
         this.userData.userData.chosenByMe[this.convertToDatabaseFormat(chosenBook.id)] = {id: this.convertToDatabaseFormat(chosenBook.id)};
     }
 
-    public chosenSolicitateAction(buttonText) {
+    public chosenSolicitateAction(buttonText, adaugaItem: any = {}) {
         let ref, id;
         switch (buttonText) {
             case "Anuleaza oferta":
@@ -61,20 +62,52 @@ export class DatabaseService {
 
                 break;
             case "Refuza oferta":
-            case "Muta la acceptate":
                 // sterg din lista lui PROPRIE
                 this.databaseRemove('/users/' + this.currentUser + '/solicitate', this.elementSelectatDinPropuneri.databaseKey);
+
+                // refuza schimbul
+                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
+                id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
+                let removeRef = this.db.object(ref + '/' + id);
+                removeRef.update({status: "refuzat"});
+
+                break;
+            case "Muta la acceptate":
+                // sterg din lista lui PROPRIE
+                for (let item of this.solicitate) {
+                    if (item.databaseKey.indexOf(this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id)) >= 0) {
+                        this.databaseRemove('/users/' + this.currentUser + '/solicitate', item.databaseKey);
+                    }
+                }
 
                 // sterge din lista cererilor celuilalt
                 ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
                 id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
                 this.databaseRemove(ref, id);
 
-                break;
+                // cartile devin indispobibile
+                let refMyBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(adaugaItem.id));
+                let refOtherBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id));
+                refMyBook.update({status: 'indisponibil'});
+                refOtherBook.update({status: 'indisponibil'});
+
+                // sterg din lista proprie a celuilate (de solicitate)
+                let refOtherList = this.db.list('/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/solicitate');
+                let a = refOtherList.valueChanges().subscribe((data: any) => {
+                    let solicitate = data;
+                    if (solicitate.length) {
+                        for (let item of solicitate) {
+                            if (item.databaseKey.indexOf(this.convertToDatabaseFormat(adaugaItem.id)) >= 0) {
+                                this.databaseRemove('/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/solicitate', item.databaseKey);
+                            }
+                        }
+                    }
+                    window.location.reload();
+                    a.unsubscribe();
+                });
         }
 
         $('#modalChosenSolicitate').modal('hide');
-        window.location.reload();
     }
 
     public adaugaLaSchimburiAcceptate(item: any) {
@@ -94,7 +127,7 @@ export class DatabaseService {
             }
         );
 
-        this.chosenSolicitateAction("Muta la acceptate");
+        this.chosenSolicitateAction("Muta la acceptate", item);
         $('#modalChosenSolicitate').modal('hide');
     }
 
@@ -140,7 +173,8 @@ export class DatabaseService {
             {
                 id: localStorage.getItem('email') + "_" + bookNumber,
                 titlu: title,
-                poza: downloadUrl
+                poza: downloadUrl,
+                status: "disponibila",
             }
         );
         let dbReference = this.db.object('/users/' + this.currentUser);
@@ -198,7 +232,6 @@ export class DatabaseService {
 
         for (let i in ids) {
             let a = this.getPersonDetails(ids[i]).subscribe((details: any) => {
-                console.log(details);
                 placeToPush.push(details);
 
                 if(details) {

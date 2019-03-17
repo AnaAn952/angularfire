@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 
+declare let $;
+
 @Component({
     selector: 'two-items-container',
     templateUrl: './two-items-container.component.html',
@@ -20,4 +22,7 @@ export class TwoItemsContainer {
         this.dbBooks = db.list('/cartile');
     }
 
+    acceptate() {
+        $("#modalAcceptate").modal("show");
+    }
 }

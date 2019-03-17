@@ -52,6 +52,7 @@ export class ProfileComponent implements OnInit {
         }
 
         this.databaseService.setBooksArray(itemInfoSolicitate.map(item => item.id.split(".").join("!")), this.solicitate, ['zona_de_raspuns'], itemInfoSolicitate);
+        this.databaseService.setBooksArray(itemInfoSolicitate.map(item => item.id.split(".").join("!")), this.databaseService.solicitate, ['zona_de_raspuns'], itemInfoSolicitate);
     }
 
     public getMyBooks() {

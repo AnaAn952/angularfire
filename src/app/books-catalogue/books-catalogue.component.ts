@@ -39,12 +39,11 @@ export class BooksCatalogueComponent implements OnInit {
             for (let item of items) {
                 let found = false;
                 if (item.titlu.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
-                    console.log(item.titlu, search);
                     for(let i of this.items) {
                         if (i.titlu == item.titlu)
                             found = true;
                     }
-                    if(found == false) {
+                    if(found == false && item.status == "disponibila") {
                         this.items.push(item);
                     }
                 }

@@ -1,4 +1,27 @@
-<div class="items-container">
+<div class="items-container grow" (click)="acceptate()">
     <img class="img-1" [src]="itemArray[0].poza">
     <img class="img-2" [src]="itemArray[1].poza">
+</div>
+
+<!--Modal pt acceptate-->
+<div class="modal fade" id="modalAcceptate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAcceptatee">
+                    Evaluează acest schimb
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 63px;">Închide</button>
+                <div class="col-lg-7 col-md-7 col-xs-7"></div>
+                <button type="button" class="btn btn-primary">Finalizează</button>
+            </div>
+        </div>
+    </div>
 </div>

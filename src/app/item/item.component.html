@@ -11,4 +11,7 @@
     <button class="custom-button" *ngIf="item && item.oferi_schimb" data-toggle="modal" data-target="#modalChosenSolicitate" id="chosenBooks_seeBooksInExchange" (click)="databaseService.seeBooksInExchange(item)">
         Vezi cartile pe care le oferi la schimb
     </button>
+    <div *ngIf="item.status === 'indisponibil' && category === 'myBooks'">
+        indisponibil
+    </div>
 </div>

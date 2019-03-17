@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
-import { AngularFireDatabase } from '@angular/fire/database';
+
 declare let $;
 
 @Component({
@@ -17,6 +17,7 @@ export class ItemComponent {
     @Input('squareSelector') squareSelector: any = false;
     @Input('carousel') carousel: any = false;
     @Input('profile') profile: any = false;
+    @Input('category') category: any = "";
 
     @ViewChild('itemDiv') itemDiv: any;
     @ViewChild('button1') button1: any;
