@@ -1,6 +1,6 @@
 <div #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': (!useOthers || carousel || profile), 'carousel': carousel, 'profile': profile}" (click)="doAction()">
-    <img [ngClass]="{'item-img': true, 'indisponibil-img': item.status === 'indisponibil'}" src="{{item.poza}}"> <br>
-    <div [ngClass]="{'item-text': true, 'indisponibil-txt': item.status === 'indisponibil'}"> {{item.titlu}} </div> <br>
+    <img [ngClass]="{'item-img': true, 'indisponibil-img': item.status === 'indisponibil' || item.refuzat === 'refuzat'}" src="{{item.poza}}"> <br>
+    <div [ngClass]="{'item-text': true, 'indisponibil-txt': item.status === 'indisponibil' || item.refuzat === 'refuzat'}"> {{item.titlu}} </div> <br>
     <div #select class="select-square" *ngIf="squareSelector"></div>
     <div *ngIf="false" class="item-text"> {{item.trader}} </div>
     <button #button1 class="custom-button" *ngIf="isNotMine() && allowedActiune" data-toggle="modal" data-target="#modal2" (click)="setItemForNewTrade()"> Solicita schimb </button>
@@ -14,7 +14,10 @@
     <div *ngIf="item.status === 'indisponibil'" [ngClass]="{'indisponibil-myBooks': (category === 'myBooks' || category === 'chosenByMe'), 'indisponibil-modal': item.exchange || item.pe_asta }">
         Indisponibil
     </div>
-    <div *ngIf="item.status === 'refuzat'" [ngClass]="{'indisponibil-myBooks': (category === 'myBooks' || category === 'chosenByMe'), 'indisponibil-modal': item.exchange || item.pe_asta }">
+    <div *ngIf="item.refuzat === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         Refuzat
+    </div>
+    <div *ngIf="category === 'myBooks'" class="remove">
+        x
     </div>
 </div>

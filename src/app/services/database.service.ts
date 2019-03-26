@@ -69,7 +69,7 @@ export class DatabaseService {
                 ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
                 id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
                 let removeRef = this.db.object(ref + '/' + id);
-                removeRef.update({status: "refuzat"});
+                removeRef.update({refuzat: "refuzat"});
 
                 break;
             case "Muta la acceptate":
@@ -147,6 +147,7 @@ export class DatabaseService {
     }
 
     public seeBooksInExchange(item: any) {
+        item.id = this.convertToDatabaseFormat(item.id);
         this.elementSelectatDinPropuneri = item;
 
         this.modalChosenSolicitate.title = "Cartile pe care le-ai propus";

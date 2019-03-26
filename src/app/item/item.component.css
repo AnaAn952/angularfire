@@ -120,10 +120,24 @@
     position: absolute;
     border-radius: 12px;
     margin-top: -160px;
-    margin-left: 4%;
+    margin-left: 29px;
     padding-left: 5px;
     padding-right: 5px;
     color: #b09e9e;
     font-size: 20px;
     background: black;
+}
+
+.refuzat {
+    margin-left: 90px;
+}
+
+.remove {
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 17px;
+    position: absolute;
+    margin-top: -355px;
+    margin-left: 241px;
 }

@@ -40,8 +40,14 @@ export class ProfileComponent implements OnInit {
     }
 
     public getChosenByMe() {
+        let itemInfoChosenByMe = [];
+
+        for (let item in this.userDataService.userData.chosenByMe) {
+            itemInfoChosenByMe.push(this.userDataService.userData.chosenByMe[item]);
+        }
+
         let chosenByMeIds = Object.keys(this.userDataService.userData.chosenByMe);
-        this.databaseService.setBooksArray(chosenByMeIds, this.chosenByMe, ["oferi_schimb"]);
+        this.databaseService.setBooksArray(chosenByMeIds, this.chosenByMe, ["oferi_schimb"], itemInfoChosenByMe);
     }
 
     public getSolicitate() {
