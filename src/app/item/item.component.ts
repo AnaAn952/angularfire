@@ -64,13 +64,13 @@ export class ItemComponent {
             this.chooseBookTrade();
         } else if (this.alege_catalog && this.showDeselect) {
             this.anuleazaAlegerea();
-        } else if (this.item && this.item.oferi_schimb) {
+        } else if (this.item && this.item.oferi_schimb && this.item.status === "disponibila") {
             $('#modalChosenSolicitate').modal('show');
             this.databaseService.seeBooksInExchange(this.item);
         } else if (this.item.zona_de_raspuns) {
             $('#modalChosenSolicitate').modal('show');
             this.databaseService.answerOffer(this.item);
-        } else if (this.item && this.item.pe_asta) {
+        } else if (this.item && this.item.pe_asta && this.item.status !== "indisponibil") {
             this.acceptaAceastaCarte();
         }
     }

@@ -39,7 +39,7 @@
             <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
                 <div class="inside" *ngIf="myBooks.length >= 1">
                     Alege o carte pe care sa o oferi la schimb: <br>
-                    <ng-container *ngFor="let item of myBooks">
+                    <ng-container *ngFor="let item of myAvailableBooks">
                         <catalogue-item [useOthers] = "true" [squareSelector]="true" [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
                     </ng-container>
                 </div>

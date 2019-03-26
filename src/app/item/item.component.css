@@ -5,6 +5,7 @@
     margin: 20px;
     text-align: center;
     padding: 15px;
+    position: relative;
 }
 
 .grow {
@@ -90,4 +91,39 @@
 
 .profile {
     margin-right: 33px;
+}
+
+.indisponibil-img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.indisponibil-txt {
+    background-color: #111111 !important;
+}
+
+.indisponibil-myBooks {
+    position: absolute;
+    border-radius: 12px;
+    margin-top: -206px;
+    margin-left: 72px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #b09e9e;
+    font-size: 20px;
+    background: black;
+}
+
+.indisponibil-modal {
+    position: absolute;
+    border-radius: 12px;
+    margin-top: -160px;
+    margin-left: 4%;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #b09e9e;
+    font-size: 20px;
+    background: black;
 }

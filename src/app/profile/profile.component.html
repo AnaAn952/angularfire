@@ -38,7 +38,7 @@
         <carousel-one *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel-one>
         <div *ngIf="chosenByMe.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let item of chosenByMe">
-                <catalogue-item [profile]="true" [item]="item"></catalogue-item>
+                <catalogue-item [profile]="true" [item]="item" [category]="'chosenByMe'"></catalogue-item>
             </ng-container>
         </div>
     </div>
@@ -54,13 +54,13 @@
     <div style="width: 100%; clear: left;">
         <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurate</div>
         <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
-        <ng-container *ngIf="acceptate.length<5">
+        <div *ngIf="acceptate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of acceptate">
                 <ng-container *ngIf="items[0] && items[1]">
                     <two-items-container [itemArray]="items"></two-items-container>
                 </ng-container>
             </ng-container>
-        </ng-container>
+        </div>
     </div>
 </div>
 
@@ -70,7 +70,6 @@
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">
-                    <!--Schimba cartea-->
                     {{databaseService.modalChosenSolicitate.title}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -79,14 +78,12 @@
             </div>
             <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
                 <div *ngIf="databaseService.booksInModal.length >= 1">
-                    <!--Daca esti de acord sa schimbi aceasta carte, alege cartea pe care o vrei pentru ea: <br>-->
                     {{databaseService.modalChosenSolicitate.body}}
                     <ng-container *ngFor="let item of databaseService.booksInModal">
                         <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
                     </ng-container>
                 </div>
                 <div *ngIf="databaseService.booksInModal.length == 0">
-                    <!--Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.-->
                 </div>
             </div>
             <div class="modal-footer">

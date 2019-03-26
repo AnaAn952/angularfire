@@ -159,7 +159,7 @@ export class DatabaseService {
                 if (idCartiLaSchimb.length > 1) {
                     idCartiLaSchimb.pop();
                 }
-                this.setBooksArray(idCartiLaSchimb, this.booksInModal, []);
+                this.setBooksArray(idCartiLaSchimb, this.booksInModal,  ["exchange"]);
 
                 booksRef.unsubscribe();
             });
