@@ -12,7 +12,7 @@
         Vezi cartile pe care le oferi la schimb
     </button>
     <div *ngIf="item.status === 'indisponibil'" [ngClass]="{'indisponibil-myBooks': (category === 'myBooks' || category === 'chosenByMe'), 'indisponibil-modal': item.exchange || item.pe_asta }">
-        Indisponibil
+        Indisponibilă
     </div>
     <div *ngIf="item.refuzat === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         Refuzat
