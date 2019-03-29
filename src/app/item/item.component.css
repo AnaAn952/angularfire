@@ -132,12 +132,33 @@
     margin-left: 90px;
 }
 
-.remove {
-    background-color: white;
-    width: 30px;
+.remove, .edit {
+    background-color: rgb(255, 255, 255, 0.6);
+    width: 140px;
     height: 30px;
-    border-radius: 17px;
+    cursor: pointer;
+    border-radius: 9px;
     position: absolute;
-    margin-top: -355px;
-    margin-left: 241px;
+    margin-top: -240px;
+    margin-left: 60px;
+}
+
+.edit {
+    margin-top: -230px;
+}
+
+.remove {
+    margin-top: -180px;
+}
+
+.edit:hover, .remove:hover {
+    background-color: white;
+}
+
+#itemDiv .remove, #itemDiv .edit {
+    display: none;
+}
+
+#itemDiv:hover .remove, #itemDiv:hover .edit{
+    display: block;
 }

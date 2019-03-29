@@ -1,4 +1,4 @@
-<div #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': (!useOthers || carousel || profile), 'carousel': carousel, 'profile': profile}" (click)="doAction()">
+<div id="itemDiv" #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': (!useOthers || carousel || profile), 'carousel': carousel, 'profile': profile}" (click)="doAction()">
     <img [ngClass]="{'item-img': true, 'indisponibil-img': item.status === 'indisponibil' || item.refuzat === 'refuzat'}" src="{{item.poza}}"> <br>
     <div [ngClass]="{'item-text': true, 'indisponibil-txt': item.status === 'indisponibil' || item.refuzat === 'refuzat'}"> {{item.titlu}} </div> <br>
     <div #select class="select-square" *ngIf="squareSelector"></div>
@@ -17,7 +17,10 @@
     <div *ngIf="item.refuzat === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         Refuzat
     </div>
-    <div *ngIf="category === 'myBooks'" class="remove">
-        x
+    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" class="remove">
+        Șterge
+    </div>
+    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" class="edit">
+        Editează
     </div>
 </div>
