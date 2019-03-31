@@ -61,6 +61,11 @@ export class ItemComponent {
         this.databaseService.editMyBook = this.item;
     }
 
+    public removeMyBook() {
+        $("#modalSterge").modal('show');
+        this.databaseService.stergeMyBook = this.item;
+    }
+
     public doAction() {
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');

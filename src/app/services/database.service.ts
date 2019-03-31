@@ -17,6 +17,7 @@ export class DatabaseService {
     public modalChosenSolicitate = { title: '', body: '', rightButton: '' };
     public solicitate: any = [];
     public editMyBook: any = {};
+    public stergeMyBook: any = {};
 
     constructor(
         public db: AngularFireDatabase,
@@ -62,6 +63,7 @@ export class DatabaseService {
                 id = this.elementSelectatDinPropuneri.id + "__" + this.convertToDatabaseFormat(this.userData.userData.email);
                 this.databaseRemove(ref, id);
 
+                setTimeout(() => {window.location.reload()}, 100);
                 break;
             case "Refuza oferta":
                 // sterg din lista lui PROPRIE
@@ -73,6 +75,7 @@ export class DatabaseService {
                 let removeRef = this.db.object(ref + '/' + id);
                 removeRef.update({refuzat: "refuzat"});
 
+                setTimeout(() => {window.location.reload()}, 100);
                 break;
             case "Muta la acceptate":
                 // sterg din lista lui PROPRIE
@@ -270,8 +273,8 @@ export class DatabaseService {
         return bookRef.valueChanges();
     }
 
-    public removeMyBook(item: any) {
-        let ref = this.db.object('/cartile/' + item.id);
+    public removeMyBook() {
+        let ref = this.db.object('/cartile/' + this.stergeMyBook.id);
         ref.update({status: 'sters'});
         window.location.reload();
     }

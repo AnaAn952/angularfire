@@ -17,7 +17,7 @@
     <div *ngIf="item.refuzat === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         Refuzat
     </div>
-    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="databaseService.removeMyBook(item)" class="remove">
+    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="removeMyBook()" class="remove">
         Șterge
     </div>
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="editMyBook()" class="edit">
