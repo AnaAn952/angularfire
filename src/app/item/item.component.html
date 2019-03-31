@@ -20,7 +20,7 @@
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="databaseService.removeMyBook(item)" class="remove">
         Șterge
     </div>
-    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" class="edit">
+    <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="editMyBook()" class="edit">
         Editează
     </div>
 </div>

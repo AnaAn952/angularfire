@@ -16,6 +16,7 @@ export class DatabaseService {
     public itemModalDetalii: any;
     public modalChosenSolicitate = { title: '', body: '', rightButton: '' };
     public solicitate: any = [];
+    public editMyBook: any = {};
 
     constructor(
         public db: AngularFireDatabase,
@@ -182,6 +183,28 @@ export class DatabaseService {
         let dbReference = this.db.object('/users/' + this.currentUser);
 
         dbReference.update({bookNumber: bookNumber});
+    }
+
+    editExistingBook(downloadUrl: string, title: string) {
+        let booksRef = this.db.object('/cartile/' + this.convertToDatabaseFormat(this.editMyBook.id));
+        if (title === this.editMyBook.title) {
+            title = null;
+        }
+        if (downloadUrl && !title) {
+            booksRef.update({poza: downloadUrl}).then(() => {
+               window.location.reload();
+            });
+        }
+        if (title && !downloadUrl) {
+            booksRef.update({titlu: title}).then(() => {
+               window.location.reload();
+            });
+        }
+        if (title && downloadUrl) {
+            booksRef.update({poza: downloadUrl, titlu: title}).then(() => {
+                window.location.reload();
+            })
+        }
     }
 
     updateProfilePicture(downloadUrl: string) {

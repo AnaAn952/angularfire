@@ -96,6 +96,15 @@ export class ProfileComponent implements OnInit {
         $('#modalAdaugaCarte').modal('hide');
     }
 
+    public editMyBook(title) {
+        if (this.fileToUpload) {
+            this.editBookPicture(this.fileToUpload, title);
+        } else {
+            this.databaseService.editExistingBook(null, title);
+        }
+        $('#modalEditeazaCarte').modal('hide');
+    }
+
     public editeazaInformatii() {
         $('#modalInfo').modal('show');
     }
@@ -140,6 +149,17 @@ export class ProfileComponent implements OnInit {
                this.databaseService.addNewBook(downloadUrl, title);
             });
         })
+    }
+
+    editBookPicture(event, title) {
+        const randomId = Math.random().toString(36).substring(2);
+        let ref = this.storage.ref(randomId);
+        let task = ref.put(event.target.files[0]).then((result) => {
+            ref.getDownloadURL().subscribe((obj: any) => {
+                let downloadUrl = obj;
+                this.databaseService.editExistingBook(downloadUrl, title);
+            });
+        });
     }
 
     public modalPozaProfil() {

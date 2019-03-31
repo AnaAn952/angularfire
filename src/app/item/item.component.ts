@@ -56,6 +56,11 @@ export class ItemComponent {
         return !(this.item.id.split('.com_')[0] + '.com' === localStorage.email);
     }
 
+    public editMyBook() {
+        $('#modalEditeazaCarte').modal('show');
+        this.databaseService.editMyBook = this.item;
+    }
+
     public doAction() {
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');

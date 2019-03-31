@@ -191,3 +191,39 @@
         </div>
     </div>
 </div>
+
+
+<!--Modal pt editat cartea-->
+<div class="modal fade" id="modalEditeazaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabelediteaza" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="examplemodallabelediteaza">
+                    Editează cartea
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 300px !important;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Titlul cărții</label>
+                        <input #inputEditeaza1 type="text" class="form-control" id="exampleInputEmail2" placeholder="Introduceți titlul" [value]="databaseService.editMyBook.titlu">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Poza cărtii</label> <br>
+                        <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
+                            <input type="button" id="loadFileXml1" value="Alegeți o poză" (click)="inputEditeaza2.click();" placeholder="Alegeți o poză"/>
+                            <span *ngIf="inputEditeaza2.value"> {{inputEditeaza2.value.split("\\").pop()}} </span>
+                            <span *ngIf="!inputEditeaza2.value"> Poza curentă </span>
+                        </div>
+                        <input #inputEditeaza2 type="file" class="form-control" id="exampleInputPassword2" placeholder="Alegeți o altă poză"
+                               (change)="uploadPoza($event)" style="display: none;">
+                    </div>
+                    <button [disabled]="!inputEditeaza1.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value)">Finalizează</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
