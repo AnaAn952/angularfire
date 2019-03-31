@@ -68,6 +68,9 @@ export class LoginComponent implements OnInit {
 
     public logout() {
         this.authService.logout();
+        this.user.email = '';
+        this.user.username = '';
+        this.user.password = '';
         $('#exampleModal2').modal('hide');
         this.userData.setUserData({});
         window.localStorage.removeItem('email');
@@ -80,11 +83,17 @@ export class LoginComponent implements OnInit {
     }
 
     public openModal() {
+        this.user.email = '';
+        this.user.username = '';
+        this.user.password = '';
         $('#exampleModal3').modal('hide');
         $('#exampleModal').modal('show');
     }
 
     public openModal3() {
+        this.user.email = '';
+        this.user.username = '';
+        this.user.password = '';
         $('#exampleModal').modal('hide');
         $('#exampleModal3').modal('show');
     }
