@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './userData.service';
+import { isFirebaseQuery } from '@angular/fire/database-deprecated/utils';
 
 declare let $;
 
@@ -208,24 +209,48 @@ export class DatabaseService {
 
                 let object = details;
                 object.id = bookIds[i];
-                for (let item of add) {
-                    object[item] = true;
+                if (add[0] !== "myBooks") {
+                    for (let item of add) {
+                        object[item] = true;
+                    }
                 }
 
                 if (mergeWith.length) {
                     object = Object.assign(object, mergeWith[i]);
                 }
 
-                placeToPush.push(object);
+                if (object.status !== "sters") {
+                    placeToPush.push(object);
+                }
+
+                if (add[0] === "myBooks") {
+                    placeToPush.sort(this.sortAvailable);
+                }
 
                 if(details) a.unsubscribe();
             });
         }
     }
 
+    public sortAvailable(a, b) {
+        if (a.status === b.status) {
+            return 0;
+        }
+        if (a.status === "indisponibil") {
+            return 1;
+        }
+        return -1;
+    }
+
     public getBookDetails(id: any) {
         let bookRef = this.db.object('/cartile/' + id);
         return bookRef.valueChanges();
+    }
+
+    public removeMyBook(item: any) {
+        let ref = this.db.object('/cartile/' + item.id);
+        ref.update({status: 'sters'});
+        window.location.reload();
     }
 
     public setPersonsArray(ids: any[], placeToPush: any[]) {

@@ -11,10 +11,12 @@ declare let $: any;
 })
 export class EventItemComponent {
     @Input("item") item: any;
+    public id;
 
     constructor(
         public databaseService: DatabaseService,
     ) {
+        this.id = Math.floor(Math.random() * 1000);
     }
 
     public participanti = [];
@@ -28,7 +30,14 @@ export class EventItemComponent {
         }
 
         this.databaseService.setPersonsArray(this.participanti.filter(elem => this.item.participanti[elem] == "going"), this.participantiDetaliat);
-        $("#modalParticipanti").modal("show");
+        let modalName = "#modalParticipanti" + this.id;
+        $(modalName).modal("show");
+    }
+
+    modalDetalii() {
+        console.log(this.item);
+        let modalName = "#modalDetalii" + this.id;
+        $(modalName).modal("show");
     }
 
     participa() {

@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
             myBooksIds.push(this.userDataService.userData.email.split(".").join("!") + "_" + i);
         }
 
-        this.databaseService.setBooksArray(myBooksIds, this.myBooks, []);
+        this.databaseService.setBooksArray(myBooksIds, this.myBooks, ['myBooks']);
     }
 
     public getAcceptate() {

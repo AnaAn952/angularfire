@@ -6,7 +6,7 @@
             <div class="oras"> {{item.oras}} </div>
         </div>
         <div class="other">
-            <div class="custom-div grow"> Detalii despre eveniment </div>
+            <div class="custom-div grow" (click)="modalDetalii()"> Detalii despre eveniment </div>
             <div class="custom-div grow" (click)="modalParticipanti()"> Lista participantilor la eveniment </div>
             <div *ngIf="arataButonParticipa()" class="custom-div grow" (click)="participa()"> Participa la acest eveniment</div>
             <div *ngIf="!arataButonParticipa()" class="custom-div grow" (click)="retrageTe()"> Anuleaza participarea la acest eveniment </div>
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalParticipanti" tabindex="-1" role="dialog" aria-labelledby="modallabelparticipanti" aria-hidden="true">
+<div class="modal fade" [id]="'modalParticipanti' + id" tabindex="-1" role="dialog" aria-labelledby="modallabelparticipanti" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
             <div class="modal-header">
@@ -30,6 +30,27 @@
                <div *ngFor="let elem of participantiDetaliat">
                    <person-item [item]="elem"></person-item>
                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal detalii-->
+<div class="modal fade" [id]="'modalDetalii' + id" tabindex="-1" role="dialog" aria-labelledby="modalLabelDetalii" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabelDetalii">
+                    Detalii despre eveniment
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll;height: 300px !important;">
+                <b>Nume</b>: {{item.nume}} <br/>
+                <b>Dată</b>: {{item.data}} <br/>
+                <b>Oraş</b>: {{item.oras}} <br/>
             </div>
         </div>
     </div>

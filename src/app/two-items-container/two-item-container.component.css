@@ -1,9 +1,10 @@
 .items-container {
     width: 17.5%;
     height: 290px;
-    margin: 20px 20px 33px 20px;
+    margin: 20px 35px 33px 20px;
     float: left;
     padding-left: 15px;
+    padding-top: 15px;
 }
 
 .img-1 {
