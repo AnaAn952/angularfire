@@ -173,19 +173,20 @@ export class DatabaseService {
 
     addNewBook(downloadUrl: string, title: string) {
         let booksRef = this.db.list('/cartile');
-        let bookNumber = this.userData.userData.bookNumber + 1;
-        this.userData.userData.bookNumber ++;
-        booksRef.set(this.convertToDatabaseFormat(localStorage.getItem('email')) + "_" + bookNumber,
+        let id = Math.floor(Math.random()*100000000000000000).toString();
+        booksRef.set(id,
             {
-                id: localStorage.getItem('email') + "_" + bookNumber,
+                id: id,
                 titlu: title,
                 poza: downloadUrl,
                 status: "disponibila",
+                proprietarCurent: localStorage.getItem("email"),
+                istorie: [{
+                    data: new Date().toLocaleDateString(),
+                    proprietar: localStorage.getItem("email"),
+                }],
             }
         );
-        let dbReference = this.db.object('/users/' + this.currentUser);
-
-        dbReference.update({bookNumber: bookNumber});
     }
 
     editExistingBook(downloadUrl: string, title: string) {

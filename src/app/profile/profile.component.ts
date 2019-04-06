@@ -62,13 +62,7 @@ export class ProfileComponent implements OnInit {
     }
 
     public getMyBooks() {
-        let myBooksIds = [];
-
-        for(let i = 1; i<= this.userDataService.userData.bookNumber; i++) {
-            myBooksIds.push(this.userDataService.userData.email.split(".").join("!") + "_" + i);
-        }
-
-        this.databaseService.setBooksArray(myBooksIds, this.myBooks, ['myBooks']);
+        this.databaseService.setBooksArray(this.userDataService.userData.idurileCartilorMele, this.myBooks, ['myBooks']);
     }
 
     public getAcceptate() {

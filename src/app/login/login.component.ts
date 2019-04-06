@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
                 this.authService.logout();
                 $('#exampleModal3').modal('hide');
                 let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture, bookNumber: 0});
+                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture});
                 this.router.navigate(['']);
             })
             .catch((err) => console.log(err));

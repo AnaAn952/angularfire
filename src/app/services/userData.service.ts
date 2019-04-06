@@ -13,7 +13,7 @@ export class UserDataService {
         carti: [],
         chosenByMe: {},
         solicitate: {},
-        bookNumber: 0,
+        idurileCartilorMele: [],
         acceptate: {},
         profilePicture: '',
     };
@@ -34,6 +34,10 @@ export class UserDataService {
 
         if (this.userData.acceptate === undefined) {
             this.userData.acceptate = {};
+        }
+
+        if (this.userData.idurileCartilorMele === undefined) {
+            this.userData.idurileCartilorMele = [];
         }
     }
 }
