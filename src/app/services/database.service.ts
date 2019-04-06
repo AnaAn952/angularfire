@@ -149,6 +149,80 @@ export class DatabaseService {
         $('#modalChosenSolicitate').modal('hide');
     }
 
+    public setBookQuality(id, quality) {
+        //aici o sa facem un nou posesor al cartii
+        let ref: any = this.db.object("/cartile/" + id),
+            itemAcceptate;
+
+        ref.update({
+            stareCarte: quality,
+            proprietarCurent: this.userData.userData.email,
+            status: "disponibila",
+        });
+        let historyRef = this.db.list("/cartile/" + id + "/istorie");
+        historyRef.push({
+            data: new Date().toLocaleDateString(),
+            proprietar: this.userData.userData.email,
+        });
+
+        //stergem cartea din schimburile acceptate ale userului
+        for (let item in this.userData.userData.acceptate) {
+            if (item.indexOf(id) >= 0) {
+                itemAcceptate = this.userData.userData.acceptate[item];
+                this.databaseRemove("/users/" + this.currentUser + "/acceptate", item);
+                break;
+            }
+        }
+
+        //mutam schimbul la schimburi confirmate de mine
+        if (itemAcceptate.confirmat !== "true") {
+            ref = this.db.list("/users/" + this.currentUser + "/confirmate_de_mine");
+            ref.set(itemAcceptate.databaseKey, itemAcceptate);
+            let reff = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/acceptate/" + itemAcceptate.databaseKey);
+            reff.update({
+               confirmat: "true"
+            });
+        } else {
+            ref = this.db.list("/users/" + this.currentUser + "/finalizate");
+            ref.set(itemAcceptate.databaseKey, itemAcceptate);
+            this.databaseRemove("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + '/confirmate_de_mine', itemAcceptate.databaseKey);
+            let reff = this.db.list("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/finalizate");
+            reff.set(itemAcceptate.databaseKey, {
+                carteaMea: itemAcceptate.carteaPrimita,
+                carteaPrimita: itemAcceptate.carteaMea,
+                utilizator: localStorage.getItem("email"),
+                databaseKey: itemAcceptate.databaseKey
+            });
+        }
+    }
+
+    public raporteaza(motiv, mesaj, id) {
+        let itemAcceptate: any;
+
+        //stergem cartea din schimburile acceptate ale userului
+        for (let item in this.userData.userData.acceptate) {
+            if (item.indexOf(id) >= 0) {
+                itemAcceptate = this.userData.userData.acceptate[item];
+                this.databaseRemove("/users/" + this.currentUser + "/acceptate", item);
+                break;
+            }
+        }
+        //mutam schimbul la schimburi raportate
+        let ref = this.db.list("/users/" + this.currentUser + "/raportate");
+        ref.set(itemAcceptate.databaseKey, {
+            carteaMea: itemAcceptate.carteaMea,
+            carteaPrimita: itemAcceptate.carteaPrimita,
+            utilizator: itemAcceptate.utilizator,
+            motiv: motiv,
+            detalii: mesaj,
+            databaseKey: itemAcceptate.databaseKey
+        });
+    }
+
+    public rating(stars, user) {
+        // let ref = this.db.object("/users/" + this.convertToDatabaseFormat(user) + "")
+    }
+
     public answerOffer(item: any): any {
         this.elementSelectatDinPropuneri = item;
 

@@ -67,6 +67,7 @@ export class ProfileComponent implements OnInit {
 
     public getAcceptate() {
         let acceptateIds: any = Object.keys(this.userDataService.userData.acceptate);
+        console.log(this.userDataService.userData.acceptate);
 
         for (let index in acceptateIds) {
             acceptateIds[index] = acceptateIds[index].split("__");

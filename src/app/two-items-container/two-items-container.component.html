@@ -6,7 +6,7 @@
 <!--Modal pt acceptate-->
 <div class="modal fade" id="modalAcceptate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
+        <div class="modal-content" style="width: 767px;margin-left: -120px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalAcceptatee">
                     Evaluează acest schimb
@@ -16,11 +16,49 @@
                 </button>
             </div>
             <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 63px;">Închide</button>
-                <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary">Finalizează</button>
+                Te rugam sa completezi acest formular doar dupa ce ai intrat in posesia cartii sau daca doresti sa semnalezi o problema ce impiedica finalizarea schimbului. <br> <br>
+                <form #acceptateform id="acceptate">
+                    <div class="form-group">
+                        <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> Ai intrat in posesia cartii? </label>
+                        <select #select id="carte_primita" class="form-control col-lg-12 custom-select">
+                            <option value="da"> Da </option>
+                            <option value="nu"> Nu </option>
+                        </select>
+                    </div>
+                    <div *ngIf="select.value === 'da'" class="form-group">
+                        <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> In ce stare se afla cartea? </label>
+                        <select id="stare_carte" class="form-control col-lg-12 custom-select">
+                            <option value="foarte_buna"> Foarte buna </option>
+                            <option value="buna"> Buna </option>
+                            <option value="uzata"> Uzata </option>
+                            <option value="foarte_uzata"> Foarte uzata </option>
+                        </select>
+                    </div>
+                    <div *ngIf="select.value === 'da'" class="form-group">
+                        <label for="rating" class="col-lg-12" style="padding-left: 0 !important;">Te rugam sa acorzi un rating utilizatorului cu care ai facut schimbul.</label>
+                        <select id="rating" class="form-control col-lg-12 custom-select">
+                            <option value="1"> 1 </option>
+                            <option value="2"> 2 </option>
+                            <option value="3"> 3 </option>
+                            <option value="4"> 4 </option>
+                            <option value="5"> 5 </option>
+                        </select>
+                    </div>
+                    <div *ngIf="select.value === 'nu'" class="form-group">
+                        <label for="raportare" class="col-lg-12" style="padding-left: 0 !important;"> Ce problema doresti sa semnalezi? </label>
+                        <select #select_raportare id="raportare" class="form-control col-lg-12 custom-select">
+                            <option value="1"> Neseriozitate din partea celuilalt utilizator. </option>
+                            <option value="2"> O problema tehnica de pe site. </option>
+                            <option value="3"> O intarziere a coletului. (in cazul in care ati utilizat serviciile noastre de curierat) </option>
+                            <option value="4"> Altele </option>
+                        </select>
+                    </div>
+                    <div *ngIf="select.value === 'nu'" class="form-group">
+                        <label for="detalii" class="col-lg-12" style="padding-left: 0 !important;">Te rugam sa ne oferi mai multe detalii.</label>
+                        <textarea id="detalii" name="message" rows="2" cols="59" style="margin-left: 1px"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Trimite</button>
+                </form>
             </div>
         </div>
     </div>

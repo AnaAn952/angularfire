@@ -30,7 +30,7 @@
 .item-text {
     font-size: 17px;
     color: #dfdfdf;
-    background-color: #191229;
+    background-color: #0c041c;
 }
 
 .custom-button {
@@ -65,20 +65,20 @@
 .formodal .item-text {
     font-size: 17px;
     color: #dfdfdf;
-    background-color: #191229;
+    background-color: #0c041c;
 }
 
 .formodal .select-square {
     display: block;
     margin-left: 72px;
-    border: 1px solid #191229;
+    border: 1px solid #0c041c;
     width: 26px;
     height: 26px;
     margin-top: -21px;
 }
 
 .square-background {
-    background-color: #191229;
+    background-color: #0c041c;
 }
 
 .carousel .item-img {
@@ -134,7 +134,7 @@
 }
 
 .remove, .edit {
-    background-color: rgb(255, 255, 255, 0.6);
+    background-color: white;
     width: 140px;
     height: 30px;
     cursor: pointer;
@@ -153,7 +153,7 @@
 }
 
 .edit:hover, .remove:hover {
-    background-color: white;
+    background-color: #f1f1f1;
 }
 
 #itemDiv .remove, #itemDiv .edit {
