@@ -23,7 +23,9 @@ export class DatabaseService {
         public db: AngularFireDatabase,
         public userData: UserDataService,
     ) {
-        this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
+        if (localStorage.getItem("email")) {
+            this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
+        }
     }
 
     public addChosenBookAndTradeBooks() {

@@ -24,6 +24,7 @@ export class UserDataService {
 
     public setUserData(data: any) {
         this.userData = data;
+        console.log(data);
         if (this.userData.chosenByMe === undefined) {
             this.userData.chosenByMe = {};
         }

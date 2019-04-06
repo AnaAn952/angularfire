@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { EventsService } from '../services/fetch-books.service';
+import { DatabaseService } from '../services/database.service';
 
 declare let $:any;
 
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
         public userData: UserDataService,
         public db: AngularFireDatabase,
         public eventService: EventsService,
+        public databaseService: DatabaseService,
     ) {
         this.dbRef = db.list('/users');
     }
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
                 this.router.navigate(['books']);
+                this.resetUserData(this.user.email);
                 // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
@@ -82,5 +85,17 @@ export class LoginComponent implements OnInit {
 
     public alreadyRegistered() {
         this.allowRegisterForm = false;
+    }
+
+    public resetUserData(email: any) {
+        if (!email) return;
+        let list = this.db.list('/users', ref => ref.orderByChild('email').equalTo(email));
+        let a = list.valueChanges().subscribe((userData: any) => {
+            if (userData[0].email) {
+                this.userData.setUserData(userData[0]);
+            }
+            this.databaseService.currentUser = this.databaseService.convertToDatabaseFormat(localStorage.getItem('email'));
+            a.unsubscribe();
+        });
     }
 }
