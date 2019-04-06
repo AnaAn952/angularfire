@@ -27,7 +27,14 @@ export class ItemComponent {
 
     constructor(
         public databaseService: DatabaseService,
-    ) {}
+    ) {
+        $("#modal2").on("hide.bs.modal", () => {
+            if (this.div) {
+                this.showDeselect = false;
+                this.div.nativeElement.classList = ["select-square"];
+            }
+        });
+    }
 
     public setItemForNewTrade() {
         this.databaseService.itemForNewTrade = this.item;
@@ -36,15 +43,17 @@ export class ItemComponent {
     public chooseBookTrade() {
         this.showDeselect = true;
         this.div.nativeElement.classList.add("square-background");
-        this.databaseService.tradeBooksForChosenBooks += this.item.id + ",";
+        this.databaseService.tradeBooksForChosenBooks.push(this.item.id);
+        console.log(this.databaseService.tradeBooksForChosenBooks);
     }
 
     public anuleazaAlegerea() {
         this.showDeselect = false;
         this.div.nativeElement.classList = ["select-square"];
-        let books = this.databaseService.tradeBooksForChosenBooks;
+        let index = this.databaseService.tradeBooksForChosenBooks.indexOf(this.item.id);
 
-        this.databaseService.tradeBooksForChosenBooks = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
+        this.databaseService.tradeBooksForChosenBooks.splice(index, 1);
+        this.databaseService.tradeBooksForChosenBooks;
     }
 
     public acceptaAceastaCarte() {
@@ -70,6 +79,7 @@ export class ItemComponent {
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');
             this.databaseService.itemModalDetalii = this.item;
+            this.databaseService.tradeBooksForChosenBooks = [];
         } else if (this.alege_catalog && !this.showDeselect) {
             this.chooseBookTrade();
         } else if (this.alege_catalog && this.showDeselect) {

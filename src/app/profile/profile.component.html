@@ -47,7 +47,7 @@
         <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
         <div *ngIf="solicitate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let item of solicitate">
-                <catalogue-item [profile]="true" [item]="item"></catalogue-item>
+                <catalogue-item [profile]="true" [item]="item" [category]="'solicitate'"></catalogue-item>
             </ng-container>
         </div>
     </div>
@@ -89,7 +89,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.chosenSolicitateAction(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
+                <button type="button" class="btn btn-primary" (click)="databaseService.anuleazaRefuzaChosenSolicitate(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
             </div>
         </div>
     </div>

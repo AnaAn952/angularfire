@@ -8,10 +8,10 @@
             <div class="col-lg-10">
                 <div class="carousel-inner row w-100 mx-auto" role="listbox">
                     <div class="carousel-item active carousel-item-custom">
-                        <catalogue-item [useOthers]="true" [carousel]="true" [item]="items[0]"></catalogue-item>
+                        <catalogue-item [useOthers]="true" [carousel]="true" [item]="items[0]" [category]="'solicitate'"></catalogue-item>
                     </div>
                     <div *ngFor="let item of items | slice:1" class="carousel-item carousel-item-custom">
-                        <catalogue-item [useOthers]="true" [carousel]="true" [item]="item"></catalogue-item>
+                        <catalogue-item [useOthers]="true" [carousel]="true" [item]="item" [category]="'solicitate'"></catalogue-item>
                     </div>
                 </div>
             </div>
