@@ -20,3 +20,28 @@ u
     border: 1px solid #b6b6b6;
     background-color: #f1f1f1;
 }
+
+.login-form {
+    width: 500px;
+    margin: 12% 36%;
+}
+
+.register-form {
+    width: 500px;
+    margin: 12% 36%;
+}
+
+.login-title {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 20px;
+    font-family: 'Times';
+    letter-spacing: 1px;
+    color: #057afc;
+}
+
+.change-to {
+    cursor: pointer;
+    text-align: center;
+}

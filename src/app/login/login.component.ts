@@ -14,6 +14,7 @@ declare let $:any;
 })
 export class LoginComponent implements OnInit {
     public dbRef: any;
+    public allowRegisterForm: boolean = false;
     user = {
         email: '',
         password: '',
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
-                window.location.reload();
+                this.router.navigate(['books']);
                 // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
@@ -57,44 +58,29 @@ export class LoginComponent implements OnInit {
         this.authService.createNewUser(this.user.email, this.user.password)
             .then(() => {
                 this.authService.logout();
-                $('#exampleModal3').modal('hide');
                 let index = this.user.email.split(".").join("!");
                 this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture});
-                this.router.navigate(['']);
+                this.allowRegisterForm = false;
             })
             .catch((err) => console.log(err));
     }
-
 
     public logout() {
         this.authService.logout();
         this.user.email = '';
         this.user.username = '';
         this.user.password = '';
-        $('#exampleModal2').modal('hide');
         this.userData.setUserData({});
         window.localStorage.removeItem('email');
 
-        window.location.replace(window.location.origin + '/#/');
+        this.router.navigate(['login']);
     }
 
-    public isLoggedIn(): boolean {
-        return !!window.localStorage.getItem('email');
+    public inregistrare() {
+        this.allowRegisterForm = true;
     }
 
-    public openModal() {
-        this.user.email = '';
-        this.user.username = '';
-        this.user.password = '';
-        $('#exampleModal3').modal('hide');
-        $('#exampleModal').modal('show');
-    }
-
-    public openModal3() {
-        this.user.email = '';
-        this.user.username = '';
-        this.user.password = '';
-        $('#exampleModal').modal('hide');
-        $('#exampleModal3').modal('show');
+    public alreadyRegistered() {
+        this.allowRegisterForm = false;
     }
 }

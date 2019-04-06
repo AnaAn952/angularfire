@@ -5,6 +5,12 @@
     overflow: scroll !important;
 }
 
+.login-bg-color {
+    background-color: #f1f1f1;
+    height: 100vh;
+    overflow: scroll !important;
+}
+
 .custom-nav {
     background-color: #ffffff !important;
     position: fixed;
