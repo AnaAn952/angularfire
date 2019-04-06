@@ -15,7 +15,7 @@
                 <div class="col-lg-7">
                     <div>
                     <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
-                    <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.id.split('_')[0]}} </span> <br>
+                    <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
                     </div>
                     <div class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
                 </div>
@@ -30,7 +30,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">
-                    Schimba cartea
+                    Alege cartile pe care ai dori sa le oferi la schimb
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -38,7 +38,6 @@
             </div>
             <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
                 <div class="inside" *ngIf="myBooks.length >= 1">
-                    Alege o carte pe care sa o oferi la schimb: <br>
                     <ng-container *ngFor="let item of myAvailableBooks">
                         <catalogue-item [useOthers] = "true" [squareSelector]="true" [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
                     </ng-container>

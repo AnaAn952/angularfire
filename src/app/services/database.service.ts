@@ -30,27 +30,30 @@ export class DatabaseService {
 
     public addChosenBookAndTradeBooks() {
         let chosenBook = this.itemForNewTrade;
-        let bookOwnerUser = this.convertToDatabaseFormat(chosenBook.id.split('.com_')[0] + '.com');
+        let bookOwnerUser = this.convertToDatabaseFormat(chosenBook.proprietarCurent);
 
         let chosenByMeRef = this.db.list('/users/' + this.currentUser + '/chosenByMe');
         let solicitateRef = this.db.list('/users/' + bookOwnerUser + '/solicitate');
 
-        chosenByMeRef.set(this.convertToDatabaseFormat(chosenBook.id), {
+        chosenByMeRef.set(chosenBook.id, {
             id : chosenBook.id,
             cartiLaSchimb: this.tradeBooksForChosenBooks,
+            utilizator: chosenBook.proprietarCurent,
+            actiune: 'asteptare',
         });
 
-        solicitateRef.set(this.convertToDatabaseFormat(chosenBook.id) + '__' + this.currentUser, {
+        solicitateRef.set(chosenBook.id + '__' + this.currentUser, {
             id: chosenBook.id,
-            trader: localStorage.getItem('email'),
             cartiLaSchimb: this.tradeBooksForChosenBooks,
-            databaseKey: this.convertToDatabaseFormat(chosenBook.id) + '__' + this.currentUser,
+            utilizator: localStorage.getItem('email'),
+            databaseKey: chosenBook.id + '__' + this.currentUser,
+            actiune: 'asteptare',
         });
 
         $('#modal2').modal('hide');
         $('#modalDetalii').modal('hide');
 
-        this.userData.userData.chosenByMe[this.convertToDatabaseFormat(chosenBook.id)] = {id: this.convertToDatabaseFormat(chosenBook.id)};
+        this.userData.userData.chosenByMe[chosenBook.id] = {id: chosenBook.id};
     }
 
     public chosenSolicitateAction(buttonText, adaugaItem: any = {}) {
@@ -60,10 +63,12 @@ export class DatabaseService {
                 // sterg din lista lui PROPRIE
                 this.databaseRemove('/users/'+ this.currentUser + '/chosenByMe', this.elementSelectatDinPropuneri.id);
 
-                //sterg din lista celuilalt
-                ref = '/users/'+ this.elementSelectatDinPropuneri.id.split("_")[0] + '/solicitate';
+                //actualizez din lista celuilalt
+                ref = '/users/'+ this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.proprietarCurent) + '/solicitate';
                 id = this.elementSelectatDinPropuneri.id + "__" + this.convertToDatabaseFormat(this.userData.userData.email);
-                this.databaseRemove(ref, id);
+                this.db.object(ref + '/' + id).update({
+                    actiune: 'anulat',
+                });
 
                 setTimeout(() => {window.location.reload()}, 100);
                 break;
@@ -72,10 +77,10 @@ export class DatabaseService {
                 this.databaseRemove('/users/' + this.currentUser + '/solicitate', this.elementSelectatDinPropuneri.databaseKey);
 
                 // refuza schimbul
-                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
+                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.utilizator) + '/chosenByMe';
                 id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
                 let removeRef = this.db.object(ref + '/' + id);
-                removeRef.update({refuzat: "refuzat"});
+                removeRef.update({actiune: "refuzat"});
 
                 setTimeout(() => {window.location.reload()}, 100);
                 break;
@@ -174,6 +179,7 @@ export class DatabaseService {
     }
 
     addNewBook(downloadUrl: string, title: string) {
+        let userRef = this.db.list('/users/' + this.currentUser + '/idurileCartilorMele');
         let booksRef = this.db.list('/cartile');
         let id = Math.floor(Math.random()*100000000000000000).toString();
         booksRef.set(id,
@@ -189,6 +195,7 @@ export class DatabaseService {
                 }],
             }
         );
+        userRef.push(id);
     }
 
     editExistingBook(downloadUrl: string, title: string) {

@@ -53,7 +53,7 @@ export class ItemComponent {
 
     public isNotMine() {
         if (!this.item) return false;
-        return !(this.item.id.split('.com_')[0] + '.com' === localStorage.email);
+        return !(this.item.proprietarCurent === localStorage.email);
     }
 
     public editMyBook() {
