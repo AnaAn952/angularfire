@@ -372,14 +372,22 @@ export class DatabaseService {
         ref.update({status: 'sters'});
     }
 
-    public setPersonsArray(ids: any[], placeToPush: any[]) {
+    public setPersonsArray(ids: any[], placeToPush: any[], mergeWith: any[] = []) {
         placeToPush.length = 0;
 
         for (let i in ids) {
             let a = this.getPersonDetails(ids[i]).subscribe((details: any) => {
-                placeToPush.push(details);
+                let object = details;
 
+                if (mergeWith.length) {
+                    object = Object.assign(object, mergeWith[i]);
+                }
+
+                placeToPush.push(object);
+
+                console.log(placeToPush);
                 if(details) {
+                    console.log(details);
                     a.unsubscribe();
                 }
             });

@@ -259,6 +259,7 @@ export class ProfileComponent implements OnInit {
         $('#modalprofil').modal("hide");
     }
 
+
     uploadPicture(event) {
         const randomId = Math.random().toString(36).substring(2);
         let ref = this.storage.ref(randomId);

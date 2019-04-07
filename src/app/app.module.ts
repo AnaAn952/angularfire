@@ -30,6 +30,7 @@ import { CarouselOneComponent } from './carrousel/carousel-chosenByMe/carousel-1
 import { CarouselTwoComponent } from './carrousel/carousel-solicitate/carousel-2.component';
 import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.component';
 import { AccessGuard } from './services/access-guard';
+import { BookTrackingComponent } from './book-tracking/book-tracking.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AccessGuard } from './services/access-guard';
     PersonItemComponent,
     CarouselOneComponent,
     CarouselTwoComponent,
+    BookTrackingComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 
+declare let $: any;
+
 @Component({
     selector: 'app-book-c',
     templateUrl: './books-catalogue.component.html',
@@ -15,6 +17,7 @@ export class BooksCatalogueComponent implements OnInit {
     public dbRef: any;
     public myBooks: any = [];
     public myAvailableBooks: any = [];
+    public someItems: any = [];
 
     constructor(
         public eventsService: EventsService,
@@ -68,5 +71,23 @@ export class BooksCatalogueComponent implements OnInit {
 
     public tradeBook() {
         this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
+    }
+
+    public openAici() {
+        this.getItems();
+        $("#tracking").modal("show");
+    }
+
+    public getItems() {
+        console.log("some", this.someItems);
+        this.someItems = [];
+        let ids = Object.values(this.databaseService.itemModalDetalii.istorie).map((item: any) => {
+            return this.databaseService.convertToDatabaseFormat(item.proprietar);
+        });
+        let dates = Object.values(this.databaseService.itemModalDetalii.istorie).map((item: any) => {
+            return {"date_owned": item.data};
+        });
+        console.log(ids);
+        this.databaseService.setPersonsArray(ids, this.someItems, dates);
     }
 }

@@ -16,6 +16,7 @@
                     <div>
                     <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                     <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
+                    <span (click)="openAici()"> Aici </span>
                     </div>
                     <div class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
                 </div>
@@ -54,3 +55,5 @@
         </div>
     </div>
 </div>
+
+<app-book-tracking [items]="someItems || []"></app-book-tracking>
