@@ -4,7 +4,7 @@
 </div>
 
 <!--Modal pt acceptate-->
-<div class="modal fade" id="modalAcceptate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
+<div class="modal fade" [id]="'modalAcceptate' + id" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 767px;margin-left: -120px;margin-top: 108px;">
             <div class="modal-header">
@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body">
                 Te rugam sa completezi acest formular doar dupa ce ai intrat in posesia cartii sau daca doresti sa semnalezi o problema ce impiedica finalizarea schimbului. <br> <br>
-                <form #acceptateform id="acceptate">
+                <form #acceptateform [id]="'acceptate' + id">
                     <div class="form-group">
                         <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> Ai intrat in posesia cartii? </label>
                         <select #select id="carte_primita" class="form-control col-lg-12 custom-select">

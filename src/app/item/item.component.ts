@@ -44,7 +44,6 @@ export class ItemComponent {
         this.showDeselect = true;
         this.div.nativeElement.classList.add("square-background");
         this.databaseService.tradeBooksForChosenBooks.push(this.item.id);
-        console.log(this.databaseService.tradeBooksForChosenBooks);
     }
 
     public anuleazaAlegerea() {
@@ -84,6 +83,10 @@ export class ItemComponent {
             this.chooseBookTrade();
         } else if (this.alege_catalog && this.showDeselect) {
             this.anuleazaAlegerea();
+        } else if (this.item && this.item.oferi_schimb && this.item.actiune === "refuzat") {
+            return;
+        } else if (this.item && this.item.zona_de_raspuns && this.item.actiune === "anulat") {
+            return;
         } else if (this.item && this.item.oferi_schimb && this.item.status === "disponibila") {
             $('#modalChosenSolicitate').modal('show');
             this.databaseService.seeBooksInExchange(this.item);

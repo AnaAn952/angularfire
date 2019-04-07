@@ -62,6 +62,36 @@
             </ng-container>
         </div>
     </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi confirmate de mine</div>
+        <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of confirmate_de_mine">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi finalizate</div>
+        <div *ngIf="finalizate.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of finalizate">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi raportate de mine</div>
+        <div *ngIf="raportate.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of raportate">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
 </div>
 
 <!--Modal pt raspuns-->

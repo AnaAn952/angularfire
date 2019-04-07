@@ -52,8 +52,6 @@ export class DatabaseService {
 
         $('#modal2').modal('hide');
         $('#modalDetalii').modal('hide');
-
-        this.userData.userData.chosenByMe[chosenBook.id] = {id: chosenBook.id};
     }
 
     public anuleazaRefuzaChosenSolicitate(buttonText, adaugaItem: any = {}) {
@@ -70,7 +68,6 @@ export class DatabaseService {
                     actiune: 'anulat',
                 });
 
-                setTimeout(() => {window.location.reload()}, 100);
                 break;
             case "Refuza oferta":
                 // sterg din lista lui PROPRIE
@@ -82,7 +79,6 @@ export class DatabaseService {
                 let removeRef = this.db.object(ref + '/' + id);
                 removeRef.update({actiune: "refuzat"});
 
-                setTimeout(() => {window.location.reload()}, 100);
                 break;
         }
 
@@ -142,7 +138,6 @@ export class DatabaseService {
                     }
                 }
             }
-            window.location.reload();
             a.unsubscribe();
         });
 
@@ -173,6 +168,25 @@ export class DatabaseService {
                 break;
             }
         }
+
+        //adaugam idul cartii in lista userului
+        let userRef = this.db.list("/users/" + this.currentUser + "/idurileCartilorMele");
+        userRef.push(itemAcceptate.carteaPrimita);
+
+        //stergem idul cartii din lista celuilalt user
+        let userReef = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/idurileCartilorMele");
+        let a = userReef.valueChanges().subscribe(((data: any) => {
+            console.log(data);
+            let index = Object.values(data).indexOf(itemAcceptate.carteaPrimita);
+            let dataOk = Object.values(data).slice();
+            console.log("set data", data);
+            dataOk.splice(index, 1);
+            if (data) {
+                a.unsubscribe();
+                console.log("set the data", dataOk);
+                userReef.set(dataOk);
+            }
+        }));
 
         //mutam schimbul la schimburi confirmate de mine
         if (itemAcceptate.confirmat !== "true") {
@@ -277,19 +291,13 @@ export class DatabaseService {
             title = null;
         }
         if (downloadUrl && !title) {
-            booksRef.update({poza: downloadUrl}).then(() => {
-               window.location.reload();
-            });
+            booksRef.update({poza: downloadUrl});
         }
         if (title && !downloadUrl) {
-            booksRef.update({titlu: title}).then(() => {
-               window.location.reload();
-            });
+            booksRef.update({titlu: title});
         }
         if (title && downloadUrl) {
-            booksRef.update({poza: downloadUrl, titlu: title}).then(() => {
-                window.location.reload();
-            })
+            booksRef.update({poza: downloadUrl, titlu: title});
         }
     }
 
@@ -359,7 +367,6 @@ export class DatabaseService {
     public removeMyBook() {
         let ref = this.db.object('/cartile/' + this.stergeMyBook.id);
         ref.update({status: 'sters'});
-        window.location.reload();
     }
 
     public setPersonsArray(ids: any[], placeToPush: any[]) {

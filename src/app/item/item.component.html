@@ -1,4 +1,4 @@
-<div id="itemDiv" #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': (!useOthers || carousel || profile), 'carousel': carousel, 'profile': profile, 'myBooks-ind': category === 'myBooks' && item.status === 'indisponibil'}" (click)="doAction()">
+<div id="itemDiv" #itemDiv class="col-xs-5 float-left item-class grow" [ngClass]="{'formodal': useOthers, 'grow': category === 'catalog', 'carousel': carousel, 'profile': profile, 'myBooks-ind': category === 'myBooks' && item.status === 'indisponibil'}" (click)="doAction()">
     <img [ngClass]="{'item-img': true, 'indisponibil-img': item.status === 'indisponibil' || item.actiune === 'refuzat' || item.actiune === 'anulat'}" src="{{item.poza}}"> <br>
     <div [ngClass]="{'item-text': true, 'indisponibil-txt': item.status === 'indisponibil' || item.actiune === 'refuzat' || item.actiune === 'anulat'}"> {{item.titlu}} </div> <br>
     <div #select class="select-square" *ngIf="squareSelector"></div>
@@ -15,10 +15,12 @@
         Indisponibilă
     </div>
     <div *ngIf="item.actiune === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
-        Refuzat
+        <span class="refuzat-span"> Refuzat </span>
+        <span class="sterge-refuzat"> Sterge </span>
     </div>
     <div *ngIf="item.actiune === 'anulat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'solicitate', 'refuzat': category === 'solicitate'}">
-        Anulat
+        <span class="refuzat-span"> Anulat </span>
+        <span class="sterge-refuzat"> Sterge </span>
     </div>
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="removeMyBook()" class="remove">
         Șterge

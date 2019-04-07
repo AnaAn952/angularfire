@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { EventsService } from '../services/fetch-books.service';
 declare let $:any;
 
 @Component({
@@ -15,6 +16,9 @@ export class ProfileComponent implements OnInit {
     public chosenByMe: any[] = [];
     public solicitate: any[] = [];
     public acceptate: any[] = [];
+    public confirmate_de_mine: any[] = [];
+    public raportate: any[] = [];
+    public finalizate: any[] = [];
     public fileToUpload: any = null;
     public profilePhotoToUpload: any = null;
 
@@ -22,21 +26,24 @@ export class ProfileComponent implements OnInit {
         public userDataService: UserDataService,
         public storage: AngularFireStorage,
         public databaseService: DatabaseService,
+        public eventService: EventsService,
     ) {}
 
     ngOnInit() {
 
-        this.getChosenByMe();
-        this.getSolicitate();
-        this.getMyBooks();
-        this.getAcceptate();
+        console.log("changes - 1", this.userDataService.userData.solicitate);
+        this.getData();
+        this.eventService.resetProfileData.subscribe(() => {
+            console.log("changes", this.userDataService.userData.solicitate);
+           this.getData();
+        });
 
-        setTimeout(() => {
-            console.log("ch", this.chosenByMe);
-            console.log("so", this.solicitate);
-            console.log("my", this.myBooks);
-            console.log("ac", this.acceptate);
-        }, 4000);
+        // setTimeout(() => {
+        //     console.log("ch", this.chosenByMe);
+        //     console.log("so", this.solicitate);
+        //     console.log("my", this.myBooks);
+        //     console.log("ac", this.finalizate);
+        // }, 4000);
     }
 
     public getChosenByMe() {
@@ -67,7 +74,6 @@ export class ProfileComponent implements OnInit {
 
     public getAcceptate() {
         let acceptateIds: any = Object.keys(this.userDataService.userData.acceptate);
-        console.log(this.userDataService.userData.acceptate);
 
         for (let index in acceptateIds) {
             acceptateIds[index] = acceptateIds[index].split("__");
@@ -79,6 +85,54 @@ export class ProfileComponent implements OnInit {
 
         for (let i in acceptateIds) {
             this.databaseService.setBooksArray(acceptateIds[i], this.acceptate[i], []);
+        }
+    }
+
+    public getConfirmateDeMine() {
+        let confirmateIds: any = Object.keys(this.userDataService.userData.confirmate_de_mine);
+
+        for (let index in confirmateIds) {
+            confirmateIds[index] = confirmateIds[index].split("__");
+        }
+
+        for (let i = 0; i< confirmateIds.length; i++) {
+            this.confirmate_de_mine[i] = [];
+        }
+
+        for (let i in confirmateIds) {
+            this.databaseService.setBooksArray(confirmateIds[i], this.confirmate_de_mine[i], []);
+        }
+    }
+
+    public getFinalizate() {
+        let finalizateIds: any = Object.keys(this.userDataService.userData.finalizate);
+
+        for (let index in finalizateIds) {
+            finalizateIds[index] = finalizateIds[index].split("__");
+        }
+
+        for (let i = 0; i< finalizateIds.length; i++) {
+            this.finalizate[i] = [];
+        }
+
+        for (let i in finalizateIds) {
+            this.databaseService.setBooksArray(finalizateIds[i], this.finalizate[i], []);
+        }
+    }
+
+    public getRaportate() {
+        let raportateIds: any = Object.keys(this.userDataService.userData.raportate);
+
+        for (let index in raportateIds) {
+            raportateIds[index] = raportateIds[index].split("__");
+        }
+
+        for (let i = 0; i< raportateIds.length; i++) {
+            this.raportate[i] = [];
+        }
+
+        for (let i in raportateIds) {
+            this.databaseService.setBooksArray(raportateIds[i], this.raportate[i], []);
         }
     }
 
@@ -102,6 +156,16 @@ export class ProfileComponent implements OnInit {
 
     public editeazaInformatii() {
         $('#modalInfo').modal('show');
+    }
+
+    public getData() {
+        this.getChosenByMe();
+        this.getSolicitate();
+        this.getMyBooks();
+        this.getAcceptate();
+        this.getConfirmateDeMine();
+        this.getRaportate();
+        this.getFinalizate();
     }
 
     public changeInfo(name: string, phone: string, age: string, town: string, ocupation: string) {

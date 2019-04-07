@@ -7,4 +7,5 @@ export class EventsService {
 
     searchField = new EventEmitter<any> ();
     onLogin = new EventEmitter<any> ();
+    resetProfileData = new EventEmitter<any> ();
 }
