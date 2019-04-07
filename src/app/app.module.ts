@@ -29,6 +29,7 @@ import { CarouselCustomComponent } from './carrousel/carousel-custom/carousel-cu
 import { CarouselOneComponent } from './carrousel/carousel-chosenByMe/carousel-1.component';
 import { CarouselTwoComponent } from './carrousel/carousel-solicitate/carousel-2.component';
 import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.component';
+import { AccessGuard } from './services/access-guard';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.compone
     UserDataService,
     ProfileCanActivate,
     AngularFireStorage,
+    AccessGuard,
   ],
   bootstrap: [AppComponent]
 })

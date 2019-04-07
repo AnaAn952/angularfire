@@ -47,15 +47,45 @@
         <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
         <div *ngIf="solicitate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let item of solicitate">
-                <catalogue-item [profile]="true" [item]="item"></catalogue-item>
+                <catalogue-item [profile]="true" [item]="item" [category]="'solicitate'"></catalogue-item>
             </ng-container>
         </div>
     </div>
     <div style="width: 100%; clear: left;">
-        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurate</div>
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurare</div>
         <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
         <div *ngIf="acceptate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of acceptate">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi confirmate de mine</div>
+        <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of confirmate_de_mine">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi finalizate</div>
+        <div *ngIf="finalizate.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of finalizate">
+                <ng-container *ngIf="items[0] && items[1]">
+                    <two-items-container [itemArray]="items"></two-items-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div style="width: 100%; clear: left;">
+        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi raportate de mine</div>
+        <div *ngIf="raportate.length<5" style="margin-left: 34px">
+            <ng-container *ngFor="let items of raportate">
                 <ng-container *ngIf="items[0] && items[1]">
                     <two-items-container [itemArray]="items"></two-items-container>
                 </ng-container>
@@ -89,7 +119,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.chosenSolicitateAction(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
+                <button type="button" class="btn btn-primary" (click)="databaseService.anuleazaRefuzaChosenSolicitate(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
             </div>
         </div>
     </div>

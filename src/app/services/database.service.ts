@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './userData.service';
 import { isFirebaseQuery } from '@angular/fire/database-deprecated/utils';
+import { EventsService } from './fetch-books.service';
 
 declare let $;
 
@@ -12,7 +13,7 @@ export class DatabaseService {
     public elementSelectatDinPropuneri: any;
     public booksInModal: any = [];
     public itemForNewTrade: any = [];
-    public tradeBooksForChosenBooks: any = '';
+    public tradeBooksForChosenBooks: any = [];
     public itemModalDetalii: any;
     public modalChosenSolicitate = { title: '', body: '', rightButton: '' };
     public solicitate: any = [];
@@ -22,118 +23,220 @@ export class DatabaseService {
     constructor(
         public db: AngularFireDatabase,
         public userData: UserDataService,
+        public eventService: EventsService,
     ) {
-        this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
+        if (localStorage.getItem("email")) {
+            this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
+        }
     }
 
     public addChosenBookAndTradeBooks() {
         let chosenBook = this.itemForNewTrade;
-        let bookOwnerUser = this.convertToDatabaseFormat(chosenBook.id.split('.com_')[0] + '.com');
+        let bookOwnerUser = this.convertToDatabaseFormat(chosenBook.proprietarCurent);
 
         let chosenByMeRef = this.db.list('/users/' + this.currentUser + '/chosenByMe');
         let solicitateRef = this.db.list('/users/' + bookOwnerUser + '/solicitate');
 
-        chosenByMeRef.set(this.convertToDatabaseFormat(chosenBook.id), {
+        chosenByMeRef.set(chosenBook.id, {
             id : chosenBook.id,
             cartiLaSchimb: this.tradeBooksForChosenBooks,
+            utilizator: chosenBook.proprietarCurent,
+            actiune: 'asteptare',
         });
 
-        solicitateRef.set(this.convertToDatabaseFormat(chosenBook.id) + '__' + this.currentUser, {
+        solicitateRef.set(chosenBook.id + '__' + this.currentUser, {
             id: chosenBook.id,
-            trader: localStorage.getItem('email'),
             cartiLaSchimb: this.tradeBooksForChosenBooks,
-            databaseKey: this.convertToDatabaseFormat(chosenBook.id) + '__' + this.currentUser,
+            utilizator: localStorage.getItem('email'),
+            databaseKey: chosenBook.id + '__' + this.currentUser,
+            actiune: 'asteptare',
         });
 
         $('#modal2').modal('hide');
         $('#modalDetalii').modal('hide');
-
-        this.userData.userData.chosenByMe[this.convertToDatabaseFormat(chosenBook.id)] = {id: this.convertToDatabaseFormat(chosenBook.id)};
     }
 
-    public chosenSolicitateAction(buttonText, adaugaItem: any = {}) {
+    public anuleazaRefuzaChosenSolicitate(buttonText, adaugaItem: any = {}) {
         let ref, id;
         switch (buttonText) {
             case "Anuleaza oferta":
                 // sterg din lista lui PROPRIE
                 this.databaseRemove('/users/'+ this.currentUser + '/chosenByMe', this.elementSelectatDinPropuneri.id);
 
-                //sterg din lista celuilalt
-                ref = '/users/'+ this.elementSelectatDinPropuneri.id.split("_")[0] + '/solicitate';
+                //actualizez in lista celuilalt
+                ref = '/users/'+ this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.proprietarCurent) + '/solicitate';
                 id = this.elementSelectatDinPropuneri.id + "__" + this.convertToDatabaseFormat(this.userData.userData.email);
-                this.databaseRemove(ref, id);
+                this.db.object(ref + '/' + id).update({
+                    actiune: 'anulat',
+                });
 
-                setTimeout(() => {window.location.reload()}, 100);
                 break;
             case "Refuza oferta":
                 // sterg din lista lui PROPRIE
                 this.databaseRemove('/users/' + this.currentUser + '/solicitate', this.elementSelectatDinPropuneri.databaseKey);
 
                 // refuza schimbul
-                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
+                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.utilizator) + '/chosenByMe';
                 id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
                 let removeRef = this.db.object(ref + '/' + id);
-                removeRef.update({refuzat: "refuzat"});
+                removeRef.update({actiune: "refuzat"});
 
-                setTimeout(() => {window.location.reload()}, 100);
                 break;
-            case "Muta la acceptate":
-                // sterg din lista lui PROPRIE
-                for (let item of this.solicitate) {
-                    if (item.databaseKey.indexOf(this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id)) >= 0) {
-                        this.databaseRemove('/users/' + this.currentUser + '/solicitate', item.databaseKey);
-                    }
-                }
-
-                // sterge din lista cererilor celuilalt
-                ref = '/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/chosenByMe';
-                id = this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id);
-                this.databaseRemove(ref, id);
-
-                // cartile devin indispobibile
-                let refMyBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(adaugaItem.id));
-                let refOtherBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.id));
-                refMyBook.update({status: 'indisponibil'});
-                refOtherBook.update({status: 'indisponibil'});
-
-                // sterg din lista proprie a celuilate (de solicitate)
-                let refOtherList = this.db.list('/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/solicitate');
-                let a = refOtherList.valueChanges().subscribe((data: any) => {
-                    let solicitate = data;
-                    if (solicitate.length) {
-                        for (let item of solicitate) {
-                            if (item.databaseKey.indexOf(this.convertToDatabaseFormat(adaugaItem.id)) >= 0) {
-                                this.databaseRemove('/users/' + this.convertToDatabaseFormat(this.elementSelectatDinPropuneri.trader) + '/solicitate', item.databaseKey);
-                            }
-                        }
-                    }
-                    window.location.reload();
-                    a.unsubscribe();
-                });
         }
 
         $('#modalChosenSolicitate').modal('hide');
     }
 
     public adaugaLaSchimburiAcceptate(item: any) {
+        let chosenBook = item;
+        let myBook = this.elementSelectatDinPropuneri;
+
         let dbReference = this.db.list('/users/' + this.currentUser + '/acceptate');
-        dbReference.set(this.convertToDatabaseFormat(item.id + '__' + this.elementSelectatDinPropuneri.id),
+        dbReference.set(chosenBook.id + '__' + myBook.id,
             {
-                mine: this.convertFromDatabaseFormat(this.elementSelectatDinPropuneri.id),
-                not: item.id,
+                carteaMea: myBook.id,
+                carteaPrimita: chosenBook.id,
+                databaseKey: chosenBook.id + '__' + myBook.id,
+                utilizator: chosenBook.proprietarCurent,
             }
         );
 
-        let bookOwnerRef = this.db.list('/users/' + this.convertToDatabaseFormat(item.id.split('!com_')[0] + '.com') + '/acceptate');
-        bookOwnerRef.set(this.convertToDatabaseFormat(item.id + '__' + this.elementSelectatDinPropuneri.id),
+        let bookOwnerRef = this.db.list('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/acceptate');
+        bookOwnerRef.set(chosenBook.id + '__' + myBook.id,
             {
-                mine: item.id,
-                not: this.convertFromDatabaseFormat(this.elementSelectatDinPropuneri.id),
+                carteaMea: chosenBook.id,
+                carteaPrimita: myBook.id,
+                databaseKey: chosenBook.id + '__' + myBook.id,
+                utilizator: myBook.proprietarCurent,
             }
         );
 
-        this.chosenSolicitateAction("Muta la acceptate", item);
+        // sterg din lista mea de solicitate toate cereriele pentru carte
+        for (let item of this.solicitate) {
+            if (item.databaseKey.indexOf(myBook.id) >= 0) {
+                this.databaseRemove('/users/' + this.currentUser + '/solicitate', item.databaseKey);
+            }
+        }
+
+        // sterge din lista cererilor celuilalt
+        let ref = '/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/chosenByMe';
+        let id = this.convertToDatabaseFormat(myBook.id);
+        this.databaseRemove(ref, id);
+
+        // cartile devin indispobibile
+        let refMyBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(myBook.id));
+        let refOtherBook = this.db.object("/cartile/" + this.convertToDatabaseFormat(chosenBook.id));
+        refMyBook.update({status: 'indisponibil'});
+        refOtherBook.update({status: 'indisponibil'});
+
+        // sterg din lista de solicitate a celuilat cartea
+        let refOtherList = this.db.list('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/solicitate');
+        let a = refOtherList.valueChanges().subscribe((data: any) => {
+            let solicitate = data;
+            if (solicitate.length) {
+                for (let item of solicitate) {
+                    if (item.databaseKey.indexOf(chosenBook.id) >= 0) {
+                        this.databaseRemove('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/solicitate', item.databaseKey);
+                    }
+                }
+            }
+            a.unsubscribe();
+        });
+
         $('#modalChosenSolicitate').modal('hide');
+    }
+
+    public setBookQuality(id, quality) {
+        //aici o sa facem un nou posesor al cartii
+        let ref: any = this.db.object("/cartile/" + id),
+            itemAcceptate;
+
+        ref.update({
+            stareCarte: quality,
+            proprietarCurent: this.userData.userData.email,
+            status: "disponibila",
+        });
+        let historyRef = this.db.list("/cartile/" + id + "/istorie");
+        historyRef.push({
+            data: new Date().toLocaleDateString(),
+            proprietar: this.userData.userData.email,
+        });
+
+        //stergem cartea din schimburile acceptate ale userului
+        for (let item in this.userData.userData.acceptate) {
+            if (item.indexOf(id) >= 0) {
+                itemAcceptate = this.userData.userData.acceptate[item];
+                this.databaseRemove("/users/" + this.currentUser + "/acceptate", item);
+                break;
+            }
+        }
+
+        //adaugam idul cartii in lista userului
+        let userRef = this.db.list("/users/" + this.currentUser + "/idurileCartilorMele");
+        userRef.push(itemAcceptate.carteaPrimita);
+
+        //stergem idul cartii din lista celuilalt user
+        let userReef = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/idurileCartilorMele");
+        let a = userReef.valueChanges().subscribe(((data: any) => {
+            console.log(data);
+            let index = Object.values(data).indexOf(itemAcceptate.carteaPrimita);
+            let dataOk = Object.values(data).slice();
+            console.log("set data", data);
+            dataOk.splice(index, 1);
+            if (data) {
+                a.unsubscribe();
+                console.log("set the data", dataOk);
+                userReef.set(dataOk);
+            }
+        }));
+
+        //mutam schimbul la schimburi confirmate de mine
+        if (itemAcceptate.confirmat !== "true") {
+            ref = this.db.list("/users/" + this.currentUser + "/confirmate_de_mine");
+            ref.set(itemAcceptate.databaseKey, itemAcceptate);
+            let reff = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/acceptate/" + itemAcceptate.databaseKey);
+            reff.update({
+               confirmat: "true"
+            });
+        } else {
+            ref = this.db.list("/users/" + this.currentUser + "/finalizate");
+            ref.set(itemAcceptate.databaseKey, itemAcceptate);
+            this.databaseRemove("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + '/confirmate_de_mine', itemAcceptate.databaseKey);
+            let reff = this.db.list("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/finalizate");
+            reff.set(itemAcceptate.databaseKey, {
+                carteaMea: itemAcceptate.carteaPrimita,
+                carteaPrimita: itemAcceptate.carteaMea,
+                utilizator: localStorage.getItem("email"),
+                databaseKey: itemAcceptate.databaseKey
+            });
+        }
+    }
+
+    public raporteaza(motiv, mesaj, id) {
+        let itemAcceptate: any;
+
+        //stergem cartea din schimburile acceptate ale userului
+        for (let item in this.userData.userData.acceptate) {
+            if (item.indexOf(id) >= 0) {
+                itemAcceptate = this.userData.userData.acceptate[item];
+                this.databaseRemove("/users/" + this.currentUser + "/acceptate", item);
+                break;
+            }
+        }
+        //mutam schimbul la schimburi raportate
+        let ref = this.db.list("/users/" + this.currentUser + "/raportate");
+        ref.set(itemAcceptate.databaseKey, {
+            carteaMea: itemAcceptate.carteaMea,
+            carteaPrimita: itemAcceptate.carteaPrimita,
+            utilizator: itemAcceptate.utilizator,
+            motiv: motiv,
+            detalii: mesaj,
+            databaseKey: itemAcceptate.databaseKey
+        });
+    }
+
+    public rating(stars, user) {
+        // let ref = this.db.object("/users/" + this.convertToDatabaseFormat(user) + "")
     }
 
     public answerOffer(item: any): any {
@@ -143,11 +246,7 @@ export class DatabaseService {
         this.modalChosenSolicitate.body = "Alege una dintre aceste carti pentru a accepta schimbul:";
         this.modalChosenSolicitate.rightButton = "Refuza oferta";
 
-        let ids = this.convertToDatabaseFormat(item.cartiLaSchimb).split(",");
-        if (ids.length > 1) {
-            ids.pop();
-        }
-
+        let ids = item.cartiLaSchimb;
         this.setBooksArray(ids, this.booksInModal, ["pe_asta"]);
     }
 
@@ -161,10 +260,7 @@ export class DatabaseService {
 
         let booksRef = this.db.object('/users/' + this.currentUser + '/chosenByMe/' + item.id)
             .valueChanges().subscribe((data: any) => {
-                let idCartiLaSchimb = this.convertToDatabaseFormat(data.cartiLaSchimb).split(",");
-                if (idCartiLaSchimb.length > 1) {
-                    idCartiLaSchimb.pop();
-                }
+                let idCartiLaSchimb = data.cartiLaSchimb;
                 this.setBooksArray(idCartiLaSchimb, this.booksInModal,  ["exchange"]);
 
                 booksRef.unsubscribe();
@@ -172,20 +268,23 @@ export class DatabaseService {
     }
 
     addNewBook(downloadUrl: string, title: string) {
+        let userRef = this.db.list('/users/' + this.currentUser + '/idurileCartilorMele');
         let booksRef = this.db.list('/cartile');
-        let bookNumber = this.userData.userData.bookNumber + 1;
-        this.userData.userData.bookNumber ++;
-        booksRef.set(this.convertToDatabaseFormat(localStorage.getItem('email')) + "_" + bookNumber,
+        let id = Math.floor(Math.random()*100000000000000000).toString();
+        booksRef.set(id,
             {
-                id: localStorage.getItem('email') + "_" + bookNumber,
+                id: id,
                 titlu: title,
                 poza: downloadUrl,
                 status: "disponibila",
+                proprietarCurent: localStorage.getItem("email"),
+                istorie: [{
+                    data: new Date().toLocaleDateString(),
+                    proprietar: localStorage.getItem("email"),
+                }],
             }
         );
-        let dbReference = this.db.object('/users/' + this.currentUser);
-
-        dbReference.update({bookNumber: bookNumber});
+        userRef.push(id);
     }
 
     editExistingBook(downloadUrl: string, title: string) {
@@ -194,20 +293,15 @@ export class DatabaseService {
             title = null;
         }
         if (downloadUrl && !title) {
-            booksRef.update({poza: downloadUrl}).then(() => {
-               window.location.reload();
-            });
+            booksRef.update({poza: downloadUrl});
         }
         if (title && !downloadUrl) {
-            booksRef.update({titlu: title}).then(() => {
-               window.location.reload();
-            });
+            booksRef.update({titlu: title});
         }
         if (title && downloadUrl) {
-            booksRef.update({poza: downloadUrl, titlu: title}).then(() => {
-                window.location.reload();
-            })
+            booksRef.update({poza: downloadUrl, titlu: title});
         }
+        this.eventService.resetAll.emit();
     }
 
     updateProfilePicture(downloadUrl: string) {
@@ -276,7 +370,6 @@ export class DatabaseService {
     public removeMyBook() {
         let ref = this.db.object('/cartile/' + this.stergeMyBook.id);
         ref.update({status: 'sters'});
-        window.location.reload();
     }
 
     public setPersonsArray(ids: any[], placeToPush: any[]) {
@@ -315,4 +408,13 @@ export class DatabaseService {
         let dbReference = this.db.list(ref);
         dbReference.remove(id);
     }
+
+    public stergeElementAnulat(id) {
+        this.databaseRemove("/users/" + this.currentUser + '/solicitate', id);
+    }
+
+    public stergeElementRefuzat(id) {
+        this.databaseRemove("/users/" + this.currentUser + '/chosenByMe', id);
+    }
+
 }

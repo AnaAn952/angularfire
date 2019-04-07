@@ -1,13 +1,9 @@
 .login-buttons {
     background-color: transparent;
-    color: #191229 !important;
-    border: 1px solid #191229;
+    color: #0c041c !important;
+    border: 1px solid #0c041c;
 }
 
-.button-creeaza-cont {
-    margin-right: 10px;
-}
-u
 .modal-header {
     border-bottom: 1px solid #dadada;
 }
@@ -19,4 +15,33 @@ u
 .bg-custom-grey {
     border: 1px solid #b6b6b6;
     background-color: #f1f1f1;
+}
+
+.login-form {
+    width: 500px;
+    margin: 12% 36%;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+.register-form {
+    width: 500px;
+    margin: 12% 36%;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+.login-title {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 20px;
+    font-family: 'Times';
+    letter-spacing: 1px;
+    color: #057afc;
+}
+
+.change-to {
+    cursor: pointer;
+    text-align: center;
 }

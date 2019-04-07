@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { EventsService } from '../services/fetch-books.service';
+import { DatabaseService } from '../services/database.service';
 
 declare let $:any;
 
@@ -14,6 +15,7 @@ declare let $:any;
 })
 export class LoginComponent implements OnInit {
     public dbRef: any;
+    public allowRegisterForm: boolean = false;
     user = {
         email: '',
         password: '',
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
         public userData: UserDataService,
         public db: AngularFireDatabase,
         public eventService: EventsService,
+        public databaseService: DatabaseService,
     ) {
         this.dbRef = db.list('/users');
     }
@@ -47,7 +50,8 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
-                window.location.reload();
+                this.router.navigate(['books']);
+                this.resetUserData(this.user.email);
                 // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));
@@ -57,44 +61,41 @@ export class LoginComponent implements OnInit {
         this.authService.createNewUser(this.user.email, this.user.password)
             .then(() => {
                 this.authService.logout();
-                $('#exampleModal3').modal('hide');
                 let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture, bookNumber: 0});
-                this.router.navigate(['']);
+                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture});
+                this.allowRegisterForm = false;
             })
             .catch((err) => console.log(err));
     }
-
 
     public logout() {
         this.authService.logout();
         this.user.email = '';
         this.user.username = '';
         this.user.password = '';
-        $('#exampleModal2').modal('hide');
         this.userData.setUserData({});
         window.localStorage.removeItem('email');
 
-        window.location.replace(window.location.origin + '/#/');
+        this.router.navigate(['login']);
     }
 
-    public isLoggedIn(): boolean {
-        return !!window.localStorage.getItem('email');
+    public inregistrare() {
+        this.allowRegisterForm = true;
     }
 
-    public openModal() {
-        this.user.email = '';
-        this.user.username = '';
-        this.user.password = '';
-        $('#exampleModal3').modal('hide');
-        $('#exampleModal').modal('show');
+    public alreadyRegistered() {
+        this.allowRegisterForm = false;
     }
 
-    public openModal3() {
-        this.user.email = '';
-        this.user.username = '';
-        this.user.password = '';
-        $('#exampleModal').modal('hide');
-        $('#exampleModal3').modal('show');
+    public resetUserData(email: any) {
+        if (!email) return;
+        let list = this.db.list('/users', ref => ref.orderByChild('email').equalTo(email));
+        let a = list.valueChanges().subscribe((userData: any) => {
+            if (userData[0].email) {
+                this.userData.setUserData(userData[0]);
+            }
+            this.databaseService.currentUser = this.databaseService.convertToDatabaseFormat(localStorage.getItem('email'));
+            a.unsubscribe();
+        });
     }
 }

@@ -27,7 +27,14 @@ export class ItemComponent {
 
     constructor(
         public databaseService: DatabaseService,
-    ) {}
+    ) {
+        $("#modal2").on("hide.bs.modal", () => {
+            if (this.div) {
+                this.showDeselect = false;
+                this.div.nativeElement.classList = ["select-square"];
+            }
+        });
+    }
 
     public setItemForNewTrade() {
         this.databaseService.itemForNewTrade = this.item;
@@ -36,15 +43,16 @@ export class ItemComponent {
     public chooseBookTrade() {
         this.showDeselect = true;
         this.div.nativeElement.classList.add("square-background");
-        this.databaseService.tradeBooksForChosenBooks += this.item.id + ",";
+        this.databaseService.tradeBooksForChosenBooks.push(this.item.id);
     }
 
     public anuleazaAlegerea() {
         this.showDeselect = false;
         this.div.nativeElement.classList = ["select-square"];
-        let books = this.databaseService.tradeBooksForChosenBooks;
+        let index = this.databaseService.tradeBooksForChosenBooks.indexOf(this.item.id);
 
-        this.databaseService.tradeBooksForChosenBooks = books.split(this.item.id + ',')[0] + books.split(this.item.id + ',')[1];
+        this.databaseService.tradeBooksForChosenBooks.splice(index, 1);
+        this.databaseService.tradeBooksForChosenBooks;
     }
 
     public acceptaAceastaCarte() {
@@ -53,7 +61,7 @@ export class ItemComponent {
 
     public isNotMine() {
         if (!this.item) return false;
-        return !(this.item.id.split('.com_')[0] + '.com' === localStorage.email);
+        return !(this.item.proprietarCurent === localStorage.email);
     }
 
     public editMyBook() {
@@ -66,14 +74,28 @@ export class ItemComponent {
         this.databaseService.stergeMyBook = this.item;
     }
 
+    public stergeElementRefuzat() {
+        console.log(this.item);
+        this.databaseService.stergeElementRefuzat(this.item.id);
+    }
+
+    public stergeElementAnulat() {
+        this.databaseService.stergeElementAnulat(this.item.databaseKey);
+    }
+
     public doAction() {
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');
             this.databaseService.itemModalDetalii = this.item;
+            this.databaseService.tradeBooksForChosenBooks = [];
         } else if (this.alege_catalog && !this.showDeselect) {
             this.chooseBookTrade();
         } else if (this.alege_catalog && this.showDeselect) {
             this.anuleazaAlegerea();
+        } else if (this.item && this.item.oferi_schimb && this.item.actiune === "refuzat") {
+            return;
+        } else if (this.item && this.item.zona_de_raspuns && this.item.actiune === "anulat") {
+            return;
         } else if (this.item && this.item.oferi_schimb && this.item.status === "disponibila") {
             $('#modalChosenSolicitate').modal('show');
             this.databaseService.seeBooksInExchange(this.item);

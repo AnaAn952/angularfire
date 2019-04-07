@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { EventsService } from '../services/fetch-books.service';
 declare let $:any;
 
 @Component({
@@ -15,6 +16,9 @@ export class ProfileComponent implements OnInit {
     public chosenByMe: any[] = [];
     public solicitate: any[] = [];
     public acceptate: any[] = [];
+    public confirmate_de_mine: any[] = [];
+    public raportate: any[] = [];
+    public finalizate: any[] = [];
     public fileToUpload: any = null;
     public profilePhotoToUpload: any = null;
 
@@ -22,25 +26,47 @@ export class ProfileComponent implements OnInit {
         public userDataService: UserDataService,
         public storage: AngularFireStorage,
         public databaseService: DatabaseService,
+        public eventService: EventsService,
     ) {}
 
     ngOnInit() {
 
-        this.getChosenByMe();
-        this.getSolicitate();
-        this.getMyBooks();
-        this.getAcceptate();
-
-        setTimeout(() => {
-            console.log("ch", this.chosenByMe);
-            console.log("so", this.solicitate);
-            console.log("my", this.myBooks);
-            console.log("ac", this.acceptate);
-        }, 4000);
+        this.getData();
+        this.eventService.resetMyBooks.subscribe(() => {
+           this.getMyBooks();
+        });
+        this.eventService.resetChosenByMe.subscribe(() => {
+           this.getChosenByMe();
+        });
+        this.eventService.resetSolicitate.subscribe(() => {
+            this.getSolicitate();
+        });
+        this.eventService.resetAcceptate.subscribe(() => {
+           this.getAcceptate();
+        });
+        this.eventService.resetConfirmate.subscribe(() => {
+            this.getConfirmateDeMine();
+        });
+        this.eventService.resetFinalizate.subscribe(() => {
+           this.getFinalizate();
+        });
+        this.eventService.resetRaportate.subscribe(() => {
+           this.getRaportate();
+        });
+        this.eventService.resetAll.subscribe(() => {
+           this.getData();
+        });
+        // setTimeout(() => {
+        //     console.log("ch", this.chosenByMe);
+        //     console.log("so", this.solicitate);
+        //     console.log("my", this.myBooks);
+        //     console.log("ac", this.finalizate);
+        // }, 4000);
     }
 
     public getChosenByMe() {
         let itemInfoChosenByMe = [];
+        this.chosenByMe = [];
 
         for (let item in this.userDataService.userData.chosenByMe) {
             itemInfoChosenByMe.push(this.userDataService.userData.chosenByMe[item]);
@@ -52,6 +78,7 @@ export class ProfileComponent implements OnInit {
 
     public getSolicitate() {
         let itemInfoSolicitate = [];
+        this.solicitate = [];
 
         for (let item in this.userDataService.userData.solicitate) {
             itemInfoSolicitate.push(this.userDataService.userData.solicitate[item]);
@@ -62,17 +89,13 @@ export class ProfileComponent implements OnInit {
     }
 
     public getMyBooks() {
-        let myBooksIds = [];
-
-        for(let i = 1; i<= this.userDataService.userData.bookNumber; i++) {
-            myBooksIds.push(this.userDataService.userData.email.split(".").join("!") + "_" + i);
-        }
-
-        this.databaseService.setBooksArray(myBooksIds, this.myBooks, ['myBooks']);
+        this.myBooks = [];
+        this.databaseService.setBooksArray(this.userDataService.userData.idurileCartilorMele, this.myBooks, ['myBooks']);
     }
 
     public getAcceptate() {
         let acceptateIds: any = Object.keys(this.userDataService.userData.acceptate);
+        this.acceptate = [];
 
         for (let index in acceptateIds) {
             acceptateIds[index] = acceptateIds[index].split("__");
@@ -84,6 +107,57 @@ export class ProfileComponent implements OnInit {
 
         for (let i in acceptateIds) {
             this.databaseService.setBooksArray(acceptateIds[i], this.acceptate[i], []);
+        }
+    }
+
+    public getConfirmateDeMine() {
+        let confirmateIds: any = Object.keys(this.userDataService.userData.confirmate_de_mine);
+        this.confirmate_de_mine = [];
+
+        for (let index in confirmateIds) {
+            confirmateIds[index] = confirmateIds[index].split("__");
+        }
+
+        for (let i = 0; i< confirmateIds.length; i++) {
+            this.confirmate_de_mine[i] = [];
+        }
+
+        for (let i in confirmateIds) {
+            this.databaseService.setBooksArray(confirmateIds[i], this.confirmate_de_mine[i], []);
+        }
+    }
+
+    public getFinalizate() {
+        let finalizateIds: any = Object.keys(this.userDataService.userData.finalizate);
+        this.finalizate = [];
+
+        for (let index in finalizateIds) {
+            finalizateIds[index] = finalizateIds[index].split("__");
+        }
+
+        for (let i = 0; i< finalizateIds.length; i++) {
+            this.finalizate[i] = [];
+        }
+
+        for (let i in finalizateIds) {
+            this.databaseService.setBooksArray(finalizateIds[i], this.finalizate[i], []);
+        }
+    }
+
+    public getRaportate() {
+        let raportateIds: any = Object.keys(this.userDataService.userData.raportate);
+        this.raportate = [];
+
+        for (let index in raportateIds) {
+            raportateIds[index] = raportateIds[index].split("__");
+        }
+
+        for (let i = 0; i< raportateIds.length; i++) {
+            this.raportate[i] = [];
+        }
+
+        for (let i in raportateIds) {
+            this.databaseService.setBooksArray(raportateIds[i], this.raportate[i], []);
         }
     }
 
@@ -107,6 +181,16 @@ export class ProfileComponent implements OnInit {
 
     public editeazaInformatii() {
         $('#modalInfo').modal('show');
+    }
+
+    public getData() {
+        this.getChosenByMe();
+        this.getSolicitate();
+        this.getMyBooks();
+        this.getAcceptate();
+        this.getConfirmateDeMine();
+        this.getRaportate();
+        this.getFinalizate();
     }
 
     public changeInfo(name: string, phone: string, age: string, town: string, ocupation: string) {

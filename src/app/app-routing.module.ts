@@ -5,16 +5,24 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileCanActivate } from './profile/profile-can-activate';
 import { ChatComponent } from './chat/chat.component';
 import { OrganizedEventsComponent } from './organized-events/organized-events.component';
+import { LoginComponent } from './login/login.component';
+import { AccessGuard } from './services/access-guard';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/books',
+    redirectTo: 'books',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'books',
     component: BooksCatalogueComponent,
+    data: { needsLogin: true },
+    canActivate: [ AccessGuard ],
   },
   {
     path: 'profile',

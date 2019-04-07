@@ -35,7 +35,6 @@ export class EventItemComponent {
     }
 
     modalDetalii() {
-        console.log(this.item);
         let modalName = "#modalDetalii" + this.id;
         $(modalName).modal("show");
     }
