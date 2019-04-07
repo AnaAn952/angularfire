@@ -36,7 +36,9 @@ export class BooksCatalogueComponent implements OnInit {
     }
 
     public exposeAllBooks(search: string) {
-        let a = this.dbRef.valueChanges().subscribe((items: any) => {
+        let item = JSON.stringify(this.items);
+        this.dbRef.valueChanges().subscribe((items: any) => {
+            this.items = [];
             for (let item of items) {
                 let found = false;
                 if (item.titlu.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
@@ -49,23 +51,18 @@ export class BooksCatalogueComponent implements OnInit {
                     }
                 }
             }
-
-            if (items) a.unsubscribe();
         });
     }
 
     public getMyBooks() {
-        let x = this.dbRef.valueChanges().subscribe((items: any) => {
+        this.dbRef.valueChanges().subscribe((items: any) => {
+            this.myBooks = [];
             this.myBooks = items.filter((book) => {
                 return book.proprietarCurent == this.userDataService.userData.email;
             });
             this.myAvailableBooks = items.filter((book) => {
                 return book.proprietarCurent === this.userDataService.userData.email && book.status !== "indisponibil";
             });
-
-            if (this.myBooks) {
-                x.unsubscribe();
-            }
         });
     }
 

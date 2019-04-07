@@ -31,13 +31,31 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log("changes - 1", this.userDataService.userData.solicitate);
         this.getData();
-        this.eventService.resetProfileData.subscribe(() => {
-            console.log("changes", this.userDataService.userData.solicitate);
+        this.eventService.resetMyBooks.subscribe(() => {
+           this.getMyBooks();
+        });
+        this.eventService.resetChosenByMe.subscribe(() => {
+           this.getChosenByMe();
+        });
+        this.eventService.resetSolicitate.subscribe(() => {
+            this.getSolicitate();
+        });
+        this.eventService.resetAcceptate.subscribe(() => {
+           this.getAcceptate();
+        });
+        this.eventService.resetConfirmate.subscribe(() => {
+            this.getConfirmateDeMine();
+        });
+        this.eventService.resetFinalizate.subscribe(() => {
+           this.getFinalizate();
+        });
+        this.eventService.resetRaportate.subscribe(() => {
+           this.getRaportate();
+        });
+        this.eventService.resetAll.subscribe(() => {
            this.getData();
         });
-
         // setTimeout(() => {
         //     console.log("ch", this.chosenByMe);
         //     console.log("so", this.solicitate);
@@ -48,6 +66,7 @@ export class ProfileComponent implements OnInit {
 
     public getChosenByMe() {
         let itemInfoChosenByMe = [];
+        this.chosenByMe = [];
 
         for (let item in this.userDataService.userData.chosenByMe) {
             itemInfoChosenByMe.push(this.userDataService.userData.chosenByMe[item]);
@@ -59,6 +78,7 @@ export class ProfileComponent implements OnInit {
 
     public getSolicitate() {
         let itemInfoSolicitate = [];
+        this.solicitate = [];
 
         for (let item in this.userDataService.userData.solicitate) {
             itemInfoSolicitate.push(this.userDataService.userData.solicitate[item]);
@@ -69,11 +89,13 @@ export class ProfileComponent implements OnInit {
     }
 
     public getMyBooks() {
+        this.myBooks = [];
         this.databaseService.setBooksArray(this.userDataService.userData.idurileCartilorMele, this.myBooks, ['myBooks']);
     }
 
     public getAcceptate() {
         let acceptateIds: any = Object.keys(this.userDataService.userData.acceptate);
+        this.acceptate = [];
 
         for (let index in acceptateIds) {
             acceptateIds[index] = acceptateIds[index].split("__");
@@ -90,6 +112,7 @@ export class ProfileComponent implements OnInit {
 
     public getConfirmateDeMine() {
         let confirmateIds: any = Object.keys(this.userDataService.userData.confirmate_de_mine);
+        this.confirmate_de_mine = [];
 
         for (let index in confirmateIds) {
             confirmateIds[index] = confirmateIds[index].split("__");
@@ -106,6 +129,7 @@ export class ProfileComponent implements OnInit {
 
     public getFinalizate() {
         let finalizateIds: any = Object.keys(this.userDataService.userData.finalizate);
+        this.finalizate = [];
 
         for (let index in finalizateIds) {
             finalizateIds[index] = finalizateIds[index].split("__");
@@ -122,6 +146,7 @@ export class ProfileComponent implements OnInit {
 
     public getRaportate() {
         let raportateIds: any = Object.keys(this.userDataService.userData.raportate);
+        this.raportate = [];
 
         for (let index in raportateIds) {
             raportateIds[index] = raportateIds[index].split("__");

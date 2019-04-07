@@ -74,6 +74,15 @@ export class ItemComponent {
         this.databaseService.stergeMyBook = this.item;
     }
 
+    public stergeElementRefuzat() {
+        console.log(this.item);
+        this.databaseService.stergeElementRefuzat(this.item.id);
+    }
+
+    public stergeElementAnulat() {
+        this.databaseService.stergeElementAnulat(this.item.databaseKey);
+    }
+
     public doAction() {
         if (this.isNotMine() && this.allowedActiune) {
             $('#modalDetalii').modal('show');

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './userData.service';
 import { isFirebaseQuery } from '@angular/fire/database-deprecated/utils';
+import { EventsService } from './fetch-books.service';
 
 declare let $;
 
@@ -22,6 +23,7 @@ export class DatabaseService {
     constructor(
         public db: AngularFireDatabase,
         public userData: UserDataService,
+        public eventService: EventsService,
     ) {
         if (localStorage.getItem("email")) {
             this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
@@ -299,6 +301,7 @@ export class DatabaseService {
         if (title && downloadUrl) {
             booksRef.update({poza: downloadUrl, titlu: title});
         }
+        this.eventService.resetAll.emit();
     }
 
     updateProfilePicture(downloadUrl: string) {
@@ -405,4 +408,13 @@ export class DatabaseService {
         let dbReference = this.db.list(ref);
         dbReference.remove(id);
     }
+
+    public stergeElementAnulat(id) {
+        this.databaseRemove("/users/" + this.currentUser + '/solicitate', id);
+    }
+
+    public stergeElementRefuzat(id) {
+        this.databaseRemove("/users/" + this.currentUser + '/chosenByMe', id);
+    }
+
 }

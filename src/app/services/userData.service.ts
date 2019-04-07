@@ -29,9 +29,7 @@ export class UserDataService {
         public db: AngularFireDatabase,
         public eventService: EventsService,
     ) {
-        // setInterval(() => {
-            this.resetUserData(localStorage.getItem("email"));
-        // }, 4000);
+        this.resetUserData(localStorage.getItem("email"));
     }
 
     public setUserData(data: any) {
@@ -68,17 +66,47 @@ export class UserDataService {
 
     public resetUserData(email: any) {
         if (!email) return;
-        let currentUserData = JSON.stringify(this.userData);
+        let idurileCartilorMele = JSON.stringify(this.userData.idurileCartilorMele);
+        let chosenByMe = JSON.stringify(this.userData.chosenByMe);
+        let solictiate = JSON.stringify(this.userData.solicitate);
+        let acceptate = JSON.stringify(this.userData.acceptate);
+        let confirmate = JSON.stringify(this.userData.confirmate_de_mine);
+        let finalizate = JSON.stringify(this.userData.finalizate);
+        let raportate = JSON.stringify(this.userData.raportate);
         let list = this.db.list('/users', ref => ref.orderByChild('email').equalTo(email));
         list.valueChanges().subscribe((userData: any) => {
-            console.log("changed");
             if (userData[0].email) {
-                console.log(userData[0]);
                 this.setUserData(userData[0]);
             }
-            if (currentUserData !== JSON.stringify(this.userData)) {
-                console.log("changed", this.userData.acceptate);
-                this.eventService.resetProfileData.emit();
+            console.log(this.userData);
+            if (idurileCartilorMele !== JSON.stringify(this.userData.idurileCartilorMele)) {
+                console.log(idurileCartilorMele, JSON.stringify(this.userData.idurileCartilorMele));
+                idurileCartilorMele =  JSON.stringify(this.userData.idurileCartilorMele);
+                this.eventService.resetMyBooks.emit();
+            }
+            if (chosenByMe !== JSON.stringify(this.userData.chosenByMe)) {
+                chosenByMe = JSON.stringify(this.userData.chosenByMe);
+                this.eventService.resetChosenByMe.emit();
+            }
+            if (solictiate !== JSON.stringify(this.userData.solicitate)) {
+                solictiate = JSON.stringify(this.userData.solicitate);
+                this.eventService.resetSolicitate.emit();
+            }
+            if (acceptate !== JSON.stringify(this.userData.acceptate)) {
+                acceptate = JSON.stringify(this.userData.acceptate);
+                this.eventService.resetAcceptate.emit();
+            }
+            if (confirmate !== JSON.stringify(this.userData.confirmate_de_mine)) {
+                confirmate = JSON.stringify(this.userData.confirmate_de_mine);
+                this.eventService.resetConfirmate.emit();
+            }
+            if (finalizate !== JSON.stringify(this.userData.finalizate)) {
+                finalizate = JSON.stringify(this.userData.finalizate);
+                this.eventService.resetFinalizate.emit();
+            }
+            if (raportate !== JSON.stringify(this.userData.raportate)) {
+                raportate = JSON.stringify(this.userData.raportate);
+                this.eventService.resetRaportate.emit();
             }
         });
     }

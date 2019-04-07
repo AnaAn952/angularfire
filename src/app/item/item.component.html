@@ -16,11 +16,11 @@
     </div>
     <div *ngIf="item.actiune === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         <span class="refuzat-span"> Refuzat </span>
-        <span class="sterge-refuzat"> Sterge </span>
+        <span class="sterge-refuzat" (click)="stergeElementRefuzat()"> Sterge </span>
     </div>
     <div *ngIf="item.actiune === 'anulat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'solicitate', 'refuzat': category === 'solicitate'}">
         <span class="refuzat-span"> Anulat </span>
-        <span class="sterge-refuzat"> Sterge </span>
+        <span class="sterge-refuzat" (click)="stergeElementAnulat()"> Sterge </span>
     </div>
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="removeMyBook()" class="remove">
         Șterge
