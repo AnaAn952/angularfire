@@ -5,6 +5,8 @@ import { EventsService } from './fetch-books.service';
 @Injectable()
 export class UserDataService {
 
+    public subscription: any;
+
     public userData: any = {
         username: '',
         email: '',
@@ -29,7 +31,21 @@ export class UserDataService {
         public db: AngularFireDatabase,
         public eventService: EventsService,
     ) {
-        this.resetUserData(localStorage.getItem("email"));
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        this.subscription = this.resetUserData(localStorage.getItem("email"));
+        this.eventService.resetInfo.subscribe(() => {
+           if (this.subscription) {
+               this.subscription.unsubscribe();
+               this.subscription = this.resetUserData(localStorage.getItem("email"));
+           } else {
+               this.subscription = this.resetUserData(localStorage.getItem("email"));
+           }
+        });
     }
 
     public setUserData(data: any) {
@@ -65,6 +81,7 @@ export class UserDataService {
     }
 
     public resetUserData(email: any) {
+        console.log("dataaaaa", email);
         if (!email) return;
         let idurileCartilorMele = JSON.stringify(this.userData.idurileCartilorMele);
         let chosenByMe = JSON.stringify(this.userData.chosenByMe);
@@ -74,7 +91,10 @@ export class UserDataService {
         let finalizate = JSON.stringify(this.userData.finalizate);
         let raportate = JSON.stringify(this.userData.raportate);
         let list = this.db.list('/users', ref => ref.orderByChild('email').equalTo(email));
-        list.valueChanges().subscribe((userData: any) => {
+        let a = list.valueChanges().subscribe((userData: any) => {
+            if (email !== localStorage.getItem("email")) {
+                a.unsubscribe();
+            }
             if (userData[0].email) {
                 this.setUserData(userData[0]);
             }
@@ -108,6 +128,7 @@ export class UserDataService {
                 raportate = JSON.stringify(this.userData.raportate);
                 this.eventService.resetRaportate.emit();
             }
+            return a;
         });
     }
 }

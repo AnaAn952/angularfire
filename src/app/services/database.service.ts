@@ -88,6 +88,7 @@ export class DatabaseService {
     }
 
     public adaugaLaSchimburiAcceptate(item: any) {
+        console.log(this.currentUser);
         let chosenBook = item;
         let myBook = this.elementSelectatDinPropuneri;
 

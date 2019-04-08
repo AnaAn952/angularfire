@@ -52,7 +52,6 @@ export class ItemComponent {
         let index = this.databaseService.tradeBooksForChosenBooks.indexOf(this.item.id);
 
         this.databaseService.tradeBooksForChosenBooks.splice(index, 1);
-        this.databaseService.tradeBooksForChosenBooks;
     }
 
     public acceptaAceastaCarte() {

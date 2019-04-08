@@ -51,7 +51,9 @@ export class LoginComponent implements OnInit {
                 $('#exampleModal').modal('hide');
                 window.localStorage.setItem('email', this.user.email);
                 this.router.navigate(['books']);
+                console.log(this.userData);
                 this.resetUserData(this.user.email);
+                this.eventService.resetInfo.emit();
                 // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));

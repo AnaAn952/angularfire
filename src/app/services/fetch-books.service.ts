@@ -15,4 +15,5 @@ export class EventsService {
     resetFinalizate = new EventEmitter<any> ();
     resetRaportate = new EventEmitter<any> ();
     resetAll = new EventEmitter<any> ();
+    resetInfo = new EventEmitter<any> ();
 }
