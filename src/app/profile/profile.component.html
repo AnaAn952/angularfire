@@ -57,13 +57,20 @@
         <div *ngIf="acceptate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of acceptate">
                 <ng-container *ngIf="items[0] && items[1]">
-                    <two-items-container [itemArray]="items"></two-items-container>
+                    <two-items-container [itemArray]="items" [category]="'acceptate'"></two-items-container>
                 </ng-container>
             </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
-        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi confirmate de mine</div>
+
+    <br>
+    <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
+        <option value="1" > Schimburi confirmate de mine </option>
+        <option value="2"> Schimburi finalizate </option>
+        <option value="3" >Schimburi raportate de mine</option>
+    </select>
+
+    <div *ngIf="_selectCategorie === 'selectConfirmate'" style="width: 100%; clear: left;">
         <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of confirmate_de_mine">
                 <ng-container *ngIf="items[0] && items[1]">
@@ -72,8 +79,7 @@
             </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
-        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi finalizate</div>
+    <div *ngIf="_selectCategorie === 'selectFinalizate'" style="width: 100%; clear: left;">
         <div *ngIf="finalizate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of finalizate">
                 <ng-container *ngIf="items[0] && items[1]">
@@ -82,8 +88,7 @@
             </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
-        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi raportate de mine</div>
+    <div *ngIf="_selectCategorie === 'selectRaportate'" style="width: 100%; clear: left;">
         <div *ngIf="raportate.length<5" style="margin-left: 34px">
             <ng-container *ngFor="let items of raportate">
                 <ng-container *ngIf="items[0] && items[1]">

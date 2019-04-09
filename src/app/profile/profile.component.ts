@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
     public finalizate: any[] = [];
     public fileToUpload: any = null;
     public profilePhotoToUpload: any = null;
+    public _selectCategorie: string = "selectConfirmate";
 
     constructor(
         public userDataService: UserDataService,
@@ -30,6 +31,10 @@ export class ProfileComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        $("select").on("change", () => {
+            console.log("here");
+            this.selectFinalizatee();
+        });
 
         this.getData();
         this.eventService.resetMyBooks.subscribe(() => {
@@ -252,6 +257,18 @@ export class ProfileComponent implements OnInit {
 
     public uploadProfilePhoto(event) {
         this.profilePhotoToUpload = event;
+    }
+
+    selectCategorie(value) {
+        if (value === "1") {
+            this._selectCategorie = "selectConfirmate";
+            return;
+        }
+        if (value == "2") {
+            this._selectCategorie = "selectedFinalizate";
+        } else {
+            this._selectCategorie = "selectedRaportate";
+        }
     }
 
     submitPhoto() {

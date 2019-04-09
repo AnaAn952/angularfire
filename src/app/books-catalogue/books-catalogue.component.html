@@ -1,4 +1,4 @@
-<div class="book-catalogue">
+<div class="book-catalogue" xmlns="http://www.w3.org/1999/html">
     <div *ngFor="let item of items">
         <catalogue-item [item]="item" [allowedActiune]="true" [category]="'catalog'"></catalogue-item>
     </div>
@@ -16,9 +16,11 @@
                     <div>
                     <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                     <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
-                    <span (click)="openAici()"> Aici </span>
+                    <span> <b>Autor: </b> Nume Autor </span> <br>
+                    <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
+                    <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
                     </div>
-                    <div class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
                 </div>
             </div>
         </div>

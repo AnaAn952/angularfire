@@ -94,6 +94,7 @@ export class UserDataService {
         let a = list.valueChanges().subscribe((userData: any) => {
             if (email !== localStorage.getItem("email")) {
                 a.unsubscribe();
+                return;
             }
             if (userData[0].email) {
                 this.setUserData(userData[0]);

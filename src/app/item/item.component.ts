@@ -83,7 +83,7 @@ export class ItemComponent {
     }
 
     public doAction() {
-        if (this.isNotMine() && this.allowedActiune) {
+        if (this.allowedActiune) {
             $('#modalDetalii').modal('show');
             this.databaseService.itemModalDetalii = this.item;
             this.databaseService.tradeBooksForChosenBooks = [];

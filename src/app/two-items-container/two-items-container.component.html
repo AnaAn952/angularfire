@@ -1,4 +1,4 @@
-<div class="items-container grow" (click)="acceptate()">
+<div class="items-container grow" (click)="category === 'acceptate' ? acceptate() : null">
     <img class="img-1" [src]="itemArray[0].poza">
     <img class="img-2" [src]="itemArray[1].poza">
 </div>
@@ -24,6 +24,7 @@
                             <option value="da"> Da </option>
                             <option value="nu"> Nu </option>
                         </select>
+                        {{select.value}}
                     </div>
                     <div *ngIf="select.value === 'da'" class="form-group">
                         <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> In ce stare se afla cartea? </label>

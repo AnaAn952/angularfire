@@ -61,10 +61,11 @@ export class BooksCatalogueComponent implements OnInit {
         this.dbRef.valueChanges().subscribe((items: any) => {
             this.myBooks = [];
             this.myBooks = items.filter((book) => {
-                return book.proprietarCurent == this.userDataService.userData.email;
+                return book.proprietarCurent == localStorage.getItem("email");
             });
+            console.log("myBooksAre", localStorage.getItem("email"), this.myBooks);
             this.myAvailableBooks = items.filter((book) => {
-                return book.proprietarCurent === this.userDataService.userData.email && book.status !== "indisponibil";
+                return book.proprietarCurent === localStorage.getItem("email") && book.status !== "indisponibil";
             });
         });
     }

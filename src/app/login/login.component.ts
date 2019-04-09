@@ -36,19 +36,11 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {}
 
-    googleSignIn() {
-        this.authService.googleSignIn()
-            .then(() => {
-                $('#exampleModal').modal('hide');
-                window.localStorage.setItem('email', this.user.email);
-                this.eventService.onLogin.emit(this.user.email);
-            });
-    }
-
     signInWithEmail() {
         this.authService.signInRegular(this.user.email, this.user.password)
             .then(() => {
                 $('#exampleModal').modal('hide');
+                console.log("setting item", this.user.email);
                 window.localStorage.setItem('email', this.user.email);
                 this.router.navigate(['books']);
                 console.log(this.userData);

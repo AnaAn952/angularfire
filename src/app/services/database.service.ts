@@ -195,6 +195,7 @@ export class DatabaseService {
         if (itemAcceptate.confirmat !== "true") {
             ref = this.db.list("/users/" + this.currentUser + "/confirmate_de_mine");
             ref.set(itemAcceptate.databaseKey, itemAcceptate);
+            console.log("setting here", itemAcceptate.utilizator);
             let reff = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/acceptate/" + itemAcceptate.databaseKey);
             reff.update({
                confirmat: "true"
@@ -307,6 +308,8 @@ export class DatabaseService {
 
     updateProfilePicture(downloadUrl: string) {
         let dbReference = this.db.object('/users/' + this.currentUser);
+
+        console.log("updating");
 
         dbReference.update({profilePicture: downloadUrl});
     }

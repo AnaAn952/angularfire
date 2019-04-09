@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-image">
             <div class="circle circle-0"></div>
-            <div *ngFor="let item of items" class="circle circle-0">
+            <div *ngFor="let item of items; let i = index;" [class]="'circle circle-' + i">
                 <img class="circle" [src]="item.profilePicture" style="margin-top: -186px;">
             </div>
         </div>

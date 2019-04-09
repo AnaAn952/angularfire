@@ -26,12 +26,6 @@ export class AuthService {
         );
     }
 
-    public googleSignIn() {
-        return this._fAuth.auth.signInWithPopup(
-            new firebase.auth.GoogleAuthProvider()
-        );
-    }
-
     public logout(): void {
         this._fAuth.auth.signOut();
     }
