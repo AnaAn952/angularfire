@@ -269,7 +269,7 @@ export class DatabaseService {
             });
     }
 
-    addNewBook(downloadUrl: string, title: string) {
+    addNewBook(downloadUrl: string, title: string, gen: string, limba: string) {
         let userRef = this.db.list('/users/' + this.currentUser + '/idurileCartilorMele');
         let booksRef = this.db.list('/cartile');
         let id = Math.floor(Math.random()*100000000000000000).toString();
@@ -277,6 +277,8 @@ export class DatabaseService {
             {
                 id: id,
                 titlu: title,
+                limba: limba,
+                gen: gen,
                 poza: downloadUrl,
                 status: "disponibila",
                 proprietarCurent: localStorage.getItem("email"),

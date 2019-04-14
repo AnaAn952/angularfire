@@ -2,9 +2,9 @@
     min-height: 305px;
     height: auto;
     width: 17.5%;
-    margin: 20px;
+    margin: 20px 20px 15px 20px;
     text-align: center;
-    padding: 15px;
+    padding: 10px 15px 0 15px;
     position: relative;
 }
 
@@ -74,7 +74,7 @@
     border: 1px solid #0c041c;
     width: 26px;
     height: 26px;
-    margin-top: -21px;
+    margin-top: 7px;
 }
 
 .square-background {
@@ -108,7 +108,7 @@
 .indisponibil-myBooks {
     position: absolute;
     border-radius: 12px;
-    margin-top: -206px;
+    margin-top: -155px;
     margin-left: 68px;
     padding-left: 5px;
     padding-right: 5px;
@@ -145,11 +145,11 @@
 }
 
 .edit {
-    margin-top: -230px;
+    margin-top: -180px;
 }
 
 .remove {
-    margin-top: -180px;
+    margin-top: -128px;
 }
 
 .edit:hover, .remove:hover {

@@ -1,6 +1,84 @@
 <div class="book-catalogue" xmlns="http://www.w3.org/1999/html">
-    <div *ngFor="let item of items">
-        <catalogue-item [item]="item" [allowedActiune]="true" [category]="'catalog'"></catalogue-item>
+    <div class="left-div">
+        <form id="filters">
+            <div class="form-check" style="margin-left: 0 !important;">
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck15"> Titlu </label>
+                <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck15" [value]="filters.title">
+            </div>
+            <div class="form-check" style="margin: 20px 0 0 0 !important;">
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck16"> Autor </label>
+                <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck16" [value]="filters.writer">
+            </div>
+            <span style="font-weight: bold; font-size: 16px"> Limba </span> <br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck1" value="romana" checked>
+                <label class="form-check-label" for="gridCheck1"> Romana </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck2" value="engleza" checked>
+                <label class="form-check-label" for="gridCheck2"> Engleza </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck3" value="altele" checked>
+                <label class="form-check-label" for="gridCheck3"> Altele </label>
+            </div>
+            <span style="font-weight: bold; font-size: 16px"> Gen </span> <br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck5" value="fictiune" checked>
+                <label class="form-check-label" for="gridCheck5"> Fictiune </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck6" value="istorie" checked>
+                <label class="form-check-label" for="gridCheck6"> Istorie </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck7" value="enciclopedii" checked>
+                <label class="form-check-label" for="gridCheck7"> Enciclopedii </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck9" value="memorii si biografii" checked>
+                <label class="form-check-label" for="gridCheck9"> Memorii si biografii </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck10" value="psihologie si dezvoltare personala" checked>
+                <label class="form-check-label" for="gridCheck10"> Psihologie si dezvoltare personala </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck11" value="culinare" checked>
+                <label class="form-check-label" for="gridCheck11"> Culinare </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck12" value="pentru copii" checked>
+                <label class="form-check-label" for="gridCheck12"> Pentru copii </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck13" value="altele" checked>
+                <label class="form-check-label" for="gridCheck13"> Altele </label>
+            </div>
+            <button id="submit_filters" type="submit" class="btn btn-primary my-1">Submit</button>
+        </form>
+    </div>
+    <div style="clear:right">
+        <div *ngFor="let item of showItemsOnThePage(items)">
+            <catalogue-item [item]="item" [allowedActiune]="true" [category]="'catalog'"></catalogue-item>
+        </div>
+    </div>
+    <div style="float: left">
+        <nav aria-label="Page navigation example"  class="paginator">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous" (click)="goLeft()">
+                        <span style="color: #0c041c;" aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li *ngFor="let i of pageNumbers" class="page-item" (click)="setPage(i)"><a class="page-link">{{i}}</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next" (click)="goRight()">
+                        <span style="color: #0c041c;" aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
@@ -18,6 +96,8 @@
                     <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
                     <span> <b>Autor: </b> Nume Autor </span> <br>
                     <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
+                    <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
+                    <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
                     <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
                     </div>
                     <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>

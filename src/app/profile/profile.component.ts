@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         $("select").on("change", () => {
             console.log("here");
-            this.selectFinalizatee();
+            // this.selectFinalizate();
         });
 
         this.getData();
@@ -170,8 +170,8 @@ export class ProfileComponent implements OnInit {
         $('#modalAdaugaCarte').modal('show');
     }
 
-    public submitBook(title) {
-        this.uploadBookPicture(this.fileToUpload, title);
+    public submitBook(title, gen, limba) {
+        this.uploadBookPicture(this.fileToUpload, title, gen, limba);
         $('#modalAdaugaCarte').modal('hide');
     }
 
@@ -229,13 +229,13 @@ export class ProfileComponent implements OnInit {
         this.fileToUpload = event;
     }
 
-    uploadBookPicture(event, title) {
+    uploadBookPicture(event, title, gen, limba) {
         const randomId = Math.random().toString(36).substring(2);
         let ref = this.storage.ref(randomId);
         let task = ref.put(event.target.files[0]).then((result) => {
             ref.getDownloadURL().subscribe((obj: any) => {
                let downloadUrl = obj;
-               this.databaseService.addNewBook(downloadUrl, title);
+               this.databaseService.addNewBook(downloadUrl, title, gen, limba);
             });
         })
     }
@@ -260,14 +260,15 @@ export class ProfileComponent implements OnInit {
     }
 
     selectCategorie(value) {
+        console.log(value);
         if (value === "1") {
             this._selectCategorie = "selectConfirmate";
             return;
         }
         if (value == "2") {
-            this._selectCategorie = "selectedFinalizate";
+            this._selectCategorie = "selectFinalizate";
         } else {
-            this._selectCategorie = "selectedRaportate";
+            this._selectCategorie = "selectRaportate";
         }
     }
 

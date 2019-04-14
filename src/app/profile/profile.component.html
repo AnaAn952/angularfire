@@ -33,7 +33,7 @@
         </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
+    <div *ngIf="chosenByMe.length" style="width: 100%; clear: left;">
         <div style="width: 100%" class="titlu_sectiune">Carti solicitate de mine</div>
         <carousel-one *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel-one>
         <div *ngIf="chosenByMe.length<5" style="margin-left: 34px">
@@ -42,7 +42,7 @@
             </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
+    <div *ngIf="solicitate.length" style="width: 100%; clear: left;">
         <div style="width: 100%" class="titlu_sectiune">Schimburi propuse</div>
         <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
         <div *ngIf="solicitate.length<5" style="margin-left: 34px">
@@ -51,7 +51,7 @@
             </ng-container>
         </div>
     </div>
-    <div style="width: 100%; clear: left;">
+    <div *ngIf="acceptate.length" style="width: 100%; clear: left;">
         <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurare</div>
         <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
         <div *ngIf="acceptate.length<5" style="margin-left: 34px">
@@ -64,11 +64,13 @@
     </div>
 
     <br>
-    <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
-        <option value="1" > Schimburi confirmate de mine </option>
-        <option value="2"> Schimburi finalizate </option>
-        <option value="3" >Schimburi raportate de mine</option>
-    </select>
+    <div style="clear: left; padding-top: 45px;">
+        <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
+            <option value="1" > Schimburi confirmate de mine </option>
+            <option value="2"> Schimburi finalizate </option>
+            <option value="3" >Schimburi raportate de mine</option>
+        </select>
+    </div>
 
     <div *ngIf="_selectCategorie === 'selectConfirmate'" style="width: 100%; clear: left;">
         <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
@@ -133,7 +135,7 @@
 <!--Modal pt carte-->
 <div class="modal fade" id="modalAdaugaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 129px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabelAdauga">
                     Adaugă o carte
@@ -142,7 +144,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="height: 300px !important;">
+            <div class="modal-body" style="height: 485px !important;">
                 <form>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Titlul cărții</label>
@@ -157,7 +159,28 @@
                         <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
                                (change)="uploadPoza($event)" style="display: none;">
                     </div>
-                    <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value)">Adaugă</button>
+                    <div class="form-group">
+                        <label for="exampleGen">Genul cărții</label> <br>
+                        <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
+                            <option value="fictiune"> Fictiune </option>
+                            <option value="istorie"> Istorie </option>
+                            <option value="enciclopedie"> Enciclopedie </option>
+                            <option value="memorii si biografii"> Memorii si biografii </option>
+                            <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
+                            <option value="culinare"> Culinare </option>
+                            <option value="pentru copii"> Pentru copii </option>
+                            <option value="altele"> Altele </option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label for="exampleLanguage">Limba</label> <br>
+                        <select #input4 id="exampleLanguage" style="padding: 7px 0;background: white; width: 100%;">
+                            <option value="engleza"> Engleza </option>
+                            <option value="romana"> Romana </option>
+                            <option value="altele"> Altele </option>
+                        </select>
+                    </div>
+                <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value)">Adaugă</button>
                 </form>
             </div>
         </div>

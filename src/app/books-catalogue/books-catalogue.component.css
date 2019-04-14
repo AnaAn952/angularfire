@@ -1,7 +1,7 @@
 .book-catalogue {
-    padding-top: 40px;
+    padding-top: 5px;
     padding-left: 110px;
-    padding-right: 120px;
+    padding-right: 65px;
 }
 
 /* width */
@@ -32,8 +32,59 @@
 .custom-div {
     border: 1px solid #e0d6d6;
     background: #e0d6d6;
-    margin-top: 190px;
+    margin-top: 132px;
     border-radius: 20px;
     text-align: center;
     cursor: pointer;
+}
+
+.paginator {
+    position: absolute;
+    right: 115px;
+    top: 813px;
+}
+
+.active .page-link{
+    background-color: #0c041c !important;
+    color: white;
+}
+
+.active:hover {
+    color: white;
+}
+
+.left-div {
+    background-color: white;
+    float:left;
+    width: 17.5%;
+    height: 630px;
+    margin: 30px 145px 20px -90px;
+    padding: 15px;
+}
+
+.form-check {
+    margin: 0 0 0 30px !important;
+}
+
+.form-check-input {
+    margin-top: 7px;
+}
+
+.form-check-label {
+    padding-left: 0;
+    font-size: 16px;
+}
+
+#submit_filters {
+    border: 1px solid #f1f1f1;
+    background: #f1f1f1;
+    margin-top: 65px !important;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    width: 100%;
+    font-size: 17px;
+    height: 28px;
+    padding: 0;
 }
