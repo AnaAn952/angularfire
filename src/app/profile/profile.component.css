@@ -98,3 +98,17 @@
     line-height: 1.5;
     color: #212529;
 }
+
+.item-img {
+    width: 280px;
+    height: 373px;
+}
+
+.custom-div {
+    border: 1px solid #e0d6d6;
+    background: #e0d6d6;
+    margin-top: 132px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+}

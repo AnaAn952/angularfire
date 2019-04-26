@@ -36,6 +36,7 @@ export class DatabaseService {
 
         let chosenByMeRef = this.db.list('/users/' + this.currentUser + '/chosenByMe');
         let solicitateRef = this.db.list('/users/' + bookOwnerUser + '/solicitate');
+        let carte = this.db.list('/cartile/' +  chosenBook.id + '/solicitanti');
 
         chosenByMeRef.set(chosenBook.id, {
             id : chosenBook.id,
@@ -51,6 +52,8 @@ export class DatabaseService {
             databaseKey: chosenBook.id + '__' + this.currentUser,
             actiune: 'asteptare',
         });
+
+        carte.set(this.convertToDatabaseFormat(localStorage.getItem("email")), localStorage.getItem('email'));
 
         $('#modal2').modal('hide');
         $('#modalDetalii').modal('hide');
@@ -322,8 +325,10 @@ export class DatabaseService {
         dbReference.update(values);
     }
 
-    public sendChatResponse(a: any) {
-        let dbReference = this.db.list('/chat/');
+    public sendChatResponse(currentUser: any, a: any) {
+        let users = [currentUser.email, localStorage.getItem("email")].sort();
+        let id = this.convertToDatabaseFormat(users.toString().replace(",", "_"));
+        let dbReference = this.db.list('/chat/' + id);
         dbReference.push(a);
     }
 

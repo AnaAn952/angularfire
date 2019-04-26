@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './services/userData.service';
 import { EventsService } from './services/fetch-books.service';
+import { GraphService } from './graph/graph.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
       public db: AngularFireDatabase,
       public userDataService: UserDataService,
       public eventsService: EventsService,
+      public graphService: GraphService
   ) {
     // check if there is already a logged in user -> there is already an email in the local storage
     let email = localStorage.getItem('email');

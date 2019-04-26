@@ -126,10 +126,6 @@ export class BooksCatalogueComponent implements OnInit {
         });
     }
 
-    public tradeBook() {
-        this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
-    }
-
     setPage(page: number) {
         this.page = page;
         $(".pagination > .active").removeClass("active");

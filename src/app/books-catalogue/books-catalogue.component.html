@@ -1,4 +1,5 @@
 <div class="book-catalogue" xmlns="http://www.w3.org/1999/html">
+<div>
     <div class="left-div">
         <form id="filters">
             <div class="form-check" style="margin-left: 0 !important;">
@@ -63,6 +64,7 @@
             <catalogue-item [item]="item" [allowedActiune]="true" [category]="'catalog'"></catalogue-item>
         </div>
     </div>
+</div>
     <div style="float: left">
         <nav aria-label="Page navigation example"  class="paginator">
             <ul class="pagination">
@@ -120,7 +122,7 @@
                 </button>
             </div>
             <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
-                <div class="inside" *ngIf="myBooks.length >= 1">
+                <div class="inside" *ngIf="myAvailableBooks.length >= 1">
                     <ng-container *ngFor="let item of myAvailableBooks">
                         <catalogue-item [useOthers] = "true" [squareSelector]="true" [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
                     </ng-container>

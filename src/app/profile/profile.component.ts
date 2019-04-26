@@ -19,9 +19,10 @@ export class ProfileComponent implements OnInit {
     public confirmate_de_mine: any[] = [];
     public raportate: any[] = [];
     public finalizate: any[] = [];
+    public recomandate: any[] = [];
     public fileToUpload: any = null;
     public profilePhotoToUpload: any = null;
-    public _selectCategorie: string = "selectConfirmate";
+    public _selectCategorie: string = "selectChosen";
 
     constructor(
         public userDataService: UserDataService,
@@ -31,12 +32,8 @@ export class ProfileComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        $("select").on("change", () => {
-            console.log("here");
-            // this.selectFinalizate();
-        });
-
         this.getData();
+        this.getRecomandate();
         this.eventService.resetMyBooks.subscribe(() => {
            this.getMyBooks();
         });
@@ -61,12 +58,9 @@ export class ProfileComponent implements OnInit {
         this.eventService.resetAll.subscribe(() => {
            this.getData();
         });
-        // setTimeout(() => {
-        //     console.log("ch", this.chosenByMe);
-        //     console.log("so", this.solicitate);
-        //     console.log("my", this.myBooks);
-        //     console.log("ac", this.finalizate);
-        // }, 4000);
+        this.eventService.resetRecomandate.subscribe(() => {
+            this.getRecomandate();
+        })
     }
 
     public getChosenByMe() {
@@ -95,6 +89,7 @@ export class ProfileComponent implements OnInit {
 
     public getMyBooks() {
         this.myBooks = [];
+
         this.databaseService.setBooksArray(this.userDataService.userData.idurileCartilorMele, this.myBooks, ['myBooks']);
     }
 
@@ -166,6 +161,16 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+    public getRecomandate() {
+        let recomandateIds = this.userDataService.recommendedBooksIds;
+        this.recomandate = [];
+
+        this.databaseService.setBooksArray(recomandateIds, this.recomandate, []);
+        setTimeout(() => {
+            console.log(recomandateIds, this.recomandate);
+        }, 3000);
+    }
+
     public addBookOpen() {
         $('#modalAdaugaCarte').modal('show');
     }
@@ -225,6 +230,10 @@ export class ProfileComponent implements OnInit {
         this.databaseService.changeInformation(great);
     }
 
+    public available(book: any) {
+        return book.status !== "indisponibil";
+    }
+
     public uploadPoza(event) {
         this.fileToUpload = event;
     }
@@ -265,6 +274,18 @@ export class ProfileComponent implements OnInit {
             this._selectCategorie = "selectConfirmate";
             return;
         }
+        if (value === "4") {
+            this._selectCategorie = "selectChosen";
+            return;
+        }
+        if (value === "5") {
+            this._selectCategorie = "selectSolicitate";
+            return;
+        }
+        if (value === "6") {
+            this._selectCategorie = "selectAcceptate";
+            return;
+        }
         if (value == "2") {
             this._selectCategorie = "selectFinalizate";
         } else {
@@ -288,5 +309,9 @@ export class ProfileComponent implements OnInit {
                 this.userDataService.userData.profilePicture = downloadUrl;
             });
         })
+    }
+
+    public tradeBook() {
+        this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
     }
 }

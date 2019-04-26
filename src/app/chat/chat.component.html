@@ -1,13 +1,53 @@
 <div class="chat">
-    <div id="chatdata" style="height: 600px; overflow-y: scroll">
-        <div *ngFor="let item of items">
-            <chat-item [item]="item"></chat-item>
+    <div class="left-div">
+        <div class="chat-header">
+            <div style="position: absolute;margin: 12px 15px 15px 20px;font-size: 24px;"> Chat </div>
+            <div style="float: left">
+                <form style="padding: 12px 0 0 100px;width: 500px !important;">
+                    <input #inputsearch2 id="input-search" #input2 class="form-control col-xs-6" style='display: inline !important; height: 35px;' type="text" placeholder="" aria-label="Search">
+                    <button type="submit" class="btn btn-primary" style="display: none;" (click)="searchUser(input2.value)"> </button>
+                </form>
+            </div>
+        </div>
+        <div class="users">
+            <div class="person-item" *ngFor="let elem of users" (click)="startChat(elem)">
+                <div class="person-item2">
+                    <img class="person-img" [src]="elem.profilePicture">
+                    <div class="person-text">
+                        Username: {{elem.username}} <br>
+                        Email: {{elem.email}} <br>
+                    </div>
+                </div>
+                <br>
+            </div>
         </div>
     </div>
-    <div class="add-comment">
-        <div class="form-group">
-            <input #input1 type="text" class="form-control specil-input" id="textHere" placeholder="Text">
+    <div class="right-div" *ngIf="currentUser.username">
+        <div class="chat-header">
+            <img class="person-img" [src]="currentUser.profilePicture">
+            <div class="person-text">
+                Username: {{currentUser.username}} <br>
+                Email: {{currentUser.email}} <br>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary pull-right special-button" (click)="trimiteRaspuns(input1.value)">Trimite</button>
+        <div class="messages">
+            <div id="chatdata" style="height: 530px; overflow-y: scroll">
+                <div *ngFor="let item of messages">
+                    <div [ngClass]="{'text-div': true, 'right': sameItem(item)}">
+                        {{item.text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-chat">
+            <form>
+                <div class="add-comment">
+                    <div class="form-group">
+                        <input #input5 type="text" class="form-control specil-input" id="textHere" placeholder="Text">
+                    </div>
+                    <button type="submit" style="display: none;" (click)="trimiteRaspuns(input5.value)">Trimite</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

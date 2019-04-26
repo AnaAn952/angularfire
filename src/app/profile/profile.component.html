@@ -28,223 +28,236 @@
         </div>
         <carousel *ngIf="myBooks.length>4" [items]="myBooks"></carousel>
         <div *ngIf="myBooks.length<5" style="margin-left: 34px">
-        <ng-container *ngFor="let item of myBooks">
-            <catalogue-item [profile]="true" [item]="item" [category]="'myBooks'"></catalogue-item>
-        </ng-container>
-        </div>
-    </div>
-    <div *ngIf="chosenByMe.length" style="width: 100%; clear: left;">
-        <div style="width: 100%" class="titlu_sectiune">Carti solicitate de mine</div>
-        <carousel-one *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel-one>
-        <div *ngIf="chosenByMe.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let item of chosenByMe">
-                <catalogue-item [profile]="true" [item]="item" [category]="'chosenByMe'"></catalogue-item>
-            </ng-container>
-        </div>
-    </div>
-    <div *ngIf="solicitate.length" style="width: 100%; clear: left;">
-        <div style="width: 100%" class="titlu_sectiune">Schimburi propuse</div>
-        <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
-        <div *ngIf="solicitate.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let item of solicitate">
-                <catalogue-item [profile]="true" [item]="item" [category]="'solicitate'"></catalogue-item>
-            </ng-container>
-        </div>
-    </div>
-    <div *ngIf="acceptate.length" style="width: 100%; clear: left;">
-        <div style="width: 100% !important;" class="titlu_sectiune">Schimburi in desfasurare</div>
-        <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
-        <div *ngIf="acceptate.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let items of acceptate">
-                <ng-container *ngIf="items[0] && items[1]">
-                    <two-items-container [itemArray]="items" [category]="'acceptate'"></two-items-container>
-                </ng-container>
+            <ng-container *ngFor="let item of myBooks">
+                <catalogue-item [profile]="true" [item]="item" [category]="'myBooks'"></catalogue-item>
             </ng-container>
         </div>
     </div>
 
     <br>
-    <div style="clear: left; padding-top: 45px;">
+    <div style="clear: left;">
         <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
+            <option value="4"> Carti solicitate de mine </option>
+            <option value="5"> Schimburi propuse </option>
+            <option value="6"> Schimburi in desfasurare </option>
             <option value="1" > Schimburi confirmate de mine </option>
             <option value="2"> Schimburi finalizate </option>
             <option value="3" >Schimburi raportate de mine</option>
         </select>
     </div>
 
-    <div *ngIf="_selectCategorie === 'selectConfirmate'" style="width: 100%; clear: left;">
-        <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let items of confirmate_de_mine">
-                <ng-container *ngIf="items[0] && items[1]">
-                    <two-items-container [itemArray]="items"></two-items-container>
+    <div style="margin-top: 10px">
+        <div *ngIf="_selectCategorie === 'selectChosen'" style="width: 100%; clear: both;">
+            <carousel-one *ngIf="chosenByMe.length>4" [items]="chosenByMe"></carousel-one>
+            <div *ngIf="chosenByMe.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let item of chosenByMe">
+                    <catalogue-item [profile]="true" [item]="item" [category]="'chosenByMe'"></catalogue-item>
                 </ng-container>
-            </ng-container>
-        </div>
-    </div>
-    <div *ngIf="_selectCategorie === 'selectFinalizate'" style="width: 100%; clear: left;">
-        <div *ngIf="finalizate.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let items of finalizate">
-                <ng-container *ngIf="items[0] && items[1]">
-                    <two-items-container [itemArray]="items"></two-items-container>
-                </ng-container>
-            </ng-container>
-        </div>
-    </div>
-    <div *ngIf="_selectCategorie === 'selectRaportate'" style="width: 100%; clear: left;">
-        <div *ngIf="raportate.length<5" style="margin-left: 34px">
-            <ng-container *ngFor="let items of raportate">
-                <ng-container *ngIf="items[0] && items[1]">
-                    <two-items-container [itemArray]="items"></two-items-container>
-                </ng-container>
-            </ng-container>
-        </div>
-    </div>
-</div>
-
-<!--Modal pt raspuns-->
-<div class="modal fade" id="modalChosenSolicitate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">
-                    {{databaseService.modalChosenSolicitate.title}}
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
-                <div *ngIf="databaseService.booksInModal.length >= 1">
-                    {{databaseService.modalChosenSolicitate.body}}
-                    <ng-container *ngFor="let item of databaseService.booksInModal">
-                        <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
+        </div>
+
+        <div *ngIf="_selectCategorie === 'selectSolicitate'" style="width: 100%; clear: left;">
+            <carousel-two *ngIf="solicitate.length>4" [items]="solicitate"></carousel-two>
+            <div *ngIf="solicitate.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let item of solicitate">
+                    <catalogue-item [profile]="true" [item]="item" [category]="'solicitate'"></catalogue-item>
+                </ng-container>
+            </div>
+        </div>
+
+        <div *ngIf="_selectCategorie === 'selectAcceptate'" style="width: 100%; clear: left;">
+            <carousel-custom *ngIf="acceptate.length>4" [items]="acceptate"></carousel-custom>
+            <div *ngIf="acceptate.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let items of acceptate">
+                    <ng-container *ngIf="items[0] && items[1]">
+                        <two-items-container [itemArray]="items" [category]="'acceptate'"></two-items-container>
                     </ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+        <div *ngIf="_selectCategorie === 'selectConfirmate'" style="width: 100%; clear: left;">
+            <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let items of confirmate_de_mine">
+                    <ng-container *ngIf="items[0] && items[1]">
+                        <two-items-container [itemArray]="items"></two-items-container>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="_selectCategorie === 'selectFinalizate'" style="width: 100%; clear: left;">
+            <div *ngIf="finalizate.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let items of finalizate">
+                    <ng-container *ngIf="items[0] && items[1]">
+                        <two-items-container [itemArray]="items"></two-items-container>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="_selectCategorie === 'selectRaportate'" style="width: 100%; clear: left;">
+            <div *ngIf="raportate.length<5" style="margin-left: 34px">
+                <ng-container *ngFor="let items of raportate">
+                    <ng-container *ngIf="items[0] && items[1]">
+                        <two-items-container [itemArray]="items"></two-items-container>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div style="width: 100%; clear: left; padding-top: 51px;">
+            <div> Recomandari </div>
+            <div style="margin-left: 34px">
+                <ng-container *ngFor="let item of recomandate">
+                    <catalogue-item [profile]="true" [allowedActiune]="true"[item]="item" [category]="'recomandate'"></catalogue-item>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal pt raspuns-->
+    <div class="modal fade" id="modalChosenSolicitate" tabindex="-1" role="dialog" aria-labelledby="modallabel1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">
+                        {{databaseService.modalChosenSolicitate.title}}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div *ngIf="databaseService.booksInModal.length == 0">
+                <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
+                    <div *ngIf="databaseService.booksInModal.length >= 1">
+                        {{databaseService.modalChosenSolicitate.body}}
+                        <ng-container *ngFor="let item of databaseService.booksInModal">
+                            <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="databaseService.booksInModal.length == 0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
+                    <div class="col-lg-7 col-md-7 col-xs-7"></div>
+                    <button type="button" class="btn btn-primary" (click)="databaseService.anuleazaRefuzaChosenSolicitate(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
-                <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button type="button" class="btn btn-primary" (click)="databaseService.anuleazaRefuzaChosenSolicitate(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
-            </div>
         </div>
     </div>
-</div>
 
-<!--Modal pt carte-->
-<div class="modal fade" id="modalAdaugaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 129px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabelAdauga">
-                    Adaugă o carte
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="height: 485px !important;">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Titlul cărții</label>
-                        <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Poza cărtii</label> <br>
-                        <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
-                            <input type="button" id="loadFileXml" value="Alegeți o poză" (click)="input2.click();" placeholder="Alegeți o poză"/>
-                            <span *ngIf="input2.value"> {{input2.value.split("\\").pop()}} </span>
+    <!--Modal pt carte-->
+    <div class="modal fade" id="modalAdaugaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 129px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabelAdauga">
+                        Adaugă o carte
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="height: 485px !important;">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Titlul cărții</label>
+                            <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
                         </div>
-                        <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
-                               (change)="uploadPoza($event)" style="display: none;">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleGen">Genul cărții</label> <br>
-                        <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="fictiune"> Fictiune </option>
-                            <option value="istorie"> Istorie </option>
-                            <option value="enciclopedie"> Enciclopedie </option>
-                            <option value="memorii si biografii"> Memorii si biografii </option>
-                            <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
-                            <option value="culinare"> Culinare </option>
-                            <option value="pentru copii"> Pentru copii </option>
-                            <option value="altele"> Altele </option>
-                        </select>
-                    </div>
-                     <div class="form-group">
-                        <label for="exampleLanguage">Limba</label> <br>
-                        <select #input4 id="exampleLanguage" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="engleza"> Engleza </option>
-                            <option value="romana"> Romana </option>
-                            <option value="altele"> Altele </option>
-                        </select>
-                    </div>
-                <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value)">Adaugă</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Poza-->
-<div class="modal fade" id="modalprofil" tabindex="-1" role="dialog" aria-labelledby="modalprofil" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
-            <div class="modal-body" style="height: 180px">
-                <form>
-                    <div class="form-group">
-                        <label for="pozaa">Alege fotografia</label> <br>
-                        <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
-                            <input type="button" id="pozaaa" value="Alegeti o poza" (click)="input3.click();" placeholder="Alegeti o poza"/>
-                            <span *ngIf="input3.value"> {{input3.value.split("\\").pop()}} </span>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Poza cărtii</label> <br>
+                            <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
+                                <input type="button" id="loadFileXml" value="Alegeți o poză" (click)="input2.click();" placeholder="Alegeți o poză"/>
+                                <span *ngIf="input2.value"> {{input2.value.split("\\").pop()}} </span>
+                            </div>
+                            <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
+                                   (change)="uploadPoza($event)" style="display: none;">
                         </div>
-                        <input #input3 type="file" class="form-control" id="pozaa" placeholder="Alegeti o poza"
-                               (change)="uploadProfilePhoto($event)" style="display: none;">
-                    </div>
-                    <button [disabled]="!input3.value" type="submit" class="btn btn-primary pull-right" (click)="submitPhoto()">Utilizeaza fotografia</button>
-                </form>
+                        <div class="form-group">
+                            <label for="exampleGen">Genul cărții</label> <br>
+                            <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
+                                <option value="fictiune"> Fictiune </option>
+                                <option value="istorie"> Istorie </option>
+                                <option value="enciclopedie"> Enciclopedie </option>
+                                <option value="memorii si biografii"> Memorii si biografii </option>
+                                <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
+                                <option value="culinare"> Culinare </option>
+                                <option value="pentru copii"> Pentru copii </option>
+                                <option value="altele"> Altele </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleLanguage">Limba</label> <br>
+                            <select #input4 id="exampleLanguage" style="padding: 7px 0;background: white; width: 100%;">
+                                <option value="engleza"> Engleza </option>
+                                <option value="romana"> Romana </option>
+                                <option value="altele"> Altele </option>
+                            </select>
+                        </div>
+                        <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value)">Adaugă</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--Modal pt informatii-->
-<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modallabelinfo" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 180px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modallabelinfo">
-                    Editeaza informatiile
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <!--Poza-->
+    <div class="modal fade" id="modalprofil" tabindex="-1" role="dialog" aria-labelledby="modalprofil" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
+                <div class="modal-body" style="height: 180px">
+                    <form>
+                        <div class="form-group">
+                            <label for="pozaa">Alege fotografia</label> <br>
+                            <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
+                                <input type="button" id="pozaaa" value="Alegeti o poza" (click)="input3.click();" placeholder="Alegeti o poza"/>
+                                <span *ngIf="input3.value"> {{input3.value.split("\\").pop()}} </span>
+                            </div>
+                            <input #input3 type="file" class="form-control" id="pozaa" placeholder="Alegeti o poza"
+                                   (change)="uploadProfilePhoto($event)" style="display: none;">
+                        </div>
+                        <button [disabled]="!input3.value" type="submit" class="btn btn-primary pull-right" (click)="submitPhoto()">Utilizeaza fotografia</button>
+                    </form>
+                </div>
             </div>
-            <div class="modal-body" style="height: 400px !important;padding: 10px !important;">
-                <form>
-                    <div class="form-group">
-                        <label for="numeutilizator" class="col-lg-3 fl-editeaza">Nume utilizator</label>
-                        <input #name type="text" class="form-control col-lg-8 fc-editeaza" id="numeutilizator" [value]="userDataService.userData.username" placeholder="Introduceți numele">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefon" class="col-lg-3 fl-editeaza">Telefon</label>
-                        <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
-                    </div>
-                    <div class="form-group">
-                        <label for="varsta" class="col-lg-3 fl-editeaza">Varsta</label>
-                        <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" placeholder="Introduceti varsta">
-                    </div>
-                    <div class="form-group">
-                        <label for="oras" class="col-lg-3 fl-editeaza">Oras</label>
-                        <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" placeholder="Introduceți orasul">
-                    </div>
-                    <div class="form-group">
-                        <label for="ocupatie" class="col-lg-3 fl-editeaza">Ocupatie</label>
-                        <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
-                    </div>
-                    <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value)">Modifica</button>
-                </form>
+        </div>
+    </div>
+
+    <!--Modal pt informatii-->
+    <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modallabelinfo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 180px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modallabelinfo">
+                        Editeaza informatiile
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="height: 400px !important;padding: 10px !important;">
+                    <form>
+                        <div class="form-group">
+                            <label for="numeutilizator" class="col-lg-3 fl-editeaza">Nume utilizator</label>
+                            <input #name type="text" class="form-control col-lg-8 fc-editeaza" id="numeutilizator" [value]="userDataService.userData.username" placeholder="Introduceți numele">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefon" class="col-lg-3 fl-editeaza">Telefon</label>
+                            <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
+                        </div>
+                        <div class="form-group">
+                            <label for="varsta" class="col-lg-3 fl-editeaza">Varsta</label>
+                            <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" placeholder="Introduceti varsta">
+                        </div>
+                        <div class="form-group">
+                            <label for="oras" class="col-lg-3 fl-editeaza">Oras</label>
+                            <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" placeholder="Introduceți orasul">
+                        </div>
+                        <div class="form-group">
+                            <label for="ocupatie" class="col-lg-3 fl-editeaza">Ocupatie</label>
+                            <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
+                        </div>
+                        <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value)">Modifica</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -303,6 +316,62 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 14.8rem; padding:9px;">Anulează</button>
                 <div class="col-xs-7"></div>
                 <button type="button" class="btn btn-primary" style="padding: .5rem .72rem" (click)="databaseService.removeMyBook()">Da</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal detalii carti-->
+<div class="modal fade" id="modalDetalii" tabindex="-1" role="dialog" aria-labelledby="modalDetalii" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 180px; height:400px;">
+            <div *ngIf="databaseService.itemModalDetalii" class="row" style="padding: 14px 20px;">
+                <div class="col-lg-5">
+                    <img class="item-img" src="{{databaseService.itemModalDetalii.poza}}"> <br>
+                </div>
+                <div class="col-lg-7">
+                    <div>
+                        <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
+                        <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
+                        <span> <b>Autor: </b> Nume Autor </span> <br>
+                        <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
+                        <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
+                        <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
+                    </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal pt o carte din pagina de carti-->
+<div class="modal" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modallabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">
+                    Alege cartile pe care ai dori sa le oferi la schimb
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll;height: 410px !important;">
+                <div class="inside" *ngIf="myBooks.filter(available).length >= 1">
+                    <ng-container *ngFor="let item of myBooks.filter(available)">
+                        <catalogue-item [useOthers] = "true" [squareSelector]="true" [item]="item" [alege_catalog]="true" [allowedActiune]="false"></catalogue-item>
+                    </ng-container>
+                </div>
+                <div *ngIf="myBooks.length == 0">
+                    Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <div class="col-lg-7 col-md-7 col-xs-7"></div>
+                <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">Trimite oferta </button>
             </div>
         </div>
     </div>

@@ -10,28 +10,77 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class ChatComponent {
 
-    @ViewChild("input1") input: any;
+    @ViewChild("input5") input: any;
 
     constructor(
         public userDataService: UserDataService,
         public databaseService: DatabaseService,
         public db: AngularFireDatabase,
     ) {
+        this.usersRef = this.db.list('/users/');
         let list = this.db.list('/chat/');
         let a = list.valueChanges().subscribe((data: any) => {
             this.items = data.reverse();
         });
+        this.searchUser("");
     }
 
+    public messages: any = [];
+    public usersRef: any;
     public items: any[] = [];
+    public users: any[] = [];
+    public currentUser: any = {};
+    public sub;
+
+    public sameItem(item): boolean {
+        return item.user === localStorage.getItem("email");
+    }
 
     public trimiteRaspuns(value: string) {
+        if (!value) {
+            return;
+        }
         this.input.nativeElement.value = "";
-        this.databaseService.sendChatResponse({
-             text: value,
-             profilePicture: this.userDataService.userData.profilePicture || this.userDataService.defaultProfilePicture,
-             user: this.userDataService.userData.email,
-             timestamp: new Date().toUTCString(),
+        this.databaseService.sendChatResponse(
+        this.currentUser,
+        {
+            text: value,
+            user: this.userDataService.userData.email,
+            timestamp: new Date().toUTCString(),
         });
+    }
+
+    public searchUser(value: string) {
+        this.users = [];
+        let sub = this.usersRef.valueChanges().subscribe((users) => {
+            for (let user of users) {
+                if (user.email.toLowerCase().indexOf(value.toLowerCase()) >= 0 || user.username.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                    this.users.push(user);
+                }
+            }
+            sub.unsubscribe();
+        });
+    }
+
+    public startChat(user: any) {
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        this.messages = [];
+        this.currentUser = user;
+        let users = [this.currentUser.email, localStorage.getItem("email")].sort();
+        let id = this.databaseService.convertToDatabaseFormat(users.toString().replace(",", "_"));
+        let dbReference = this.db.list('/chat/' + id);
+        this.sub = dbReference.valueChanges().subscribe((data) => {
+            this.messages = data;
+            setTimeout(() => {
+                this.scrollBottom();
+            });
+        });
+    }
+
+    public scrollBottom() {
+        let messages = document.getElementById("chatdata");
+        messages.scrollTop = messages.scrollHeight;
     }
 }

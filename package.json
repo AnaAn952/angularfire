@@ -32,6 +32,8 @@
     "popper.js": "^1.14.4",
     "rxjs": "~6.3.3",
     "slick-carousel": "^1.8.1",
+    "ug-ts": "0.0.6",
+    "zlib": "^1.0.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -56,5 +58,12 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.1"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "stream": false,
+    "zlib": false
   }
 }

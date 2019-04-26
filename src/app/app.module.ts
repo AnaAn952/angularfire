@@ -21,7 +21,6 @@ import { TwoItemsContainer } from './two-items-container/two-items-container.com
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { ChatComponent } from './chat/chat.component';
-import { ChatItemComponent } from './chat/chat-item/chat-item.component';
 import { EventItemComponent } from './organized-events/event-item/event-item.component';
 import { OrganizedEventsComponent } from './organized-events/organized-events.component';
 import { PersonItemComponent } from './person/person-item/person-item.component';
@@ -31,6 +30,7 @@ import { CarouselTwoComponent } from './carrousel/carousel-solicitate/carousel-2
 import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.component';
 import { AccessGuard } from './services/access-guard';
 import { BookTrackingComponent } from './book-tracking/book-tracking.component';
+import { GraphService } from './graph/graph.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { BookTrackingComponent } from './book-tracking/book-tracking.component';
     CarouselComponent,
     CarouselCustomComponent,
     ChatComponent,
-    ChatItemComponent,
     OrganizedEventsComponent,
     EventItemComponent,
     PersonItemComponent,
@@ -70,6 +69,7 @@ import { BookTrackingComponent } from './book-tracking/book-tracking.component';
     ProfileCanActivate,
     AngularFireStorage,
     AccessGuard,
+    GraphService,
   ],
   bootstrap: [AppComponent]
 })
