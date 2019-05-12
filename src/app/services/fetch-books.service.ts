@@ -17,4 +17,6 @@ export class EventsService {
     resetAll = new EventEmitter<any> ();
     resetRecomandate = new EventEmitter<any> ();
     resetInfo = new EventEmitter<any> ();
+    resetGraph = new EventEmitter<any> ();
+    searchChatUsers = new EventEmitter<any> ();
 }

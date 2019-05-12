@@ -50,12 +50,12 @@
 }
 
 .right-div {
-    background-color: white;
-    float:left;
-    width: 69%;
-    height: 700px;
-    margin: 30px 0 20px -90px;
-    padding: 15px;
+background-color: white;
+float:left;
+width: 69%;
+height: 700px;
+margin: 30px 0 20px -90px;
+padding: 15px;
 }
 
 .chat-header {

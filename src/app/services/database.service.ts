@@ -53,7 +53,10 @@ export class DatabaseService {
             actiune: 'asteptare',
         });
 
-        carte.set(this.convertToDatabaseFormat(localStorage.getItem("email")), localStorage.getItem('email'));
+        carte.set(this.convertToDatabaseFormat(localStorage.getItem("email")), localStorage.getItem('email'))
+            .then(() => {
+                this.eventService.resetGraph.emit();
+        });
 
         $('#modal2').modal('hide');
         $('#modalDetalii').modal('hide');
@@ -272,7 +275,7 @@ export class DatabaseService {
             });
     }
 
-    addNewBook(downloadUrl: string, title: string, gen: string, limba: string) {
+    addNewBook(downloadUrl: string, title: string, gen: string, limba: string, stare: string, autor: string) {
         let userRef = this.db.list('/users/' + this.currentUser + '/idurileCartilorMele');
         let booksRef = this.db.list('/cartile');
         let id = Math.floor(Math.random()*100000000000000000).toString();
@@ -283,6 +286,8 @@ export class DatabaseService {
                 limba: limba,
                 gen: gen,
                 poza: downloadUrl,
+                stareCarte: stare,
+                autor: autor,
                 status: "disponibila",
                 proprietarCurent: localStorage.getItem("email"),
                 istorie: [{
@@ -294,19 +299,26 @@ export class DatabaseService {
         userRef.push(id);
     }
 
-    editExistingBook(downloadUrl: string, title: string) {
+    editExistingBook(downloadUrl: string, title: string, gen: string, limba: string, stare: string, autor: string) {
         let booksRef = this.db.object('/cartile/' + this.convertToDatabaseFormat(this.editMyBook.id));
-        if (title === this.editMyBook.title) {
-            title = null;
+        if (!downloadUrl) {
+            booksRef.update({
+                titlu: title,
+                gen: gen,
+                limba: limba,
+                stareCarte: stare,
+                autor: autor,
+            });
         }
-        if (downloadUrl && !title) {
-            booksRef.update({poza: downloadUrl});
-        }
-        if (title && !downloadUrl) {
-            booksRef.update({titlu: title});
-        }
-        if (title && downloadUrl) {
-            booksRef.update({poza: downloadUrl, titlu: title});
+        if (downloadUrl) {
+            booksRef.update({
+                poza: downloadUrl,
+                titlu: title,
+                gen: gen,
+                limba: limba,
+                stareCarte: stare,
+                autor: autor,
+            });
         }
         this.eventService.resetAll.emit();
     }
@@ -330,6 +342,12 @@ export class DatabaseService {
         let id = this.convertToDatabaseFormat(users.toString().replace(",", "_"));
         let dbReference = this.db.list('/chat/' + id);
         dbReference.push(a);
+
+        let userReference = this.db.list('/users/' + this.currentUser + '/myChats');
+        userReference.set(this.convertToDatabaseFormat(currentUser.email), currentUser.email);
+
+        let otherReference = this.db.list('/users/' + this.convertToDatabaseFormat(currentUser.email) + '/myChats');
+        otherReference.set(this.convertToDatabaseFormat(this.currentUser), this.currentUser);
     }
 
     public setBooksArray(bookIds: string[], placeToPush: any, add: any, mergeWith: any = []) {

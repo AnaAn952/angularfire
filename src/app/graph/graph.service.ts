@@ -15,12 +15,19 @@ export class GraphService {
         public events: EventsService,
     ) {
         this.dbRef = db.list("/cartile");
+        this.graphs();
 
+        this.events.resetGraph.subscribe(() => {
+           this.graphs();
+        });
+    }
+
+    public graphs() {
         let subsciption = this.dbRef.valueChanges().subscribe((books => {
             this.graph = new ug.Graph();
 
             // creeaza noduri pentru genuri : id-ul = genul
-            for (let type of ["fictiune", "istorie", "enciclopedie", "memorii si biografii", "psihologie si dezvoltare personala", "culinare", "pentru copii"]) {
+            for (let type of ["fictiune", "istorie", "geografie", "stiinte", "enciclopedie", "memorii si biografii", "psihologie si dezvoltare personala", "culinare", "pentru copii"]) {
                 this.graph.createNode('type', {type: type});
             }
 
@@ -63,24 +70,30 @@ export class GraphService {
             console.log('solicitanti', this.graph.nodes('user').query().filter({email__ilike: ''}).units());
 
             let currentUser = this.graph.nodes('user').query().filter({email__ilike: localStorage.getItem("email")}).units()[0];
-            let paths = this.graph.closest(currentUser, {
-                compare: function(node) {
-                    return node.entity === 'book';
-                },
-                minDepth: 4,
-                maxDepth: 9,
-            });
 
-            for (let i = 0; i <= 3; i++) {
-                if (paths[i]) {
-                    let length = paths[i]._raw.length;
-                    this.userData.recommendedBooksIds.push(paths[i]._raw[length-1].properties.id);
+            if (currentUser) {
+                let paths = this.graph.closest(currentUser, {
+                    compare: function(node) {
+                        return node.entity === 'book';
+                    },
+                    minDepth: 4,
+                    maxDepth: 9,
+                });
+
+                this.userData.recommendedBooksIds = [];
+
+                for (let i = 0; i < paths.length; i++) {
+                    if (paths[i] && this.userData.recommendedBooksIds.length < 4) {
+                        let length = paths[i]._raw.length;
+                        if (this.userData.userData.idurileCartilorMele.indexOf(paths[i]._raw[length - 1].properties.id) < 0) {
+                            this.userData.recommendedBooksIds.push(paths[i]._raw[length - 1].properties.id);
+                        }
+                    }
                 }
-            }
 
-            this.events.resetRecomandate.emit();
+                this.events.resetRecomandate.emit();
+            }
             subsciption.unsubscribe();
-            console.log(this.userData.recommendedBooksIds);
         }));
     }
 }

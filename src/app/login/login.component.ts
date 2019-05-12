@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
                 console.log(this.userData);
                 this.resetUserData(this.user.email);
                 this.eventService.resetInfo.emit();
+                this.eventService.resetGraph.emit();
                 // this.eventService.onLogin.emit(this.user.email);
             })
             .catch((err) => console.log('error: ' + err));

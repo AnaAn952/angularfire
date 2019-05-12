@@ -10,18 +10,9 @@
                 <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck16"> Autor </label>
                 <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck16" [value]="filters.writer">
             </div>
-            <span style="font-weight: bold; font-size: 16px"> Limba </span> <br>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck1" value="romana" checked>
-                <label class="form-check-label" for="gridCheck1"> Romana </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck2" value="engleza" checked>
-                <label class="form-check-label" for="gridCheck2"> Engleza </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck3" value="altele" checked>
-                <label class="form-check-label" for="gridCheck3"> Altele </label>
+            <div class="form-check" style="margin: 20px 0 0 0 !important;">
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck1"> Limba </label>
+                <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck1" [value]="filters.language">
             </div>
             <span style="font-weight: bold; font-size: 16px"> Gen </span> <br>
             <div class="form-check">
@@ -31,6 +22,14 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck6" value="istorie" checked>
                 <label class="form-check-label" for="gridCheck6"> Istorie </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck14" value="geografie" checked>
+                <label class="form-check-label" for="gridCheck14"> Geografie </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck2" value="stiinte" checked>
+                <label class="form-check-label" for="gridCheck2"> Stiinte </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck7" value="enciclopedii" checked>
@@ -96,7 +95,7 @@
                     <div>
                     <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                     <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
-                    <span> <b>Autor: </b> Nume Autor </span> <br>
+                    <span> <b>Autor: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
                     <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
                     <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
                     <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>

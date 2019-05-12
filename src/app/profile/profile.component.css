@@ -87,7 +87,6 @@
 }
 
 .select-custom {
-    background: #f1f1f1;
     border: 1px solid;
     padding: 0 0;
     width: 326px;
@@ -96,7 +95,15 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    background: #0c041c;
+    color: white;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.select-custom:hover {
+    background: #f1f1f1;
+    color: #0c041c;
 }
 
 .item-img {

@@ -175,16 +175,16 @@ export class ProfileComponent implements OnInit {
         $('#modalAdaugaCarte').modal('show');
     }
 
-    public submitBook(title, gen, limba) {
-        this.uploadBookPicture(this.fileToUpload, title, gen, limba);
+    public submitBook(title, gen, limba, stare, autor) {
+        this.uploadBookPicture(this.fileToUpload, title, gen, limba, stare, autor);
         $('#modalAdaugaCarte').modal('hide');
     }
 
-    public editMyBook(title) {
+    public editMyBook(title, gen, limba, stare, autor) {
         if (this.fileToUpload) {
-            this.editBookPicture(this.fileToUpload, title);
+            this.editBookPicture(this.fileToUpload, title, gen, limba, stare, autor);
         } else {
-            this.databaseService.editExistingBook(null, title);
+            this.databaseService.editExistingBook(null, title, gen, limba, stare, autor);
         }
         $('#modalEditeazaCarte').modal('hide');
     }
@@ -238,24 +238,24 @@ export class ProfileComponent implements OnInit {
         this.fileToUpload = event;
     }
 
-    uploadBookPicture(event, title, gen, limba) {
+    uploadBookPicture(event, title, gen, limba, stare, autor) {
         const randomId = Math.random().toString(36).substring(2);
         let ref = this.storage.ref(randomId);
         let task = ref.put(event.target.files[0]).then((result) => {
             ref.getDownloadURL().subscribe((obj: any) => {
                let downloadUrl = obj;
-               this.databaseService.addNewBook(downloadUrl, title, gen, limba);
+               this.databaseService.addNewBook(downloadUrl, title, gen, limba, stare, autor);
             });
         })
     }
 
-    editBookPicture(event, title) {
+    editBookPicture(event, title, gen, limba, stare, autor) {
         const randomId = Math.random().toString(36).substring(2);
         let ref = this.storage.ref(randomId);
         let task = ref.put(event.target.files[0]).then((result) => {
             ref.getDownloadURL().subscribe((obj: any) => {
                 let downloadUrl = obj;
-                this.databaseService.editExistingBook(downloadUrl, title);
+                this.databaseService.editExistingBook(downloadUrl, title, gen, limba, stare, autor);
             });
         });
     }

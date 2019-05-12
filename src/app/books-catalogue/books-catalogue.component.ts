@@ -24,7 +24,7 @@ export class BooksCatalogueComponent implements OnInit {
     public filters = {
         title: '',
         writer: '',
-        languages: [],
+        language: '',
         category: [],
     };
 
@@ -50,7 +50,7 @@ export class BooksCatalogueComponent implements OnInit {
             this.filters.title = '';
             this.filters.writer = '';
             this.filters.category.length = 0;
-            this.filters.languages.length = 0;
+            this.filters.language = '';
             this.setFilters(e.target);
         });
     }
@@ -62,12 +62,10 @@ export class BooksCatalogueComponent implements OnInit {
         if (form[1].value) {
             this.filters.writer = form[1].value;
         }
-        for (let i=2; i<=4; i++) {
-            if (form[i].checked) {
-                this.filters.languages.push(form[i].value);
-            }
+        if (form[2].value) {
+            this.filters.language = form[2].value;
         }
-        for (let i=5; i<=13; i++) {
+        for (let i=3; i<=12; i++) {
             if (form[i].checked) {
                 this.filters.category.push(form[i].value);
             }
@@ -82,17 +80,21 @@ export class BooksCatalogueComponent implements OnInit {
             this.items = [];
             for (let item of items) {
                 if (this.filtersOk(item)) {
-                    console.log(item.titlu);
                     if(item.status == "disponibila") {
                         this.items.push(item);
                     }
                 }
             }
-            console.log(this.items);
             this.bookNumber = this.items.length;
             this.pageNumbers = [];
             for (let i=1; i<=Math.ceil(this.bookNumber/8); i++) {
                 this.pageNumbers.push(i);
+            }
+            if (this.pageNumbers.length) {
+                console.log(this.pageNumbers);
+                setTimeout(() => {
+                    this.setPage(1);
+                }, 500);
             }
         });
     }
@@ -101,13 +103,13 @@ export class BooksCatalogueComponent implements OnInit {
         if (this.filters.title && item.titlu.toLowerCase().indexOf(this.filters.title.toLowerCase()) < 0) {
             return false;
         }
-        if (this.filters.writer && item.autor.toLowerCase().indexOf(this.filters.title.toLowerCase()) < 0) {
+        if (this.filters.writer && item.autor.toLowerCase().indexOf(this.filters.writer.toLowerCase()) < 0) {
             return false;
         }
-        if (this.filters.languages.length && this.filters.languages.indexOf(item.limba) < 0 && this.filters.languages.indexOf("altele") < 0) {
+        if (this.filters.language && item.limba.toLowerCase().indexOf(this.filters.language.toLowerCase()) < 0) {
             return false;
         }
-        if (this.filters.category.length && this.filters.category.indexOf(item.gen) < 0 && this.filters.category.indexOf("altele") < 0) {
+        if (this.filters.category.length && this.filters.category.indexOf(item.gen) < 0) {
             return false;
         }
         return true;
@@ -119,7 +121,6 @@ export class BooksCatalogueComponent implements OnInit {
             this.myBooks = items.filter((book) => {
                 return book.proprietarCurent == localStorage.getItem("email");
             });
-            console.log("myBooksAre", localStorage.getItem("email"), this.myBooks);
             this.myAvailableBooks = items.filter((book) => {
                 return book.proprietarCurent === localStorage.getItem("email") && book.status !== "indisponibil";
             });
@@ -159,7 +160,6 @@ export class BooksCatalogueComponent implements OnInit {
     }
 
     public getItems() {
-        console.log("some", this.someItems);
         this.someItems = [];
         let ids = Object.values(this.databaseService.itemModalDetalii.istorie).map((item: any) => {
             return this.databaseService.convertToDatabaseFormat(item.proprietar);
@@ -167,7 +167,10 @@ export class BooksCatalogueComponent implements OnInit {
         let dates = Object.values(this.databaseService.itemModalDetalii.istorie).map((item: any) => {
             return {"date_owned": item.data};
         });
-        console.log(ids);
         this.databaseService.setPersonsArray(ids, this.someItems, dates);
+    }
+
+    public tradeBook() {
+        this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
     }
 }

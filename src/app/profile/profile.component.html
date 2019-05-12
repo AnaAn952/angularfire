@@ -34,7 +34,6 @@
         </div>
     </div>
 
-    <br>
     <div style="clear: left;">
         <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
             <option value="4"> Carti solicitate de mine </option>
@@ -103,13 +102,14 @@
                 </ng-container>
             </div>
         </div>
-        <div style="width: 100%; clear: left; padding-top: 51px;">
-            <div> Recomandari </div>
-            <div style="margin-left: 34px">
-                <ng-container *ngFor="let item of recomandate">
-                    <catalogue-item [profile]="true" [allowedActiune]="true"[item]="item" [category]="'recomandate'"></catalogue-item>
-                </ng-container>
-            </div>
+    </div>
+
+    <div style="width: 100%; clear: left;">
+        <div> Recomandari </div>
+        <div style="margin-left: 34px">
+            <ng-container *ngFor="let item of recomandate">
+                <catalogue-item [profile]="true" [allowedActiune]="true"[item]="item" [category]="'recomandate'"></catalogue-item>
+            </ng-container>
         </div>
     </div>
 
@@ -147,7 +147,7 @@
     <!--Modal pt carte-->
     <div class="modal fade" id="modalAdaugaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 129px;">
+            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabelAdauga">
                         Adaugă o carte
@@ -156,11 +156,15 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="height: 485px !important;">
+                <div class="modal-body" style="height: 689px !important;">
                     <form>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Titlul cărții</label>
                             <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleAutor">Autorul cărții</label>
+                            <input #input7 type="text" class="form-control" id="exampleAutor" placeholder="Introduceți autorul">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Poza cărtii</label> <br>
@@ -176,11 +180,13 @@
                             <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
                                 <option value="fictiune"> Fictiune </option>
                                 <option value="istorie"> Istorie </option>
-                                <option value="enciclopedie"> Enciclopedie </option>
+                                <option value="geogragie"> Geografie </option>
+                                <option value="stiinte"> Stiinte </option>
+                                <option value="enciclopedie"> Enciclopedii </option>
                                 <option value="memorii si biografii"> Memorii si biografii </option>
                                 <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
                                 <option value="culinare"> Culinare </option>
-                                <option value="pentru copii"> Pentru copii </option>
+                                <option value="pentru copii"> Carti pentru copii </option>
                                 <option value="altele"> Altele </option>
                             </select>
                         </div>
@@ -192,7 +198,16 @@
                                 <option value="altele"> Altele </option>
                             </select>
                         </div>
-                        <button [disabled]="!input1.value || !input2.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value)">Adaugă</button>
+                        <div class="form-group">
+                            <label for="exampleStare">Starea cartii</label> <br>
+                            <select #input8 id="exampleStare" style="padding: 7px 0;background: white; width: 100%;">
+                                <option value="foartebuna"> Foarte buna </option>
+                                <option value="buna"> Buna </option>
+                                <option value="uzata"> Uzata </option>
+                                <option value="foarteuzata"> Foarte uzata </option>
+                            </select>
+                        </div>
+                        <button [disabled]="!input1.value || !input2.value || !input7.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value, input8.value, input7.value)">Adaugă</button>
                     </form>
                 </div>
             </div>
@@ -214,6 +229,7 @@
                             <input #input3 type="file" class="form-control" id="pozaa" placeholder="Alegeti o poza"
                                    (change)="uploadProfilePhoto($event)" style="display: none;">
                         </div>
+
                         <button [disabled]="!input3.value" type="submit" class="btn btn-primary pull-right" (click)="submitPhoto()">Utilizeaza fotografia</button>
                     </form>
                 </div>
@@ -267,7 +283,7 @@
 <!--Modal pt editat cartea-->
 <div class="modal fade" id="modalEditeazaCarte" tabindex="-1" role="dialog" aria-labelledby="modallabelediteaza" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="examplemodallabelediteaza">
                     Editează cartea
@@ -276,11 +292,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="height: 300px !important;">
+            <div class="modal-body" style="height: 689px !important;">
                 <form>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Titlul cărții</label>
                         <input #inputEditeaza1 type="text" class="form-control" id="exampleInputEmail2" placeholder="Introduceți titlul" [value]="databaseService.editMyBook.titlu">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleAutore">Autorul cărții</label>
+                        <input #input70 type="text" class="form-control" id="exampleAutore" [value]="databaseService.editMyBook.autor" placeholder="Introduceți autorul">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Poza cărtii</label> <br>
@@ -292,7 +312,35 @@
                         <input #inputEditeaza2 type="file" class="form-control" id="exampleInputPassword2" placeholder="Alegeți o altă poză"
                                (change)="uploadPoza($event)" style="display: none;">
                     </div>
-                    <button [disabled]="!inputEditeaza1.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value)">Finalizează</button>
+                    <div class="form-group">
+                        <label for="exampleGene">Genul cărții</label> <br>
+                        <select #input50 id="exampleGene" [value]="databaseService.editMyBook.gen" style="padding: 7px 0;background: white; width: 100%;">
+                            <option value="fictiune"> Fictiune </option>
+                            <option value="istorie"> Istorie </option>
+                            <option value="geografie"> Geografie </option>
+                            <option value="stiinte"> Stiinte </option>
+                            <option value="enciclopedie"> Enciclopedie </option>
+                            <option value="memorii si biografii"> Memorii si biografii </option>
+                            <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
+                            <option value="culinare"> Culinare </option>
+                            <option value="pentru copii"> Pentru copii </option>
+                            <option value="altele"> Altele </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleLanguagee">Limba</label>
+                        <input #input40 type="text" class="form-control" id="exampleLanguagee" [value]="databaseService.editMyBook.limba" placeholder="Introduceți limba">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleStaree">Starea cartii</label> <br>
+                        <select #input80 id="exampleStaree" [value]="databaseService.editMyBook.stareCarte" style="padding: 7px 0;background: white; width: 100%;">
+                            <option value="foartebuna"> Foarte buna </option>
+                            <option value="buna"> Buna </option>
+                            <option value="uzata"> Uzata </option>
+                            <option value="foarteuzata"> Foarte uzata </option>
+                        </select>
+                    </div>
+                    <button [disabled]="!inputEditeaza1.value || !input70.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value, input50.value, input40.value, input80.value, input70.value)">Finalizează</button>
                 </form>
             </div>
         </div>
@@ -333,7 +381,7 @@
                     <div>
                         <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                         <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
-                        <span> <b>Autor: </b> Nume Autor </span> <br>
+                        <span> <b>Autor: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
                         <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
                         <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
                         <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>

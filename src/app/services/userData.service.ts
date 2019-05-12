@@ -23,6 +23,7 @@ export class UserDataService {
         raportate: {},
         acceptate: {},
         profilePicture: '',
+        myChats: [],
     };
     public recommendedBooksIds = [];
 
@@ -78,10 +79,11 @@ export class UserDataService {
         if (this.userData.raportate === undefined) {
             this.userData.raportate = {};
         }
+
+        this.eventService.searchChatUsers.emit();
     }
 
     public resetUserData(email: any) {
-        console.log("dataaaaa", email);
         if (!email) return;
         let idurileCartilorMele = JSON.stringify(this.userData.idurileCartilorMele);
         let chosenByMe = JSON.stringify(this.userData.chosenByMe);
@@ -99,7 +101,6 @@ export class UserDataService {
             if (userData[0].email) {
                 this.setUserData(userData[0]);
             }
-            console.log(this.userData);
             if (idurileCartilorMele !== JSON.stringify(this.userData.idurileCartilorMele)) {
                 console.log(idurileCartilorMele, JSON.stringify(this.userData.idurileCartilorMele));
                 idurileCartilorMele =  JSON.stringify(this.userData.idurileCartilorMele);

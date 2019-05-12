@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { EventsService } from '../services/fetch-books.service';
 
 @Component({
     selector: 'chat',
@@ -16,18 +17,20 @@ export class ChatComponent {
         public userDataService: UserDataService,
         public databaseService: DatabaseService,
         public db: AngularFireDatabase,
+        public events: EventsService,
     ) {
         this.usersRef = this.db.list('/users/');
-        let list = this.db.list('/chat/');
-        let a = list.valueChanges().subscribe((data: any) => {
-            this.items = data.reverse();
-        });
         this.searchUser("");
+        let event = this.events.searchChatUsers.subscribe(() => {
+            this.searchUser("");
+            if (this.users) {
+                event.unsubscribe();
+            }
+        });
     }
 
     public messages: any = [];
     public usersRef: any;
-    public items: any[] = [];
     public users: any[] = [];
     public currentUser: any = {};
     public sub;
@@ -52,14 +55,28 @@ export class ChatComponent {
 
     public searchUser(value: string) {
         this.users = [];
-        let sub = this.usersRef.valueChanges().subscribe((users) => {
-            for (let user of users) {
-                if (user.email.toLowerCase().indexOf(value.toLowerCase()) >= 0 || user.username.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                    this.users.push(user);
-                }
+        if (value === "") {
+            if (this.userDataService.userData.myChats === undefined || this.userDataService.userData.myChats.length === 0) {
+                return;
             }
-            sub.unsubscribe();
-        });
+            let sub = this.usersRef.valueChanges().subscribe((users) => {
+                for (let user of users) {
+                    if (Object.values(this.userDataService.userData.myChats).indexOf(user.email) >= 0) {
+                        this.users.push(user);
+                    }
+                }
+                sub.unsubscribe();
+            });
+        } else {
+            let sub = this.usersRef.valueChanges().subscribe((users) => {
+                for (let user of users) {
+                    if (user.email.toLowerCase().indexOf(value.toLowerCase()) >= 0 || user.username.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        this.users.push(user);
+                    }
+                }
+                sub.unsubscribe();
+            });
+        }
     }
 
     public startChat(user: any) {
