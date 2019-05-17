@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './userData.service';
-import { isFirebaseQuery } from '@angular/fire/database-deprecated/utils';
 import { EventsService } from './fetch-books.service';
 
 declare let $;
@@ -19,6 +18,7 @@ export class DatabaseService {
     public solicitate: any = [];
     public editMyBook: any = {};
     public stergeMyBook: any = {};
+    public editMyEvent: any = {};
 
     constructor(
         public db: AngularFireDatabase,
@@ -188,7 +188,6 @@ export class DatabaseService {
             console.log(data);
             let index = Object.values(data).indexOf(itemAcceptate.carteaPrimita);
             let dataOk = Object.values(data).slice();
-            console.log("set data", data);
             dataOk.splice(index, 1);
             if (data) {
                 a.unsubscribe();
@@ -323,6 +322,36 @@ export class DatabaseService {
         this.eventService.resetAll.emit();
     }
 
+    editEvent(poza: any, title: string, data: any, ora: any, invitat: any, oras: any, adresa: any, telefon: any, detalii: any) {
+        let eventsRef = this.db.object('/events/' + this.editMyEvent.databaseKey);
+        if (poza) {
+            eventsRef.update({
+                adresa: adresa,
+                nume: title,
+                data: data,
+                ora_inceput: ora[0],
+                ora_final: ora[1],
+                poza: poza,
+                detalii: detalii,
+                oras: oras,
+                invitat: invitat,
+                telefon: telefon
+            });
+        } else {
+            eventsRef.update({
+                adresa: adresa,
+                nume: title,
+                data: data,
+                ora_inceput: ora[0],
+                ora_final: ora[1],
+                detalii: detalii,
+                oras: oras,
+                invitat: invitat,
+                telefon: telefon
+            });
+        }
+    }
+
     updateProfilePicture(downloadUrl: string) {
         let dbReference = this.db.object('/users/' + this.currentUser);
 
@@ -431,6 +460,29 @@ export class DatabaseService {
     public participateAtEvent(name: string, values: any) {
         let event = this.db.object('/events/' + name);
         event.update({participanti: values});
+    }
+
+    addNewEvent(downloadUrl: string,  title: string, data: any, ora: any, invitat: string, oras: string, adresa: string, telefon: string, detalii: string) {
+        let eventsRef = this.db.list('/events/');
+        let id = Math.floor(Math.random()*100000000000000000).toString();
+        let participanti = {};
+        participanti[this.convertToDatabaseFormat(this.userData.userData.email)] = "anulat";
+        eventsRef.set(id,
+            {
+                adresa: adresa,
+                nume: title,
+                data: data,
+                ora_inceput: ora[0],
+                ora_final: ora[1],
+                poza: downloadUrl,
+                organizator: this.userData.userData.email,
+                detalii: detalii,
+                oras: oras,
+                invitat: invitat,
+                participanti: participanti,
+                telefon: telefon
+            }
+        );
     }
 
     convertToDatabaseFormat(value: string) {

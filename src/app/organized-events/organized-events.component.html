@@ -4,8 +4,141 @@
     <div #going class="custom-div" (click)="goingEvents()"> Evenimente la care particip </div>
 </div>
 
+<div *ngIf="userDataService.userData.moderator && selectedItems == myItems" class="adaugaEveniment" (click)="addEventOpen()"> Adauga eveniment </div>
+
 <div class="event">
     <div *ngFor="let item of selectedItems">
         <event-item [item]="item"></event-item>
+    </div>
+</div>
+
+<!--Modal pt carte-->
+<div class="modal fade" id="modalAdaugaEveniment" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelAdauga">
+                    Adaugă un eveniment
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 689px !important;overflow-y: scroll;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Titlul evenimentului</label>
+                        <input #inputev1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Poza de fundal</label> <br>
+                        <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
+                            <input #inputev3 type="button" id="loadFileXml" value="Alegeți o poză" (click)="inputev4.click();" placeholder="Alegeți o poză"/>
+                            <span *ngIf="inputev3.value"> {{inputev3.value.split("\\").pop()}} </span>
+                        </div>
+                        <input #inputev4 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
+                               (change)="uploadEventPhoto($event)" style="display: none;">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleData1">Data evenimentului</label>
+                        <input #inputev2 type="date" class="form-control" id="exampleData1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleOra2">Ora evenimentului</label>
+                        <input #inputev6 type="text" class="form-control" id="exampleOra2" placeholder="hh:mm-hh:mm">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSpecial">Nume invitat special</label>
+                        <input #inputev7 type="text" class="form-control" id="exampleSpecial" value="-">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleOras">Oras</label>
+                        <input #inputev8 type="text" class="form-control" id="exampleOras" placeholder="Intoduceti orasul">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleAdresa">Adresa</label>
+                        <input #inputev9 type="text" class="form-control" id="exampleAdresa" placeholder="Intoduceti adresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleContact">Telefon contact</label>
+                        <input #inputev11 type="text" class="form-control" id="exampleContact" placeholder="Intoduceti numarul de telefon">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleDetalii">Detalii</label>
+                        <textarea #inputev10 type="" class="form-control" id="exampleDetalii" placeholder="Intoduceti detaliile"></textarea>
+                    </div>
+                    <button [disabled]="!inputev1.value || !inputev2.value || !inputev3.value || !inputev6.value || !inputev8.value || !inputev9.value || !inputev11.value"
+                            type="submit" class="btn btn-primary pull-right"
+                            (click)="submitEvent(inputev1.value, inputev2.value, inputev6.value, inputev7.value, inputev8.value, inputev9.value, inputev11.value, inputev10.value)">
+                        Adaugă</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal pt editare eveniment-->
+<div class="modal fade" id="modalEditeazaEveniment" tabindex="-1" role="dialog" aria-labelledby="modallabeladauga1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelAdauga1">
+                    Editeaza evenimentul
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 689px !important;overflow-y: scroll;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1e">Titlul evenimentului</label>
+                        <input #inputev1e type="text" class="form-control" id="exampleInputEmail1e" [value]="databaseService.editMyEvent.nume">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1e">Poza de fundal</label> <br>
+                        <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
+                            <input #inputev3e type="button" id="loadFileXml1" value="Alegeți o poză" (click)="inputev4e.click();"/>
+                            <span *ngIf="inputev4e.value"> {{inputev4e.value.split("\\").pop()}} </span>
+                            <span *ngIf="!inputev4e.value"> Poza curentă </span>
+                        </div>
+                        <input #inputev4e type="file" class="form-control" id="exampleInputPassword1e"
+                               (change)="uploadEventPhoto($event)" style="display: none;">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleData1e">Data evenimentului</label>
+                        <input #inputev2e type="date" class="form-control" id="exampleData1e" [value]="convertToInputDate(databaseService.editMyEvent.data)">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleOra2e">Ora evenimentului</label>
+                        <input #inputev6e type="text" class="form-control" id="exampleOra2e" [value]="databaseService.editMyEvent.ora_inceput + '-' + databaseService.editMyEvent.ora_final">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSpeciale">Nume invitat special</label>
+                        <input #inputev7e type="text" class="form-control" id="exampleSpeciale" [value]="databaseService.editMyEvent.invitat">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleOrase">Oras</label>
+                        <input #inputev8e type="text" class="form-control" id="exampleOrase" [value]="databaseService.editMyEvent.oras">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleAdresae">Adresa</label>
+                        <input #inputev9e type="text" class="form-control" id="exampleAdresae" [value]="databaseService.editMyEvent.adresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleContacte">Telefon contact</label>
+                        <input #inputev11e type="text" class="form-control" id="exampleContacte" [value]="databaseService.editMyEvent.telefon">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleDetaliie">Detalii</label>
+                        <textarea #inputev10e type="" class="form-control" id="exampleDetaliie" placeholder="Intoduceti detaliile" [value]="databaseService.editMyEvent.detalii"></textarea>
+                    </div>
+                    <button [disabled]="!inputev1e.value || !inputev2e.value || !inputev3e.value || !inputev6e.value || !inputev8e.value || !inputev9e.value || !inputev11e.value"
+                            type="submit" class="btn btn-primary pull-right"
+                            (click)="editEvent(inputev1e.value, inputev2e.value, inputev6e.value, inputev7e.value, inputev8e.value, inputev9e.value, inputev11e.value, inputev10e.value)">
+                        Modifica</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

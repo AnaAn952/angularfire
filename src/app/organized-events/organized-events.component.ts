@@ -1,6 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseService } from '../services/database.service';
+import { UserDataService } from '../services/userData.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+
+declare let $: any;
 
 @Component({
     selector: 'organized-events-item',
@@ -17,10 +21,13 @@ export class OrganizedEventsComponent {
     public goingItems = [];
     public selectedItems = [];
     public firstTime = true;
+    public fileToUpload: any;
 
     constructor(
         public db: AngularFireDatabase,
         public databaseService: DatabaseService,
+        public userDataService: UserDataService,
+        public storage: AngularFireStorage,
     ) {
         let list = this.db.list('/events/');
         let a = list.valueChanges().subscribe((data: any) => {
@@ -30,8 +37,8 @@ export class OrganizedEventsComponent {
                 this.firstTime = false;
             }
 
-            this.myItems = [];
-            this.goingItems = [];
+            this.myItems.length = 0;
+            this.goingItems.length = 0;
 
             for (let item of this.items) {
                 if (item.organizator === this.databaseService.userData.userData.email) {
@@ -55,6 +62,7 @@ export class OrganizedEventsComponent {
     myEvents() {
         this.changeColor("my");
         this.selectedItems = this.myItems;
+        console.log("my");
     }
 
     goingEvents() {
@@ -80,4 +88,67 @@ export class OrganizedEventsComponent {
                 this.going.nativeElement.classList.add("selected");
         }
     }
+
+    public addEventOpen() {
+        $('#modalAdaugaEveniment').modal('show');
+    }
+
+    public uploadEventPhoto(event) {
+        this.fileToUpload = event;
+    }
+
+    public submitEvent(title, data, ora, invitat, oras, adresa, telefon, detalii) {
+        this.uploadEventPicture(this.fileToUpload, title, this.convertData(data), this.convertTime(ora), invitat, oras, adresa, telefon, detalii);
+        $('#modalAdaugaEveniment').modal('hide');
+    }
+
+    public editEvent(title, data, ora, invitat, oras, adresa, telefon, detalii) {
+        if (this.fileToUpload) {
+            this.editExistingEvent(this.fileToUpload, title, this.convertData(data), this.convertTime(ora), invitat, oras, adresa, telefon, detalii);
+        } else {
+            this.databaseService.editEvent(null, title, this.convertData(data), this.convertTime(ora), invitat, oras, adresa, telefon, detalii);
+        }
+        $('#modalEditeazaEveniment').modal('hide');
+    }
+
+    uploadEventPicture(event, title, data, ora, invitat, oras, adresa, telefon, detalii) {
+        const randomId = Math.random().toString(36).substring(2);
+        let ref = this.storage.ref(randomId);
+        let task = ref.put(event.target.files[0]).then((result) => {
+            ref.getDownloadURL().subscribe((obj: any) => {
+                let downloadUrl = obj;
+                this.databaseService.addNewEvent(downloadUrl, title, data, ora, invitat, oras, adresa, telefon, detalii);
+            });
+        })
+    }
+
+    editExistingEvent(event, title, data, ora, invitat, oras, adresa, telefon, detalii) {
+        const randomId = Math.random().toString(36).substring(2);
+        let ref = this.storage.ref(randomId);
+        let task = ref.put(event.target.files[0]).then((result) => {
+            ref.getDownloadURL().subscribe((obj: any) => {
+                let downloadUrl = obj;
+                this.databaseService.editEvent(downloadUrl, title, data, ora, invitat, oras, adresa, telefon, detalii);
+            });
+        })
+    }
+
+    public convertTime(time: string): any[] {
+        let cleanTime = time.split(" ").join("");
+        return cleanTime.split("-");
+    }
+
+    public convertData(date:string): any {
+        let [an, luna, zi] = date.split("-");
+        return zi + '.' + luna + '.' + an;
+     }
+
+     public convertToInputDate(date: string): any {
+        if (date) {
+            let [zi, luna, an] = date.split(".");
+            return an + '-' + luna + '-' + zi;
+        } else {
+            return '';
+        }
+     }
 }

@@ -2,8 +2,9 @@
     <div>
         <div class="text">
             <div class="nume"> {{item.nume}} </div>
-            <div class="data"> {{item.data}} </div>
-            <div class="oras"> {{item.oras}} </div>
+            <div class="invitat"> <span *ngIf="item.invitat != '-'"> Invitat special: {{item.invitat}} </span> </div>
+            <div class="data"> {{item.data}}, {{item.ora_inceput}}-{{item.ora_final}} </div>
+            <div class="oras"> {{item.oras}}, {{item.adresa}} </div>
         </div>
         <div class="other">
             <div class="custom-div grow" (click)="modalDetalii()"> Detalii despre eveniment </div>
@@ -13,6 +14,7 @@
         </div>
         <img class="img" [src]="item.poza">
     </div>
+    <div *ngIf="item.organizator === userDataService.userData.email" class="editevent" (click)="editeazaEveniment()"> Editeza </div>
 </div>
 
 <div class="modal fade" [id]="'modalParticipanti' + id" tabindex="-1" role="dialog" aria-labelledby="modallabelparticipanti" aria-hidden="true">
@@ -39,18 +41,14 @@
 <div class="modal fade" [id]="'modalDetalii' + id" tabindex="-1" role="dialog" aria-labelledby="modalLabelDetalii" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabelDetalii">
-                    Detalii despre eveniment
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="overflow-y: scroll;height: 300px !important;">
-                <b>Nume</b>: {{item.nume}} <br/>
-                <b>Dată</b>: {{item.data}} <br/>
-                <b>Oraş</b>: {{item.oras}} <br/>
+            <div class="modal-body" style="height: 350px !important; background: #f1f1f1;">
+                <div style="text-align: center; font-size: 30px; padding-bottom: 30px;"> {{item.nume}} </div>
+                <div class="detalii">
+                    {{item.detalii}} <br/> <br/>
+                    Evenimentul va avea loc in {{item.oras}}, {{item.adresa}} pe data de {{item.data}}
+                    intre orele {{item.ora_inceput}} si {{item.ora_final}} . Pentru alte detalii, ne puteti contacta la numarul
+                    de telefon {{item.telefon}}.
+                </div>
             </div>
         </div>
     </div>
