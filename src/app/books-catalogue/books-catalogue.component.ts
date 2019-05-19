@@ -17,7 +17,8 @@ export class BooksCatalogueComponent implements OnInit {
     public dbRef: any;
     public myBooks: any = [];
     public myAvailableBooks: any = [];
-    public someItems: any = [];
+    public
+    someItems: any = [];
     public bookNumber: number = 0;
     public page = 1;
     public pageNumbers = [];
@@ -168,6 +169,9 @@ export class BooksCatalogueComponent implements OnInit {
             return {"date_owned": item.data};
         });
         this.databaseService.setPersonsArray(ids, this.someItems, dates);
+        setTimeout(() => {
+            console.log(this.someItems);
+        }, 4000);
     }
 
     public tradeBook() {

@@ -1,5 +1,4 @@
 .bg-image {
-    background-image: url("../../assets/design.png");
     width: 1040px;
     margin-left: -280px;
     margin-top: 70px;
@@ -10,6 +9,7 @@
     border-radius: 50%;
     height: 125px;
     width: 125px;
+    cursor: pointer;
 }
 
 .circle-0 {
@@ -34,4 +34,106 @@
     position: absolute;
     margin-left: 183px !important;
     margin-top: 683px !important;
+}
+
+.circle-4 {
+    position: absolute;
+    margin-left: 451px !important;
+    margin-top: 772px !important;
+}
+
+.circle-5 {
+    position: absolute;
+    margin-left: 717px !important;
+    margin-top: 684px !important;
+}
+
+.circle-6 {
+    position: absolute;
+    margin-left: 824px !important;
+    margin-top: 462px !important;
+}
+
+.circle-7 {
+    position: absolute;
+    margin-left: 716px !important;
+    margin-top: 245px !important;
+}
+
+.image {
+    height: 215px;
+    position: absolute;
+    width: 181px;
+    margin-top: 274px;
+    margin-left: 422px;
+}
+
+.icon-1 {
+    transform: rotate(-54deg);
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-top: 102px;
+    margin-left: 316px;
+}
+
+.icon-2 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-left: 136px;
+    margin-top: 194px;
+    transform: rotate(-79deg);
+}
+
+.icon-3 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-left: 160px;
+    margin-top: 265px;
+    transform: rotate(229deg);
+}
+
+.icon-4 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-top: 161px;
+    margin-left: 388px;
+    transform: rotate(196deg);
+}
+
+.icon-5 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-top: -37px;
+    margin-left: 711px;
+    transform: rotate(140deg);
+}
+
+.icon-6 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-left: 890px;
+    margin-top: -210px;
+    transform: rotate(104deg);
+}
+
+.icon-7 {
+    font-size: 65px;
+    width: 0;
+    height: 0;
+    margin-top: -254px;
+    margin-left: 855px;
+    transform: rotate(50deg);
+}
+
+.up {
+    position: absolute;
+    font-size: 90px;
+    margin-left: 493px;
+    margin-top: 157px;
 }

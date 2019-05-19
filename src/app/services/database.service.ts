@@ -96,7 +96,6 @@ export class DatabaseService {
     }
 
     public adaugaLaSchimburiAcceptate(item: any) {
-        console.log(this.currentUser);
         let chosenBook = item;
         let myBook = this.elementSelectatDinPropuneri;
 
@@ -187,13 +186,11 @@ export class DatabaseService {
         //stergem idul cartii din lista celuilalt user
         let userReef = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/idurileCartilorMele");
         let a = userReef.valueChanges().subscribe(((data: any) => {
-            console.log(data);
             let index = Object.values(data).indexOf(itemAcceptate.carteaPrimita);
             let dataOk = Object.values(data).slice();
             dataOk.splice(index, 1);
             if (data) {
                 a.unsubscribe();
-                console.log("set the data", dataOk);
                 userReef.set(dataOk);
             }
         }));
@@ -202,7 +199,6 @@ export class DatabaseService {
         if (itemAcceptate.confirmat !== "true") {
             ref = this.db.list("/users/" + this.currentUser + "/confirmate_de_mine");
             ref.set(itemAcceptate.databaseKey, itemAcceptate);
-            console.log("setting here", itemAcceptate.utilizator);
             let reff = this.db.object("/users/" + this.convertToDatabaseFormat(itemAcceptate.utilizator) + "/acceptate/" + itemAcceptate.databaseKey);
             reff.update({
                confirmat: "true"
@@ -356,9 +352,6 @@ export class DatabaseService {
 
     updateProfilePicture(downloadUrl: string) {
         let dbReference = this.db.object('/users/' + this.currentUser);
-
-        console.log("updating");
-
         dbReference.update({profilePicture: downloadUrl});
     }
 
@@ -455,9 +448,7 @@ export class DatabaseService {
 
                 placeToPush.push(object);
 
-                console.log(placeToPush);
                 if(details) {
-                    console.log(details);
                     a.unsubscribe();
                 }
             });
@@ -575,9 +566,7 @@ export class DatabaseService {
             //stergem idul cartii din lista celuilalt user
             let userReef = this.db.object("/users/" + this.convertToDatabaseFormat(index1) + "/idurileCartilorMele");
             let a = userReef.valueChanges().subscribe(((data: any) => {
-                console.log("This is", index1);
                 let dataOk = Object.values(data).filter(elem => {
-                    console.log(elem, this.removePdfBooksObject[index1].indexOf(elem) < 0);
                     return this.removePdfBooksObject[index1].indexOf(elem) < 0;
                 });
                 if (data) {

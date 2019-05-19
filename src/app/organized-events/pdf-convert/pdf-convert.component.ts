@@ -87,11 +87,11 @@ export class PdfConvertComponent {
 
     public adauga() {
         this.databaseService.removePdfBooksObject = {};
-        console.log("aici am sters", this.databaseService.removePdfBooksObject);
         this.getText(this.src).then((value) => {
             this.updateazaInformatii(value);
         });
         $("#modalPdf").modal('hide');
+        $("#inputPdf").val("");
     }
 
 }

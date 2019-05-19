@@ -1,9 +1,37 @@
-<div class="modal fade" id="tracking" tabindex="-1" role="dialog" aria-labelledby="modallabel4" aria-hidden="true">
+<div class="modal fade" id="tracking" tabindex="-1" role="dialog" aria-labelledby="modallabel4" aria-hidden="true" style="overflow-y: hidden !important;">
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-image">
             <div class="circle circle-0"></div>
-            <div *ngFor="let item of items; let i = index;" [class]="'circle circle-' + i">
+            <div *ngFor="let item of items; let i = index;" [class]="'circle circle-' + i" (click)="openDetails(item)">
                 <img class="circle" [src]="item.profilePicture" style="margin-top: -186px;">
+            </div>
+            <img *ngIf="databaseService.itemModalDetalii" class="image" [src]="databaseService.itemModalDetalii.poza">
+            <i class="fa fa-long-arrow-up up"></i>
+            <i *ngIf="items.length > 1" [class]="'fa fa-reply icon-1'"></i>
+            <i *ngIf="items.length > 2" [class]="'fa fa-reply icon-2'"></i>
+            <i *ngIf="items.length > 3" [class]="'fa fa-reply icon-3'"></i>
+            <i *ngIf="items.length > 4" [class]="'fa fa-reply icon-4'"></i>
+            <i *ngIf="items.length > 5" [class]="'fa fa-reply icon-5'"></i>
+            <i *ngIf="items.length > 6" [class]="'fa fa-reply icon-6'"></i>
+            <i *ngIf="items.length > 7" [class]="'fa fa-reply icon-7'"></i>
+        </div>
+    </div>
+</div>
+
+<!--Modal pt detalii-->
+<div class="modal" id="modalTracking" tabindex="-1" role="dialog" aria-labelledby="modallabel12" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 562px;margin-left: -58px;margin-top: 336px;">
+            <div class="modal-body" style="height: 250px !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <b> Data la care a intrat in posesia cartii: </b> {{currentItem.date_owned}} <br/> <br/>
+                <b> Nume: </b> {{currentItem.username}} <br/>
+                <b>  Email: </b> {{currentItem.email}} <br/>
+                <b> Oras: </b> {{currentItem.oras || '-'}} <br/>
+                <b> Varsta: </b> {{currentItem.varsta || '-'}} <br/>
+                <b> Ocupatie: </b> {{currentItem.ocupatie || '-'}}
             </div>
         </div>
     </div>

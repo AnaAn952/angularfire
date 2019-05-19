@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventsService } from '../services/fetch-books.service';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
+
+declare let $: any;
 
 @Component({
     selector: 'app-book-tracking',
@@ -11,15 +10,23 @@ import { DatabaseService } from '../services/database.service';
 })
 export class BookTrackingComponent implements OnInit {
 
+    currentItem: any = {};
+
     @Input('items') items: any = [];
 
     constructor(
         public databaseService: DatabaseService,
     ) {
-        setTimeout(() => {
-            console.log(this.items);
-        }, 5000);
+        $("#modalTracking").on("hide.bs.modal", () => {
+           console.log("hidden");
+        });
     }
 
     ngOnInit() {}
+
+    openDetails(item) {
+        this.currentItem = item;
+        $("#modalTracking").modal("show");
+        console.log(this.currentItem);
+    }
 }
