@@ -20,8 +20,22 @@
 }
 
 .adaugaEveniment {
-    clear: both;
-    margin-left: 1570px !important;
+    float: right;
+    margin-right: 139px !important;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 20px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: -9px;
+    font-size: 20px;
+    border: 1px solid #000000;
+}
+
+.adaugaPdf {
+    float: left;
+    margin-left: 1354px !important;
     background-color: #ffffff;
     color: #000000;
     border-radius: 20px;
@@ -34,7 +48,8 @@
 }
 
 .event {
-    clear: left;
+    clear: both;
+    padding-top: 1px;
 }
 
 .buttons {

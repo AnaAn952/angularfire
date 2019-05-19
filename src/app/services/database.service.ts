@@ -19,6 +19,8 @@ export class DatabaseService {
     public editMyBook: any = {};
     public stergeMyBook: any = {};
     public editMyEvent: any = {};
+    public removePdfBooksNumber: any = 0;
+    public removePdfBooksObject: any = {};
 
     constructor(
         public db: AngularFireDatabase,
@@ -384,28 +386,38 @@ export class DatabaseService {
 
         for(let i in bookIds) {
             let a = this.getBookDetails(bookIds[i]).subscribe((details: any) => {
+                if (bookIds[i] === "bookevent") {
+                    let object = {
+                        id: "bookevent",
+                        poza: "https://firebasestorage.googleapis.com/v0/b/book-website-sharing.appspot.com/o/Help_book_support_question_mark.png?alt=media&token=ac01d0ea-81fa-4843-881c-9806d53db82a"
+                    };
 
-                let object = details;
-                object.id = bookIds[i];
-                if (add[0] !== "myBooks") {
-                    for (let item of add) {
-                        object[item] = true;
-                    }
-                }
-
-                if (mergeWith.length) {
-                    object = Object.assign(object, mergeWith[i]);
-                }
-
-                if (object.status !== "sters") {
                     placeToPush.push(object);
-                }
+                    a.unsubscribe();
+                } else {
 
-                if (add[0] === "myBooks") {
-                    placeToPush.sort(this.sortAvailable);
-                }
+                    let object = details;
+                    object.id = bookIds[i];
+                    if (add[0] !== "myBooks") {
+                        for (let item of add) {
+                            object[item] = true;
+                        }
+                    }
 
-                if(details) a.unsubscribe();
+                    if (mergeWith.length) {
+                        object = Object.assign(object, mergeWith[i]);
+                    }
+
+                    if (object.status !== "sters") {
+                        placeToPush.push(object);
+                    }
+
+                    if (add[0] === "myBooks") {
+                        placeToPush.sort(this.sortAvailable);
+                    }
+
+                    if (details) a.unsubscribe();
+                }
             });
         }
     }
@@ -485,12 +497,99 @@ export class DatabaseService {
         );
     }
 
-    convertToDatabaseFormat(value: string) {
-        return value.split(".").join("!");
+    handlePdfBook(book: any, user: any) {
+
+        let currentUser = this.convertToDatabaseFormat(user);
+        let chosenBook = book;
+        let otherUser = chosenBook.proprietarCurent;
+
+        let dbReference = this.db.list('/users/' + currentUser + '/finalizate');
+        dbReference.set(chosenBook.id + '__' + "bookevent",
+            {
+                carteaMea: "bookevent",
+                carteaPrimita: chosenBook.id,
+                databaseKey: chosenBook.id + '__' + "bookevent",
+                utilizator: chosenBook.proprietarCurent,
+            }
+        );
+
+        let bookOwnerRef = this.db.list('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/finalizate');
+        bookOwnerRef.set(chosenBook.id + '__' + "bookevent",
+            {
+                carteaMea: chosenBook.id,
+                carteaPrimita: "bookevent",
+                databaseKey: chosenBook.id + '__' + "bookevent",
+                utilizator: user,
+            }
+        );
+
+        // sterge din lista cererilor mele daca exista
+        let ref = '/users/' + currentUser + '/chosenByMe';
+        let id = this.convertToDatabaseFormat(chosenBook.id);
+        this.databaseRemove(ref, id);
+
+        // sterg din lista de solicitate a celuilat cartea
+        let refOtherList = this.db.list('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/solicitate');
+        let aa = refOtherList.valueChanges().subscribe((data: any) => {
+            let solicitate = data;
+            if (solicitate.length) {
+                for (let item of solicitate) {
+                    if (item.databaseKey.indexOf(chosenBook.id) >= 0) {
+                        this.databaseRemove('/users/' + this.convertToDatabaseFormat(chosenBook.proprietarCurent) + '/solicitate', item.databaseKey);
+                    }
+                }
+            }
+            aa.unsubscribe();
+        });
+
+        //aici o sa facem un nou posesor al cartii
+        let ref2: any = this.db.object("/cartile/" + chosenBook.id);
+
+        ref2.update({
+            proprietarCurent: user,
+            status: "disponibila",
+        });
+        let historyRef = this.db.list("/cartile/" + id + "/istorie");
+        historyRef.push({
+            data: new Date().toLocaleDateString(),
+            proprietar: user
+        });
+
+        //adaugam idul cartii in lista userului
+        let userRef = this.db.list("/users/" + currentUser + "/idurileCartilorMele");
+        userRef.push(chosenBook.id).then(() => {
+            this.removePdfBooksNumber--;
+            if (this.removePdfBooksNumber === 0) {
+                this.removePdfBooks();
+            }
+        });
+
+        // adaugam la solicitanti
+        let carte = this.db.list('/cartile/' +  chosenBook.id + '/solicitanti');
+        carte.set(currentUser, user);
     }
 
-    convertFromDatabaseFormat(value: string) {
-        return value.split("!").join(".");
+    public removePdfBooks() {
+        for (let index1 in this.removePdfBooksObject) {
+
+            //stergem idul cartii din lista celuilalt user
+            let userReef = this.db.object("/users/" + this.convertToDatabaseFormat(index1) + "/idurileCartilorMele");
+            let a = userReef.valueChanges().subscribe(((data: any) => {
+                console.log("This is", index1);
+                let dataOk = Object.values(data).filter(elem => {
+                    console.log(elem, this.removePdfBooksObject[index1].indexOf(elem) < 0);
+                    return this.removePdfBooksObject[index1].indexOf(elem) < 0;
+                });
+                if (data) {
+                    userReef.set(dataOk);
+                    a.unsubscribe();
+                }
+            }));
+        }
+    }
+
+    convertToDatabaseFormat(value: string) {
+        return value.split(".").join("!");
     }
 
     public databaseRemove(ref, id) {

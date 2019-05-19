@@ -29,6 +29,7 @@ const routes: Routes = [
     canActivate: [ProfileCanActivate],
     component: ProfileComponent,
   },
+
   {
     path: 'events',
     component: OrganizedEventsComponent,
@@ -43,8 +44,10 @@ const routes: Routes = [
   },
 ];
 
+
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true, onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

@@ -85,7 +85,7 @@ export class GraphService {
                 for (let i = 0; i < paths.length; i++) {
                     if (paths[i] && this.userData.recommendedBooksIds.length < 4) {
                         let length = paths[i]._raw.length;
-                        if (this.userData.userData.idurileCartilorMele.indexOf(paths[i]._raw[length - 1].properties.id) < 0) {
+                        if (Object.values(this.userData.userData.idurileCartilorMele).indexOf(paths[i]._raw[length - 1].properties.id) < 0) {
                             this.userData.recommendedBooksIds.push(paths[i]._raw[length - 1].properties.id);
                         }
                     }

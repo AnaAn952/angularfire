@@ -93,6 +93,12 @@ export class OrganizedEventsComponent {
         $('#modalAdaugaEveniment').modal('show');
     }
 
+    public addPdf() {
+        if (this.databaseService.removePdfBooksNumber === 0) {
+            $('#modalPdf').modal('show');
+        }
+    }
+
     public uploadEventPhoto(event) {
         this.fileToUpload = event;
     }

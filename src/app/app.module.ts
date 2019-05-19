@@ -31,6 +31,7 @@ import { CarouselComponent } from './carrousel/carousel-myBooks/carousel.compone
 import { AccessGuard } from './services/access-guard';
 import { BookTrackingComponent } from './book-tracking/book-tracking.component';
 import { GraphService } from './graph/graph.service';
+import { PdfConvertComponent } from './organized-events/pdf-convert/pdf-convert.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { GraphService } from './graph/graph.service';
     CarouselOneComponent,
     CarouselTwoComponent,
     BookTrackingComponent,
+    PdfConvertComponent,
   ],
   imports: [
     BrowserModule,
