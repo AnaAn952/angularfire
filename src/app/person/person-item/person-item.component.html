@@ -1,7 +1,8 @@
 <div class="person-item">
     <img class="person-img" [src]="item.profilePicture">
     <div class="person-text">
-        Username: {{item.username}} <br>
+        Username: {{item.username}}
+        <span *ngIf="item.moderator" style="border: 1px solid; padding: 2px 0 1px 3px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
         Email: {{item.email}} <br>
         Oras: {{item.oras || "-"}}
     </div>

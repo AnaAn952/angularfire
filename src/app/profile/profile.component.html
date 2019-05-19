@@ -76,6 +76,7 @@
         </div>
 
         <div *ngIf="_selectCategorie === 'selectConfirmate'" style="width: 100%; clear: left;">
+            <carousel-confirmate *ngIf="confirmate_de_mine.length>4" [items]="confirmate_de_mine"></carousel-confirmate>
             <div *ngIf="confirmate_de_mine.length<5" style="margin-left: 34px">
                 <ng-container *ngFor="let items of confirmate_de_mine">
                     <ng-container *ngIf="items[0] && items[1]">
@@ -85,6 +86,7 @@
             </div>
         </div>
         <div *ngIf="_selectCategorie === 'selectFinalizate'" style="width: 100%; clear: left;">
+            <carousel-finalizate *ngIf="finalizate.length>4" [items]="finalizate"></carousel-finalizate>
             <div *ngIf="finalizate.length<5" style="margin-left: 34px">
                 <ng-container *ngFor="let items of finalizate">
                     <ng-container *ngIf="items[0] && items[1]">
@@ -94,6 +96,7 @@
             </div>
         </div>
         <div *ngIf="_selectCategorie === 'selectRaportate'" style="width: 100%; clear: left;">
+            <carousel-raportate *ngIf="raportate.length>4" [items]="raportate"></carousel-raportate>
             <div *ngIf="raportate.length<5" style="margin-left: 34px">
                 <ng-container *ngFor="let items of raportate">
                     <ng-container *ngIf="items[0] && items[1]">

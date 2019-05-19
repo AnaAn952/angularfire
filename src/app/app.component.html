@@ -20,7 +20,9 @@
      <a class="m-item" *ngIf="authService.userDetails && userDataService.userData.username" href="/#/chat"> Chat </a>
    </div>
   </div>
-  <div class="name-span"> {{userDataService.userData.username}} </div>
+  <div class="name-span"> {{userDataService.userData.username}}
+    <span *ngIf="userDataService.userData.moderator" style="border: 1px solid; padding: 2px 2px 1px 2px; margin-left: 6px; border-radius: 36%;"> M </span>
+  </div>
   <div class="login-div">
     <app-login></app-login>
   </div>

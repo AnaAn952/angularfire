@@ -32,6 +32,9 @@ import { AccessGuard } from './services/access-guard';
 import { BookTrackingComponent } from './book-tracking/book-tracking.component';
 import { GraphService } from './graph/graph.service';
 import { PdfConvertComponent } from './organized-events/pdf-convert/pdf-convert.component';
+import { CarouselFinalizateComponent } from './carrousel/carousel-finalizate/carousel-finalizate.component';
+import { CarouselConfirmateComponent } from './carrousel/carousel-confirmate/carousel-confirmate.component';
+import { CarouselRaportateComponent } from './carrousel/carousel-raportate/carousel-raportate.component';
 
 @NgModule({
   declarations: [
@@ -42,14 +45,17 @@ import { PdfConvertComponent } from './organized-events/pdf-convert/pdf-convert.
     ItemComponent,
     ProfileComponent,
     TwoItemsContainer,
-    CarouselComponent,
-    CarouselCustomComponent,
     ChatComponent,
     OrganizedEventsComponent,
     EventItemComponent,
     PersonItemComponent,
+    CarouselComponent,
+    CarouselCustomComponent,
     CarouselOneComponent,
     CarouselTwoComponent,
+    CarouselFinalizateComponent,
+    CarouselConfirmateComponent,
+    CarouselRaportateComponent,
     BookTrackingComponent,
     PdfConvertComponent,
   ],

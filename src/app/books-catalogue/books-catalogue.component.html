@@ -99,7 +99,7 @@
                     <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
                     <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
                     <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
-                    <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> Vezi istoria acestei carti </span> </span>
                     </div>
                     <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
                 </div>
