@@ -261,19 +261,19 @@
                         </div>
                         <div class="form-group">
                             <label for="telefon" class="col-lg-3 fl-editeaza">{{translate.tr("Telefon")}}</label>
-                            <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
+                            <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" [placeholder]="translate.tr('Introduceți numărul de telefon')">
                         </div>
                         <div class="form-group">
                             <label for="varsta" class="col-lg-3 fl-editeaza">{{translate.tr("Vârstă")}}</label>
-                            <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" placeholder="Introduceti varsta">
+                            <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" [placeholder]="translate.tr('Introduceți vârstă')">
                         </div>
                         <div class="form-group">
                             <label for="oras" class="col-lg-3 fl-editeaza">{{translate.tr("Oraş")}}</label>
-                            <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" placeholder="Introduceți orasul">
+                            <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" [placeholder]="translate.tr('Introduceți orașul')">
                         </div>
                         <div class="form-group">
                             <label for="ocupatie" class="col-lg-3 fl-editeaza">{{translate.tr("Ocupație")}}</label>
-                            <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
+                            <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" [placeholder]="translate.tr('Introduceți ocupația')">
                         </div>
                         <div class="form-group">
                             <label for="limba" class="col-lg-3 fl-editeaza">{{translate.tr("Limbă")}}</label>

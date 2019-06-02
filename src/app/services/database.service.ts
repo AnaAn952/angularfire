@@ -257,9 +257,9 @@ export class DatabaseService {
     public answerOffer(item: any): any {
         this.elementSelectatDinPropuneri = item;
 
-        this.modalChosenSolicitate.title = "Detalii oferta";
-        this.modalChosenSolicitate.body = "Alege una dintre aceste carti pentru a accepta schimbul:";
-        this.modalChosenSolicitate.rightButton = "Refuza oferta";
+        this.modalChosenSolicitate.title = this.translation.tr("Detalii ofertă");
+        this.modalChosenSolicitate.body = this.translation.tr("Alege una dintre aceste cărti pentru a accepta schimbul") + ":";
+        this.modalChosenSolicitate.rightButton = this.translation.tr("Refuză oferta");
 
         let ids = item.cartiLaSchimb;
         this.setBooksArray(ids, this.booksInModal, ["pe_asta"]);
