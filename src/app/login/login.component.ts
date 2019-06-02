@@ -16,6 +16,12 @@ declare let $:any;
 export class LoginComponent implements OnInit {
     public dbRef: any;
     public allowRegisterForm: boolean = false;
+    public incorrectAuth: boolean = false;
+    public alreadyInUse: boolean = false;
+    public badlyFormated: boolean = false;
+    public trimis: boolean = false;
+    public reset: boolean = false;
+    public badReset: boolean = false;
     user = {
         email: '',
         password: '',
@@ -37,6 +43,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     signInWithEmail() {
+        this.incorrectAuth = false;
+        this.trimis = false;
         this.authService.signInRegular(this.user.email, this.user.password)
             .then(() => {
                 $('#exampleModal').modal('hide');
@@ -47,10 +55,26 @@ export class LoginComponent implements OnInit {
                 this.eventService.resetGraph.emit();
                 // this.eventService.onLogin.emit(this.user.email);
             })
-            .catch((err) => console.log('error: ' + err));
+            .catch((err) => {
+                this.incorrectAuth = true;
+            });
+    }
+
+    resetPassword(email: string) {
+        this.badReset = false;
+        this.authService.resetPassword(email)
+            .then(() => {
+                this.reset = false;
+                this.trimis = true;
+            })
+            .catch((error) => {
+                this.badReset = true;
+            });
     }
 
     createAccount() {
+        this.alreadyInUse = false;
+        this.badlyFormated = false;
         this.authService.createNewUser(this.user.email, this.user.password)
             .then(() => {
                 this.authService.logout();
@@ -58,7 +82,13 @@ export class LoginComponent implements OnInit {
                 this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture, limba: "romana"});
                 this.allowRegisterForm = false;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                if (err.message === "The email address is already in use by another account.") {
+                    this.alreadyInUse = true;
+                } else if (err.message === "The email address is badly formatted.") {
+                    this.badlyFormated = true;
+                }
+            });
     }
 
     public logout() {
@@ -73,7 +103,10 @@ export class LoginComponent implements OnInit {
     }
 
     public inregistrare() {
+        this.incorrectAuth = false;
         this.allowRegisterForm = true;
+        this.badlyFormated = false;
+        this.alreadyInUse = false;
     }
 
     public alreadyRegistered() {
@@ -90,5 +123,16 @@ export class LoginComponent implements OnInit {
             this.databaseService.currentUser = this.databaseService.convertToDatabaseFormat(localStorage.getItem('email'));
             a.unsubscribe();
         });
+    }
+
+    public showResetPassword() {
+        this.badReset = false;
+        this.incorrectAuth = false;
+        this.reset = true;
+    }
+
+    public inapoi() {
+        this.badReset = false;
+        this.reset = false;
     }
 }

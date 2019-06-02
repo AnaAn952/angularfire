@@ -30,6 +30,11 @@ export class AuthService {
         this._fAuth.auth.signOut();
     }
 
+    resetPassword(email: string) {
+        let auth = this._fAuth.auth;
+        return auth.sendPasswordResetEmail(email);
+    }
+
     signInRegular(email, password) {
         return this._fAuth.auth.signInWithEmailAndPassword(email, password);
     }
