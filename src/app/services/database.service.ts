@@ -443,6 +443,8 @@ export class DatabaseService {
     public removeMyBook() {
         let ref = this.db.object('/cartile/' + this.stergeMyBook.id);
         ref.update({status: 'sters'});
+        this.eventService.resetAll.emit();
+        $("#modalSterge").modal('hide');
     }
 
     public setPersonsArray(ids: any[], placeToPush: any[], mergeWith: any[] = []) {

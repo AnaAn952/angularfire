@@ -33,7 +33,7 @@ export class GraphService {
 
             // creeaza noduri pentru toate cartile : id-ul = codul din baza de date
             for (let book of books) {
-                if (book.status !== "indisponibil") {
+                if (book.status !== "indisponibil" && book.status !== "sters") {
                     let bookNode = this.graph.createNode('book', {id: book.id});
 
                     // creeaza noduri pentru toti autorii : id-ul = numele
