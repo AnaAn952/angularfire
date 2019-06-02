@@ -18,7 +18,7 @@
             <div> <b>{{translate.tr("Telefon")}}: </b> {{userDataService.userData.telefon || "-"}} </div>
             <div> <b>{{translate.tr("Vârstă")}}: </b> {{userDataService.userData.varsta || "-"}} </div>
             <div> <b>{{translate.tr("Oraş")}}: </b> {{userDataService.userData.oras || "-"}} </div>
-            <div> <b>{{translate.tr("Limba")}}: </b> {{userDataService.userData.limba || "romana"}} </div>
+            <div> <b>{{translate.tr("Limbă")}}: </b> {{userDataService.userData.limba || "romana"}} </div>
             <div> <b>{{translate.tr("Ocupație")}}: </b> {{userDataService.userData.ocupatie || "-"}} </div>
         </div>
     </div>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">Închide</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 27px;">{{translate.tr("Închide")}}</button>
                     <div class="col-lg-7 col-md-7 col-xs-7"></div>
                     <button type="button" class="btn btn-primary" (click)="databaseService.anuleazaRefuzaChosenSolicitate(databaseService.modalChosenSolicitate.rightButton)"> {{databaseService.modalChosenSolicitate.rightButton}} </button>
                 </div>
@@ -154,7 +154,7 @@
             <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabelAdauga">
-                        Adaugă o carte
+                        {{translate.tr("Adaugă o carte")}}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -163,55 +163,55 @@
                 <div class="modal-body" style="height: 689px !important;">
                     <form>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Titlul cărții</label>
-                            <input #input1 type="text" class="form-control" id="exampleInputEmail1" placeholder="Introduceți titlul">
+                            <label for="exampleInputEmail1"> {{translate.tr("Titlul cărții")}}</label>
+                            <input #input1 type="text" class="form-control" id="exampleInputEmail1" [placeholder]="translate.tr('Introduceți titlul')">
                         </div>
                         <div class="form-group">
-                            <label for="exampleAutor">Autorul cărții</label>
-                            <input #input7 type="text" class="form-control" id="exampleAutor" placeholder="Introduceți autorul">
+                            <label for="exampleAutor"> {{translate.tr("Autorul cărții")}}</label>
+                            <input #input7 type="text" class="form-control" id="exampleAutor" [placeholder]="translate.tr('Introduceți autorul')">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Poza cărtii</label> <br>
+                            <label for="exampleInputPassword1"> {{translate.tr("Poza cărtii")}}</label> <br>
                             <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
-                                <input type="button" id="loadFileXml" value="Alegeți o poză" (click)="input2.click();" placeholder="Alegeți o poză"/>
+                                <input type="button" id="loadFileXml" [value]="translate.tr('Alegeți o poză')" (click)="input2.click();" [placeholder]="translate.tr('Alegeți o poză')"/>
                                 <span *ngIf="input2.value"> {{input2.value.split("\\").pop()}} </span>
                             </div>
-                            <input #input2 type="file" class="form-control" id="exampleInputPassword1" placeholder="Alegeți o poză"
+                            <input #input2 type="file" class="form-control" id="exampleInputPassword1" [placeholder]="translate.tr('Alegeți o poză')"
                                    (change)="uploadPoza($event)" style="display: none;">
                         </div>
                         <div class="form-group">
-                            <label for="exampleGen">Genul cărții</label> <br>
+                            <label for="exampleGen">{{translate.tr("Genul cărții")}}</label> <br>
                             <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="fictiune"> Fictiune </option>
-                                <option value="istorie"> Istorie </option>
-                                <option value="geogragie"> Geografie </option>
-                                <option value="stiinte"> Stiinte </option>
-                                <option value="enciclopedie"> Enciclopedii </option>
-                                <option value="memorii si biografii"> Memorii si biografii </option>
-                                <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
-                                <option value="culinare"> Culinare </option>
-                                <option value="pentru copii"> Carti pentru copii </option>
-                                <option value="altele"> Altele </option>
+                                <option value="fictiune">{{translate.tr("Fictiune")}} </option>
+                                <option value="istorie">{{translate.tr("Istorie")}} </option>
+                                <option value="geogragie">{{translate.tr("Geografie")}} </option>
+                                <option value="stiinte"> {{translate.tr("Stiinte")}} </option>
+                                <option value="enciclopedie"> {{translate.tr("Enciclopedii")}} </option>
+                                <option value="memorii si biografii"> {{translate.tr("Memorii si biografii")}} </option>
+                                <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie si dezvoltare personala")}} </option>
+                                <option value="culinare"> {{translate.tr("Culinare")}} </option>
+                                <option value="pentru copii"> {{translate.tr("Carti pentru copii")}} </option>
+                                <option value="altele"> {{translate.tr("Altele")}} </option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleLanguage">Limba</label> <br>
+                            <label for="exampleLanguage">{{translate.tr("Limba")}}</label> <br>
                             <select #input4 id="exampleLanguage" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="engleza"> Engleza </option>
-                                <option value="romana"> Romana </option>
-                                <option value="altele"> Altele </option>
+                                <option value="engleza"> {{translate.tr("Engleza")}} </option>
+                                <option value="romana"> {{translate.tr("Romana")}} </option>
+                                <option value="altele"> {{translate.tr("Altele")}} </option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleStare">Starea cartii</label> <br>
+                            <label for="exampleStare">{{translate.tr("Starea cartii")}}</label> <br>
                             <select #input8 id="exampleStare" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="foartebuna"> Foarte buna </option>
-                                <option value="buna"> Buna </option>
-                                <option value="uzata"> Uzata </option>
-                                <option value="foarteuzata"> Foarte uzata </option>
+                                <option value="foartebuna"> {{translate.tr("Foarte buna")}} </option>
+                                <option value="buna"> {{translate.tr("Buna")}} </option>
+                                <option value="uzata"> {{translate.tr("Uzata")}} </option>
+                                <option value="foarteuzata"> {{translate.tr("Foarte uzata")}} </option>
                             </select>
                         </div>
-                        <button [disabled]="!input1.value || !input2.value || !input7.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value, input8.value, input7.value)">Adaugă</button>
+                        <button [disabled]="!input1.value || !input2.value || !input7.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value, input8.value, input7.value)">{{translate.tr("Adaugă")}}</button>
                     </form>
                 </div>
             </div>
@@ -264,25 +264,25 @@
                             <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
                         </div>
                         <div class="form-group">
-                            <label for="varsta" class="col-lg-3 fl-editeaza">Varsta</label>
+                            <label for="varsta" class="col-lg-3 fl-editeaza">{{translate.tr("Vârstă")}}</label>
                             <input #age type="text" class="form-control col-lg-8 fc-editeaza" id="varsta" [value]="userDataService.userData.varsta ? userDataService.userData.varsta : null" placeholder="Introduceti varsta">
                         </div>
                         <div class="form-group">
-                            <label for="oras" class="col-lg-3 fl-editeaza">Oras</label>
+                            <label for="oras" class="col-lg-3 fl-editeaza">{{translate.tr("Oraş")}}</label>
                             <input #town type="text" class="form-control col-lg-8 fc-editeaza" id="oras" [value]="userDataService.userData.oras ? userDataService.userData.oras : null" placeholder="Introduceți orasul">
                         </div>
                         <div class="form-group">
-                            <label for="ocupatie" class="col-lg-3 fl-editeaza">Ocupatie</label>
+                            <label for="ocupatie" class="col-lg-3 fl-editeaza">{{translate.tr("Ocupație")}}</label>
                             <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
                         </div>
                         <div class="form-group">
-                            <label for="limba" class="col-lg-3 fl-editeaza">Limba</label>
+                            <label for="limba" class="col-lg-3 fl-editeaza">{{translate.tr("Limbă")}}</label>
                             <select #language class="form-control col-lg-8 fc-editeaza" id="limba" [value]="userDataService.userData.limba">
                                 <option value="engleza"> {{translate.tr("engleza")}} </option>
                                 <option value="romana"> {{translate.tr("romana")}} </option>
                             </select>
                         </div>
-                        <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value, language.value)">{{translate.tr("Modifica")}}</button>
+                        <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value, language.value)">{{translate.tr("Modifică")}}</button>
                     </form>
                 </div>
             </div>
@@ -306,52 +306,52 @@
             <div class="modal-body" style="height: 689px !important;">
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Titlul cărții</label>
-                        <input #inputEditeaza1 type="text" class="form-control" id="exampleInputEmail2" placeholder="Introduceți titlul" [value]="databaseService.editMyBook.titlu">
+                        <label for="exampleInputEmail1">{{translate.tr("Titlul cărții")}}</label>
+                        <input #inputEditeaza1 type="text" class="form-control" id="exampleInputEmail2" [placeholder]="translate.tr('Introduceți titlul')" [value]="databaseService.editMyBook.titlu">
                     </div>
                     <div class="form-group">
-                        <label for="exampleAutore">Autorul cărții</label>
-                        <input #input70 type="text" class="form-control" id="exampleAutore" [value]="databaseService.editMyBook.autor" placeholder="Introduceți autorul">
+                        <label for="exampleAutore">{{translate.tr("Autorul cărții")}}</label>
+                        <input #input70 type="text" class="form-control" id="exampleAutore" [value]="databaseService.editMyBook.autor" [placeholder]="translate.tr('Introduceți autorul')">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Poza cărtii</label> <br>
+                        <label for="exampleInputPassword1">{{translate.tr("Poza cărtii")}}</label> <br>
                         <div style="border: 1px solid #e0d6d6; padding: 4px; border-radius: 5px;">
-                            <input type="button" id="loadFileXml1" value="Alegeți o poză" (click)="inputEditeaza2.click();" placeholder="Alegeți o poză"/>
+                            <input type="button" id="loadFileXml1" [value]="translate.tr('Alegeți o poză')" (click)="inputEditeaza2.click();" placeholder="Alegeți o poză"/>
                             <span *ngIf="inputEditeaza2.value"> {{inputEditeaza2.value.split("\\").pop()}} </span>
-                            <span *ngIf="!inputEditeaza2.value"> Poza curentă </span>
+                            <span *ngIf="!inputEditeaza2.value"> {{translate.tr("Poza curentă")}} </span>
                         </div>
-                        <input #inputEditeaza2 type="file" class="form-control" id="exampleInputPassword2" placeholder="Alegeți o altă poză"
+                        <input #inputEditeaza2 type="file" class="form-control" id="exampleInputPassword2" [placeholder]="translate.tr('Alegeți o altă poză')"
                                (change)="uploadPoza($event)" style="display: none;">
                     </div>
                     <div class="form-group">
-                        <label for="exampleGene">Genul cărții</label> <br>
+                        <label for="exampleGene">{{translate.tr("Genul cărții")}}</label> <br>
                         <select #input50 id="exampleGene" [value]="databaseService.editMyBook.gen" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="fictiune"> Fictiune </option>
-                            <option value="istorie"> Istorie </option>
-                            <option value="geografie"> Geografie </option>
-                            <option value="stiinte"> Stiinte </option>
-                            <option value="enciclopedie"> Enciclopedie </option>
-                            <option value="memorii si biografii"> Memorii si biografii </option>
-                            <option value="psihologie si dezvoltare personala"> Psihologie si dezvoltare personala </option>
-                            <option value="culinare"> Culinare </option>
-                            <option value="pentru copii"> Pentru copii </option>
-                            <option value="altele"> Altele </option>
+                            <option value="fictiune"> {{translate.tr("Fictiune")}} </option>
+                            <option value="istorie"> {{translate.tr("Istorie")}} </option>
+                            <option value="geografie"> {{translate.tr("Geografie")}} </option>
+                            <option value="stiinte"> {{translate.tr("Stiinte")}} </option>
+                            <option value="enciclopedie"> {{translate.tr("Enciclopedie")}} </option>
+                            <option value="memorii si biografii"> {{translate.tr("Memorii si biografii")}} </option>
+                            <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie si dezvoltare personala")}} </option>
+                            <option value="culinare"> {{translate.tr("Culinare")}} </option>
+                            <option value="pentru copii"> {{translate.tr("Pentru copii")}} </option>
+                            <option value="altele"> {{translate.tr("Altele")}} </option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleLanguagee">Limba</label>
+                        <label for="exampleLanguagee">{{translate.tr("Limba")}}</label>
                         <input #input40 type="text" class="form-control" id="exampleLanguagee" [value]="databaseService.editMyBook.limba" placeholder="Introduceți limba">
                     </div>
                     <div class="form-group">
-                        <label for="exampleStaree">Starea cartii</label> <br>
+                        <label for="exampleStaree">{{translate.tr("Starea cartii")}}</label> <br>
                         <select #input80 id="exampleStaree" [value]="databaseService.editMyBook.stareCarte" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="foartebuna"> Foarte buna </option>
-                            <option value="buna"> Buna </option>
-                            <option value="uzata"> Uzata </option>
-                            <option value="foarteuzata"> Foarte uzata </option>
+                            <option value="foartebuna"> {{translate.tr("Foarte buna")}} </option>
+                            <option value="buna"> {{translate.tr("Buna")}} </option>
+                            <option value="uzata"> {{translate.tr("Uzata")}} </option>
+                            <option value="foarteuzata"> {{translate.tr("Foarte uzata")}} </option>
                         </select>
                     </div>
-                    <button [disabled]="!inputEditeaza1.value || !input70.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value, input50.value, input40.value, input80.value, input70.value)">Finalizează</button>
+                    <button [disabled]="!inputEditeaza1.value || !input70.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value, input50.value, input40.value, input80.value, input70.value)">{{translate.tr("Modifică")}}</button>
                 </form>
             </div>
         </div>

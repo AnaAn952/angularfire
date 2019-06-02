@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
+import { TranslateService } from '../services/translate.service';
 
 declare let $;
 
@@ -27,6 +28,7 @@ export class ItemComponent {
 
     constructor(
         public databaseService: DatabaseService,
+        public translate: TranslateService,
     ) {
         $("#modal2").on("hide.bs.modal", () => {
             if (this.div) {

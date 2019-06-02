@@ -11,7 +11,7 @@
         Vezi cartile pe care le oferi la schimb
     </button>
     <div *ngIf="item.status === 'indisponibil'" [ngClass]="{'indisponibil-myBooks': (category === 'myBooks' || category === 'chosenByMe'), 'indisponibil-modal': item.exchange || item.pe_asta }">
-        Indisponibilă
+        {{translate.tr("Indisponibilă")}}
     </div>
     <div *ngIf="item.actiune === 'refuzat' && item.status !== 'indisponibil'" [ngClass]="{'indisponibil-myBooks': category === 'chosenByMe', 'refuzat': category === 'chosenByMe'}">
         <span class="refuzat-span"> Refuzat </span>
@@ -22,9 +22,9 @@
         <span class="sterge-refuzat" (click)="stergeElementAnulat()"> Sterge </span>
     </div>
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="removeMyBook()" class="remove">
-        Șterge
+        {{translate.tr("Șterge")}}
     </div>
     <div *ngIf="category === 'myBooks' && item.status !== 'indisponibil'" (click)="editMyBook()" class="edit">
-        Editează
+        {{translate.tr("Editează")}}
     </div>
 </div>

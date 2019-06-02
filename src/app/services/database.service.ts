@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from './userData.service';
 import { EventsService } from './fetch-books.service';
+import { TranslateService } from './translate.service';
 
 declare let $;
 
@@ -26,6 +27,7 @@ export class DatabaseService {
         public db: AngularFireDatabase,
         public userData: UserDataService,
         public eventService: EventsService,
+        public translation: TranslateService,
     ) {
         if (localStorage.getItem("email")) {
             this.currentUser = this.convertToDatabaseFormat(localStorage.getItem('email'));
@@ -267,9 +269,9 @@ export class DatabaseService {
         item.id = this.convertToDatabaseFormat(item.id);
         this.elementSelectatDinPropuneri = item;
 
-        this.modalChosenSolicitate.title = "Cartile pe care le-ai propus";
+        this.modalChosenSolicitate.title = this.translation.tr("Cărțile pe care le-ai propus");
         this.modalChosenSolicitate.body = "";
-        this.modalChosenSolicitate.rightButton = "Anuleaza oferta";
+        this.modalChosenSolicitate.rightButton = this.translation.tr("Anulează oferta");
 
         let booksRef = this.db.object('/users/' + this.currentUser + '/chosenByMe/' + item.id)
             .valueChanges().subscribe((data: any) => {

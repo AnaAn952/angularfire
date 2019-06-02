@@ -22,7 +22,7 @@ export class TranslationsCanActivate implements Resolve<boolean> {
                     clearInterval(a);
                     resolve(true);
                 }
-            }, 200);
+            }, 10);
         });
     }
 }
