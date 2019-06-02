@@ -35,6 +35,8 @@ import { PdfConvertComponent } from './organized-events/pdf-convert/pdf-convert.
 import { CarouselFinalizateComponent } from './carrousel/carousel-finalizate/carousel-finalizate.component';
 import { CarouselConfirmateComponent } from './carrousel/carousel-confirmate/carousel-confirmate.component';
 import { CarouselRaportateComponent } from './carrousel/carousel-raportate/carousel-raportate.component';
+import { TranslateService } from './services/translate.service';
+import { TranslationsCanActivate } from './services/translations-can-activate';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { CarouselRaportateComponent } from './carrousel/carousel-raportate/carou
     AngularFireStorage,
     AccessGuard,
     GraphService,
+    TranslateService,
+    TranslationsCanActivate,
   ],
   bootstrap: [AppComponent]
 })

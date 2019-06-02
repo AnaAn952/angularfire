@@ -7,6 +7,7 @@ import { ChatComponent } from './chat/chat.component';
 import { OrganizedEventsComponent } from './organized-events/organized-events.component';
 import { LoginComponent } from './login/login.component';
 import { AccessGuard } from './services/access-guard';
+import { TranslationsCanActivate } from './services/translations-can-activate';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [ProfileCanActivate],
+    resolve: {translate: TranslationsCanActivate},
     component: ProfileComponent,
   },
 

@@ -238,10 +238,18 @@ export class DatabaseService {
             detalii: mesaj,
             databaseKey: itemAcceptate.databaseKey
         });
-    }
 
-    public rating(stars, user) {
-        // let ref = this.db.object("/users/" + this.convertToDatabaseFormat(user) + "")
+        // adaugam motivul in baza de date
+        let reff = this.db.list("/raportate");
+        let id1 = Math.floor(Math.random()*100).toString();
+        reff.set(itemAcceptate.databaseKey + "__" + id1, {
+            user: this.userData.userData.email,
+            carteaMea: itemAcceptate.carteaMea,
+            carteaPrimita: itemAcceptate.carteaPrimita,
+            utilizator: itemAcceptate.utilizator,
+            motiv: motiv,
+            detalii: mesaj,
+        });
     }
 
     public answerOffer(item: any): any {

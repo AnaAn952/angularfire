@@ -3,6 +3,7 @@ import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { EventsService } from '../services/fetch-books.service';
+import { TranslateService } from '../services/translate.service';
 declare let $:any;
 
 @Component({
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
         public storage: AngularFireStorage,
         public databaseService: DatabaseService,
         public eventService: EventsService,
+        public translate: TranslateService,
     ) {}
 
     ngOnInit() {
@@ -203,31 +205,35 @@ export class ProfileComponent implements OnInit {
         this.getFinalizate();
     }
 
-    public changeInfo(name: string, phone: string, age: string, town: string, ocupation: string) {
-        let great = {};
+    public changeInfo(name: string, phone: string, age: string, town: string, ocupation: string, language: string) {
+        let info = {};
         if (name !== undefined) {
-            great["username"] = name;
+            info["username"] = name;
             this.userDataService.userData.username = name;
         }
         if (phone !== undefined) {
-            great["telefon"] = phone;
+            info["telefon"] = phone;
             this.userDataService.userData.telefon = phone;
         }
         if (age !== undefined) {
-            great["varsta"] = age;
+            info["varsta"] = age;
             this.userDataService.userData.varsta = age;
         }
         if (town !== undefined) {
-            great["oras"] = town;
+            info["oras"] = town;
             this.userDataService.userData.oras = town;
         }
         if (ocupation !== undefined) {
-            great["ocupatie"] = ocupation;
+            info["ocupatie"] = ocupation;
             this.userDataService.userData.ocupatie = ocupation;
+        }
+        if (language !== undefined) {
+            info["limba"] = language;
+            this.userDataService.userData.limba = language;
         }
 
         $("#modalInfo").modal("hide");
-        this.databaseService.changeInformation(great);
+        this.databaseService.changeInformation(info);
     }
 
     public available(book: any) {

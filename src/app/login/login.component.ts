@@ -40,10 +40,8 @@ export class LoginComponent implements OnInit {
         this.authService.signInRegular(this.user.email, this.user.password)
             .then(() => {
                 $('#exampleModal').modal('hide');
-                console.log("setting item", this.user.email);
                 window.localStorage.setItem('email', this.user.email);
                 this.router.navigate(['books']);
-                console.log(this.userData);
                 this.resetUserData(this.user.email);
                 this.eventService.resetInfo.emit();
                 this.eventService.resetGraph.emit();
@@ -57,7 +55,7 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 this.authService.logout();
                 let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture});
+                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture, limba: "romana"});
                 this.allowRegisterForm = false;
             })
             .catch((err) => console.log(err));

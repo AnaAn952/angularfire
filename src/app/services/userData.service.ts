@@ -14,6 +14,7 @@ export class UserDataService {
         oras: '',
         varsta: '',
         ocupatie: '',
+        limba: '',
         carti: [],
         chosenByMe: {},
         solicitate: {},

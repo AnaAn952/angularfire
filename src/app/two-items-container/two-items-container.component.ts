@@ -35,7 +35,6 @@ export class TwoItemsContainer {
                 }
                 if (e.target[0].value === "da") {
                     this.databaseService.setBookQuality(cartePrimitaId, e.target[1].value);
-                    // this.databaseService.rating(e.target[2].value, this.itemArray[1].proprietarCurent);
                 } else {
                     this.databaseService.raporteaza(e.target[1].value, e.target[2].value, cartePrimitaId);
                 }

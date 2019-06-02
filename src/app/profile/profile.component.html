@@ -1,30 +1,31 @@
 <div class="profile">
     <div style="width: 100%; clear: left; margin-bottom: 50px;">
         <div style="width: 100%; margin-bottom: 35px;">
-            <div style="float: left">Informatii personale</div>
-            <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> Editează informatiile </div>
+            <div style="float: left"> {{translate.tr("Informatii personale")}}</div>
+            <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> {{translate.tr("Editează informatiile")}} </div>
         </div>
         <div class="profile-picture-div float-left" (click)="modalPozaProfil()">
             <div *ngIf="!userDataService.userData.profilePicture" class="profile-pic-add">
-                <div style="margin-top: 115px;"> Click here to add a profile picture </div>
+                <div style="margin-top: 115px;"> {{translate.tr("Apasa pentru a alege o poza de profil")}} </div>
             </div>
             <div *ngIf="userDataService.userData.profilePicture" class="profile-pic-add">
                 <img style="margin-top: -1px;margin-left: -31px;width: 257px;height: 290px;" src="{{userDataService.userData.profilePicture}}">
             </div>
         </div>
         <div class="info-div">
-            <div> <b>Nume utilizator: </b> {{userDataService.userData.username}} </div>
+            <div> <b>{{translate.tr("Nume utilizator")}}: </b> {{userDataService.userData.username}} </div>
             <div> <b>Email: </b> {{userDataService.userData.email}} </div>
-            <div> <b>Telefon: </b> {{userDataService.userData.telefon || "-"}} </div>
-            <div> <b>Vârstă: </b> {{userDataService.userData.varsta || "-"}} </div>
-            <div> <b>Oraş: </b> {{userDataService.userData.oras || "-"}} </div>
-            <div> <b>Ocupație: </b> {{userDataService.userData.ocupatie || "-"}} </div>
+            <div> <b>{{translate.tr("Telefon")}}: </b> {{userDataService.userData.telefon || "-"}} </div>
+            <div> <b>{{translate.tr("Vârstă")}}: </b> {{userDataService.userData.varsta || "-"}} </div>
+            <div> <b>{{translate.tr("Oraş")}}: </b> {{userDataService.userData.oras || "-"}} </div>
+            <div> <b>{{translate.tr("Limba")}}: </b> {{userDataService.userData.limba || "romana"}} </div>
+            <div> <b>{{translate.tr("Ocupație")}}: </b> {{userDataService.userData.ocupatie || "-"}} </div>
         </div>
     </div>
     <div style="width: 100%; clear: right">
         <div style="width: 100%">
-            <div style="float: left">Cartile mele</div>
-            <div class="adaugaCarte grow" (click)="addBookOpen()"> Adaugă carte </div>
+            <div style="float: left">{{translate.tr("Cartile mele")}}</div>
+            <div class="adaugaCarte grow" (click)="addBookOpen()"> {{translate.tr("Adaugă carte")}} </div>
         </div>
         <carousel *ngIf="myBooks.length>4" [items]="myBooks"></carousel>
         <div *ngIf="myBooks.length<5" style="margin-left: 34px">
@@ -36,12 +37,12 @@
 
     <div style="clear: left;">
         <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
-            <option value="4"> Carti solicitate de mine </option>
-            <option value="5"> Schimburi propuse </option>
-            <option value="6"> Schimburi in desfasurare </option>
-            <option value="1" > Schimburi confirmate de mine </option>
-            <option value="2"> Schimburi finalizate </option>
-            <option value="3" >Schimburi raportate de mine</option>
+            <option value="4"> {{translate.tr("Carti solicitate de mine")}} </option>
+            <option value="5"> {{translate.tr("Schimburi propuse")}} </option>
+            <option value="6"> {{translate.tr("Schimburi in desfasurare")}} </option>
+            <option value="1" > {{translate.tr("Schimburi confirmate de mine")}} </option>
+            <option value="2"> {{translate.tr("Schimburi finalizate")}} </option>
+            <option value="3" > {{translate.tr("Schimburi raportate de mine")}}</option>
         </select>
     </div>
 
@@ -108,7 +109,7 @@
     </div>
 
     <div style="width: 100%; clear: left;">
-        <div> Recomandari </div>
+        <div> {{translate.tr("Recomandari")}} </div>
         <div style="margin-left: 34px">
             <ng-container *ngFor="let item of recomandate">
                 <catalogue-item [profile]="true" [allowedActiune]="true"[item]="item" [category]="'recomandate'"></catalogue-item>
@@ -243,23 +244,23 @@
     <!--Modal pt informatii-->
     <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modallabelinfo" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 180px;">
+            <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 150px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modallabelinfo">
-                        Editeaza informatiile
+                        {{translate.tr("Editeaza informatiile")}}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="height: 400px !important;padding: 10px !important;">
+                <div class="modal-body" style="height: 470px !important;padding: 10px !important;">
                     <form>
                         <div class="form-group">
-                            <label for="numeutilizator" class="col-lg-3 fl-editeaza">Nume utilizator</label>
+                            <label for="numeutilizator" class="col-lg-3 fl-editeaza">{{translate.tr("Nume utilizator")}}</label>
                             <input #name type="text" class="form-control col-lg-8 fc-editeaza" id="numeutilizator" [value]="userDataService.userData.username" placeholder="Introduceți numele">
                         </div>
                         <div class="form-group">
-                            <label for="telefon" class="col-lg-3 fl-editeaza">Telefon</label>
+                            <label for="telefon" class="col-lg-3 fl-editeaza">{{translate.tr("Telefon")}}</label>
                             <input #phone type="text" class="form-control col-lg-8 fc-editeaza" id="telefon" [value]="userDataService.userData.telefon ? userDataService.userData.telefon : null" placeholder="Introduceți numarul de telefon">
                         </div>
                         <div class="form-group">
@@ -274,7 +275,14 @@
                             <label for="ocupatie" class="col-lg-3 fl-editeaza">Ocupatie</label>
                             <input #ocupation type="text" class="form-control col-lg-8 fc-editeaza" id="ocupatie" [value]="userDataService.userData.ocupatie ? userDataService.userData.ocupatie : null" placeholder="Introduceți ocupatia">
                         </div>
-                        <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value)">Modifica</button>
+                        <div class="form-group">
+                            <label for="limba" class="col-lg-3 fl-editeaza">Limba</label>
+                            <select #language class="form-control col-lg-8 fc-editeaza" id="limba" [value]="userDataService.userData.limba">
+                                <option value="engleza"> {{translate.tr("engleza")}} </option>
+                                <option value="romana"> {{translate.tr("romana")}} </option>
+                            </select>
+                        </div>
+                        <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value, language.value)">{{translate.tr("Modifica")}}</button>
                     </form>
                 </div>
             </div>
@@ -289,7 +297,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="examplemodallabelediteaza">
-                    Editează cartea
+                    {{translate.tr("Editează cartea")}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
