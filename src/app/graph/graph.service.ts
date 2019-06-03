@@ -50,7 +50,7 @@ export class GraphService {
 
                             // leaga cartea de solicitant
                             let user = this.graph.nodes('user').query().filter({email__ilike: solicitant}).units()[0];
-                            this.graph.createEdge("book-user").link(bookNode, user).setDistance(3);
+                            this.graph.createEdge("book-user").link(bookNode, user).setDistance(2.5);
                         }
                     }
 
@@ -76,8 +76,8 @@ export class GraphService {
                     compare: function(node) {
                         return node.entity === 'book';
                     },
-                    minDepth: 4,
-                    maxDepth: 9,
+                    minDepth: 3.5,
+                    maxDepth: 7.5,
                 });
 
                 this.userData.recommendedBooksIds = [];

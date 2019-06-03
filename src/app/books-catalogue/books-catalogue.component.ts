@@ -123,7 +123,7 @@ export class BooksCatalogueComponent implements OnInit {
                 return book.proprietarCurent == localStorage.getItem("email");
             });
             this.myAvailableBooks = items.filter((book) => {
-                return book.proprietarCurent === localStorage.getItem("email") && book.status !== "indisponibil";
+                return book.proprietarCurent === localStorage.getItem("email") && book.status === "disponibila";
             });
         });
     }
