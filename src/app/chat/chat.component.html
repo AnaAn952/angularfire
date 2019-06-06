@@ -15,7 +15,7 @@
                     <img class="person-img" [src]="elem.profilePicture">
                     <div class="person-text">
                         Username: {{elem.username}}
-                        <span *ngIf="elem.moderator" style="border: 1px solid; padding: 2px 0 1px 3px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
+                        <span *ngIf="elem.moderator" style="border: 1px solid; padding: 2px 0 1px 4px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
                         Email: {{elem.email}} <br>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <img class="person-img" [src]="currentUser.profilePicture">
             <div class="person-text">
                 Username: {{currentUser.username}}
-                <span *ngIf="currentUser.moderator" style="border: 1px solid; padding: 2px 0 1px 3px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
+                <span *ngIf="currentUser.moderator" style="border: 1px solid; padding: 2px 0 1px 4px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
                 Email: {{currentUser.email}} <br>
             </div>
         </div>

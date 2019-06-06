@@ -55,7 +55,7 @@
                 <input class="form-check-input" type="checkbox" id="gridCheck13" value="altele" checked>
                 <label class="form-check-label" for="gridCheck13"> Altele </label>
             </div>
-            <button id="submit_filters" type="submit" class="btn btn-primary my-1">Submit</button>
+            <button id="submit_filters" type="submit" class="btn btn-primary my-1">Cauta</button>
         </form>
     </div>
     <div style="clear:right">
@@ -99,9 +99,9 @@
                     <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
                     <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
                     <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
-                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> Vezi istoria acestei carti </span> </span>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> Vezi parcursul acestei carti </span> </span>
                     </div>
-                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Propune un schimb </div>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 47px;">Inchide</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
                 <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">Trimite oferta </button>
             </div>
