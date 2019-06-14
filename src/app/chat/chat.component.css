@@ -125,3 +125,7 @@ padding: 15px;
     max-width: 783px;
     clear: both;
 }
+
+.bg-diff {
+    background-color: #dddddd;
+}

@@ -46,7 +46,7 @@ export class PdfConvertComponent {
         let changes = value.split(";");
         for (let item of changes) {
             item = item.split("Utilizatorul ")[1];
-            item = item.split(" a primit cartile cu idurile ");
+            item = item.split(" a primit cartile cu id-urile ");
             let utilizator = item[0].replace(/\s/g, "");
             let carti = item[1].replace(/\s/g, "");
             values.push({

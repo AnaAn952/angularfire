@@ -19,6 +19,10 @@
     background-color: #ffffff;
 }
 
+.hide {
+    visibility: hidden;
+}
+
 .adaugaEveniment {
     float: right;
     margin-right: 139px !important;

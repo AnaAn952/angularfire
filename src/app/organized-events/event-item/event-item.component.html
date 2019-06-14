@@ -8,9 +8,9 @@
         </div>
         <div class="other">
             <div class="custom-div grow" (click)="modalDetalii()"> Detalii despre eveniment </div>
-            <div class="custom-div grow" (click)="modalParticipanti()"> Lista participantilor la eveniment </div>
-            <div *ngIf="arataButonParticipa()" class="custom-div grow" (click)="participa()"> Participa la acest eveniment</div>
-            <div *ngIf="!arataButonParticipa()" class="custom-div grow" (click)="retrageTe()"> Anuleaza participarea la acest eveniment </div>
+            <div class="custom-div grow" (click)="modalParticipanti()"> Lista participanților la eveniment </div>
+            <div *ngIf="arataButonParticipa()" class="custom-div grow" (click)="participa()"> Participă la acest eveniment</div>
+            <div *ngIf="!arataButonParticipa()" class="custom-div grow" (click)="retrageTe()"> Anulează participarea la acest eveniment </div>
         </div>
         <img class="img" [src]="item.poza">
     </div>
@@ -45,8 +45,8 @@
                 <div style="text-align: center; font-size: 30px; padding-bottom: 30px;"> {{item.nume}} </div>
                 <div class="detalii">
                     {{item.detalii}} <br/> <br/>
-                    Evenimentul va avea loc in {{item.oras}}, {{item.adresa}} pe data de {{item.data}}
-                    intre orele {{item.ora_inceput}} si {{item.ora_final}} . Pentru alte detalii, ne puteti contacta la numarul
+                    Evenimentul va avea loc în {{item.oras}}, {{item.adresa}} pe data de {{item.data}}
+                    între orele {{item.ora_inceput}} și {{item.ora_final}}. Pentru alte detalii, ne puteți contacta la numărul
                     de telefon {{item.telefon}}.
                 </div>
             </div>

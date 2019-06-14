@@ -64,7 +64,11 @@
         <div class="form-group">
             <input type="password" id="exampleInputPassword3" name="example2" class="form-control" [(ngModel)]="user.password" placeholder="Parolă" required>
         </div>
-        <div *ngIf="alreadyInUse" style="color: red;"> Adresa de email este deja folosita. </div>
+        <div class="form-group">
+            <input type="password" id="exampleInputPassword7" name="example3" class="form-control" [(ngModel)]="user.passwordAgain" placeholder="Reintroduceți parola" required>
+        </div>
+        <div *ngIf="notMatch" style="color: red"> Cele două parole introduse nu sunt identice. </div>
+        <div *ngIf="alreadyInUse" style="color: red;"> Adresa de email este deja folosită. </div>
         <div *ngIf="badlyFormated" style="color: red"> Adresa de email nu are format-ul corect. </div>
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="createAccount()" [disabled]="formCtrl.form.invalid">

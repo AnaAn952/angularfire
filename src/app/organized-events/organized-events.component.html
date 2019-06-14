@@ -1,6 +1,6 @@
 <div class="buttons">
     <div #all class="custom-div selected" (click)="allEvents()"> Toate evenimentele </div>
-    <div #my class="custom-div" (click)="myEvents()"> Evenimente organizate de mine </div>
+    <div #my (click)="myEvents()" [ngClass]="{'custom-div': true, 'hide': !userDataService.userData.moderator}"> Evenimente organizate de mine </div>
     <div #going class="custom-div" (click)="goingEvents()"> Evenimente la care particip </div>
 </div>
 

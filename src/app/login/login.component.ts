@@ -20,11 +20,13 @@ export class LoginComponent implements OnInit {
     public alreadyInUse: boolean = false;
     public badlyFormated: boolean = false;
     public trimis: boolean = false;
+    public notMatch: boolean = false;
     public reset: boolean = false;
     public badReset: boolean = false;
     user = {
         email: '',
         password: '',
+        passwordAgain: '',
         username: '',
         profilePicture: 'https://firebasestorage.googleapis.com/v0/b/book-website-sharing.appspot.com/o/2ydq27fp2wg?alt=media&token=8c44703d-b739-4d35-ad2f-e383ac4d4780',
     };
@@ -73,22 +75,32 @@ export class LoginComponent implements OnInit {
     }
 
     createAccount() {
-        this.alreadyInUse = false;
-        this.badlyFormated = false;
-        this.authService.createNewUser(this.user.email, this.user.password)
-            .then(() => {
-                this.authService.logout();
-                let index = this.user.email.split(".").join("!");
-                this.dbRef.set(index, {email: this.user.email, username: this.user.username, profilePicture: this.user.profilePicture, limba: "romana"});
-                this.allowRegisterForm = false;
-            })
-            .catch((err) => {
-                if (err.message === "The email address is already in use by another account.") {
-                    this.alreadyInUse = true;
-                } else if (err.message === "The email address is badly formatted.") {
-                    this.badlyFormated = true;
-                }
-            });
+        this.notMatch = false;
+        if (this.user.password !== this.user.passwordAgain) {
+            this.notMatch = true;
+        } else {
+            this.alreadyInUse = false;
+            this.badlyFormated = false;
+            this.authService.createNewUser(this.user.email, this.user.password)
+                .then(() => {
+                    this.authService.logout();
+                    let index = this.user.email.split(".").join("!");
+                    this.dbRef.set(index, {
+                        email: this.user.email,
+                        username: this.user.username,
+                        profilePicture: this.user.profilePicture,
+                        limba: "romana"
+                    });
+                    this.allowRegisterForm = false;
+                })
+                .catch((err) => {
+                    if (err.message === "The email address is already in use by another account.") {
+                        this.alreadyInUse = true;
+                    } else if (err.message === "The email address is badly formatted.") {
+                        this.badlyFormated = true;
+                    }
+                });
+        }
     }
 
     public logout() {
@@ -107,6 +119,7 @@ export class LoginComponent implements OnInit {
         this.allowRegisterForm = true;
         this.badlyFormated = false;
         this.alreadyInUse = false;
+        this.notMatch = false;
     }
 
     public alreadyRegistered() {

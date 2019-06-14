@@ -74,7 +74,9 @@ export class OrganizedEventsComponent {
         switch (item) {
             case "all":
                 this.all.nativeElement.classList.add("selected");
-                this.my.nativeElement.classList = ["custom-div"];
+                if (this.userDataService.userData.moderator) {
+                    this.my.nativeElement.classList = ["custom-div"];
+                }
                 this.going.nativeElement.classList = ["custom-div"];
                 break;
             case "my":
@@ -84,7 +86,9 @@ export class OrganizedEventsComponent {
                 break;
             case "going":
                 this.all.nativeElement.classList = ["custom-div"];
-                this.my.nativeElement.classList = ["custom-div"];
+                if (this.userDataService.userData.moderator) {
+                    this.my.nativeElement.classList = ["custom-div"];
+                }
                 this.going.nativeElement.classList.add("selected");
         }
     }

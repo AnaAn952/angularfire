@@ -32,6 +32,7 @@ export class ChatComponent {
     public messages: any = [];
     public usersRef: any;
     public users: any[] = [];
+    public users1: any[] = [];
     public currentUser: any = {};
     public sub;
 
@@ -54,15 +55,21 @@ export class ChatComponent {
     }
 
     public searchUser(value: string) {
+        this.users1 = [];
         this.users = [];
         if (value === "") {
-            if (this.userDataService.userData.myChats === undefined || this.userDataService.userData.myChats.length === 0) {
-                return;
-            }
             let sub = this.usersRef.valueChanges().subscribe((users) => {
                 for (let user of users) {
-                    if (Object.values(this.userDataService.userData.myChats).indexOf(user.email) >= 0) {
-                        this.users.push(user);
+                    if (this.userDataService.userData.myChats && Object.values(this.userDataService.userData.myChats).indexOf(user.email) >= 0) {
+                        user.mine = true;
+                        this.users1.unshift(user);
+                    } else {
+                        this.users1.push(user);
+                    }
+                }
+                for (let i = 0; i <= 7; i++) {
+                    if (this.users1[i]) {
+                        this.users.push(this.users1[i]);
                     }
                 }
                 sub.unsubscribe();
@@ -71,7 +78,17 @@ export class ChatComponent {
             let sub = this.usersRef.valueChanges().subscribe((users) => {
                 for (let user of users) {
                     if (user.email.toLowerCase().indexOf(value.toLowerCase()) >= 0 || user.username.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        this.users.push(user);
+                        if (this.userDataService.userData.myChats && Object.values(this.userDataService.userData.myChats).indexOf(user.email) >= 0) {
+                            user.mine = true;
+                            this.users1.unshift(user);
+                        } else {
+                            this.users1.push(user);
+                        }
+                    }
+                }
+                for (let i = 0; i <= 7; i++) {
+                    if (this.users1[i]) {
+                        this.users.push(this.users1[i]);
                     }
                 }
                 sub.unsubscribe();
