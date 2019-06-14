@@ -103,8 +103,6 @@ export class ItemComponent {
         } else if (this.item.zona_de_raspuns) {
             $('#modalChosenSolicitate').modal('show');
             this.databaseService.answerOffer(this.item);
-        } else if (this.item && this.item.pe_asta && this.item.status !== "indisponibil") {
-            this.acceptaAceastaCarte();
         }
     }
 }

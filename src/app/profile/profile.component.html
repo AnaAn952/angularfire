@@ -133,7 +133,7 @@
                     <div *ngIf="databaseService.booksInModal.length >= 1">
                         {{databaseService.modalChosenSolicitate.body}}
                         <ng-container *ngFor="let item of databaseService.booksInModal">
-                            <catalogue-item [useOthers]="true" [item]="item"></catalogue-item>
+                            <catalogue-item [useOthers]="true" [allowedActiune]="true" [item]="item"></catalogue-item>
                         </ng-container>
                     </div>
                     <div *ngIf="databaseService.booksInModal.length == 0">
@@ -185,7 +185,7 @@
                             <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
                                 <option value="fictiune">{{translate.tr("Fictiune")}} </option>
                                 <option value="istorie">{{translate.tr("Istorie")}} </option>
-                                <option value="geogragie">{{translate.tr("Geografie")}} </option>
+                                <option value="geografie">{{translate.tr("Geografie")}} </option>
                                 <option value="stiinte"> {{translate.tr("Stiinte")}} </option>
                                 <option value="enciclopedie"> {{translate.tr("Enciclopedii")}} </option>
                                 <option value="memorii si biografii"> {{translate.tr("Memorii si biografii")}} </option>
@@ -399,7 +399,7 @@
                         <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
                         <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
                     </div>
-                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Trade </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" (click)="tradeBook()"> {{databaseService.itemModalDetalii.pe_asta ? "Alege cartea" : "Propune un schimb"}} </div>
                 </div>
             </div>
         </div>

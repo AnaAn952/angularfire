@@ -318,6 +318,12 @@ export class ProfileComponent implements OnInit {
     }
 
     public tradeBook() {
-        this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
+        if (!this.databaseService.itemModalDetalii.pe_asta) {
+            $("#modal2").modal("show");
+            this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
+        } else if (this.databaseService.itemModalDetalii.status === "indisponibil") {
+            this.databaseService.adaugaLaSchimburiAcceptate(this.databaseService.itemModalDetalii);
+            $("#modalDetalii").modal("hide");
+        }
     }
 }
