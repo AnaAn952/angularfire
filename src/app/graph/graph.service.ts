@@ -38,7 +38,9 @@ export class GraphService {
 
                     // creeaza noduri pentru toti autorii : id-ul = numele
                     if (!this.graph.nodes('author').query().filter({name__ilike: book.autor}).units().length) {
-                        this.graph.createNode('author', {name: book.autor});
+                        if (book.autor !== '-') {
+                            this.graph.createNode('author', {name: book.autor});
+                        }
                     }
 
                     // creeaza noduri pentru toti userii : id-ul = emailul
@@ -59,8 +61,10 @@ export class GraphService {
                     this.graph.createEdge("book-type").link(bookNode, type).setDistance(2);
 
                     // leaga cartea de autorul ei
-                    let autor = this.graph.nodes('author').query().filter({name__ilike: book.autor}).units()[0];
-                    this.graph.createEdge("book-author").link(bookNode, autor).setDistance(1);
+                    if (book.autor !== "-") {
+                        let autor = this.graph.nodes('author').query().filter({name__ilike: book.autor}).units()[0];
+                        this.graph.createEdge("book-author").link(bookNode, autor).setDistance(1);
+                    }
                 }
             }
 
