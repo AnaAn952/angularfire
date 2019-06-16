@@ -179,4 +179,11 @@ export class BooksCatalogueComponent implements OnInit {
     public tradeBook() {
         this.databaseService.itemForNewTrade = this.databaseService.itemModalDetalii;
     }
+
+    public shorter(value: any) {
+        if (this.userDataService.userData.limba === "engleză") {
+            return value.slice(0, -8) + "...";
+        }
+        return value;
+    }
 }

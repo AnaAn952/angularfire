@@ -14,7 +14,7 @@
                 <div [ngClass]="{'person-item2': true, 'bg-diff': elem.mine}" style="cursor: pointer">
                     <img class="person-img" [src]="elem.profilePicture">
                     <div class="person-text">
-                        Utilizator: {{elem.username}}
+                        {{translate.tr("Utilizator")}}: {{elem.username}}
                         <span *ngIf="elem.moderator" style="border: 1px solid; padding: 2px 0 1px 4px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
                         Email: {{elem.email}} <br>
                     </div>
@@ -27,7 +27,7 @@
         <div class="chat-header">
             <img class="person-img" [src]="currentUser.profilePicture">
             <div class="person-text">
-                Utilizator: {{currentUser.username}}
+                {{translate.tr("Utilizator")}}: {{currentUser.username}}
                 <span *ngIf="currentUser.moderator" style="border: 1px solid; padding: 2px 0 1px 4px; margin-left: 6px; border-radius: 36%;"> M </span> <br>
                 Email: {{currentUser.email}} <br>
             </div>

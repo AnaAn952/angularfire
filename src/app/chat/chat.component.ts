@@ -3,6 +3,7 @@ import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { EventsService } from '../services/fetch-books.service';
+import { TranslateService } from '../services/translate.service';
 
 @Component({
     selector: 'chat',
@@ -18,6 +19,7 @@ export class ChatComponent {
         public databaseService: DatabaseService,
         public db: AngularFireDatabase,
         public events: EventsService,
+        public translate: TranslateService,
     ) {
         this.usersRef = this.db.list('/users/');
         this.searchUser("");

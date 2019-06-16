@@ -3,59 +3,59 @@
     <div class="left-div">
         <form id="filters">
             <div class="form-check" style="margin-left: 0 !important;">
-                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck15"> Titlu </label>
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck15"> {{translate.tr("Titlu")}} </label>
                 <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck15" [value]="filters.title">
             </div>
             <div class="form-check" style="margin: 20px 0 0 0 !important;">
-                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck16"> Autor </label>
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck16"> {{translate.tr("Autor")}} </label>
                 <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck16" [value]="filters.writer">
             </div>
             <div class="form-check" style="margin: 20px 0 0 0 !important;">
-                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck1"> Limbă </label>
+                <label style="font-weight: bold; font-size: 16px" class="form-check-label" for="gridCheck1"> {{translate.tr("Limbă")}} </label>
                 <input style="font-size: 15px; float: right; width: 100%; border-color: #f1f1f1;" type="text" id="gridCheck1" [value]="filters.language">
             </div>
-            <span style="font-weight: bold; font-size: 16px"> Gen </span> <br>
+            <span style="font-weight: bold; font-size: 16px"> {{translate.tr("Gen")}} </span> <br>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck5" value="ficțiune" checked>
-                <label class="form-check-label" for="gridCheck5"> Ficțiune </label>
+                <label class="form-check-label" for="gridCheck5"> {{translate.tr("Ficțiune")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck6" value="istorie" checked>
-                <label class="form-check-label" for="gridCheck6"> Istorie </label>
+                <label class="form-check-label" for="gridCheck6"> {{translate.tr("Istorie")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck14" value="geografie" checked>
-                <label class="form-check-label" for="gridCheck14"> Geografie </label>
+                <label class="form-check-label" for="gridCheck14"> {{translate.tr("Geografie")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck2" value="științe" checked>
-                <label class="form-check-label" for="gridCheck2"> Științe </label>
+                <label class="form-check-label" for="gridCheck2"> {{translate.tr("Științe")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck7" value="enciclopedii" checked>
-                <label class="form-check-label" for="gridCheck7"> Enciclopedii </label>
+                <label class="form-check-label" for="gridCheck7"> {{translate.tr("Enciclopedii")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck9" value="memorii și biografii" checked>
-                <label class="form-check-label" for="gridCheck9"> Memorii și biografii </label>
+                <label class="form-check-label" for="gridCheck9"> {{translate.tr("Memorii și biografii")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck10" value="psihologie și dezvoltare personală" checked>
-                <label class="form-check-label" for="gridCheck10"> Psihologie și dezvoltare personală </label>
+                <label class="form-check-label" for="gridCheck10"> {{shorter(translate.tr("Psihologie și dezvoltare personală"))}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck11" value="culinare" checked>
-                <label class="form-check-label" for="gridCheck11"> Culinare </label>
+                <label class="form-check-label" for="gridCheck11"> {{translate.tr("Culinare")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck12" value="pentru copii" checked>
-                <label class="form-check-label" for="gridCheck12"> Pentru copii </label>
+                <label class="form-check-label" for="gridCheck12"> {{translate.tr("Pentru copii")}} </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck13" value="altele" checked>
-                <label class="form-check-label" for="gridCheck13"> Altele </label>
+                <label class="form-check-label" for="gridCheck13"> {{translate.tr("Altele")}} </label>
             </div>
-            <button id="submit_filters" type="submit" class="btn btn-primary my-1">Caută</button>
+            <button id="submit_filters" type="submit" class="btn btn-primary my-1">{{translate.tr("Caută")}}</button>
         </form>
     </div>
     <div style="clear:right">
@@ -93,15 +93,15 @@
                 </div>
                 <div class="col-lg-7">
                     <div>
-                        <span> <b>{{translate.tr("Titlu:")}}: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
+                        <span> <b>{{translate.tr("Titlu")}}: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                         <span> <b>{{translate.tr("Utilizator")}}: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
                         <span> <b>{{translate.tr("Autor")}}: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
                         <span> <b>{{translate.tr("Starea cărții")}}: </b> {{databaseService.itemModalDetalii.stareCarte ? translate.tr(databaseService.itemModalDetalii.stareCarte.toLowerCase()) : "-"}} </span> <br>
                         <span> <b>{{translate.tr("Gen")}}: </b> {{translate.tr(databaseService.itemModalDetalii.gen) || "-"}} </span> <br>
                         <span> <b>{{translate.tr("Limbă")}}: </b> {{translate.tr(databaseService.itemModalDetalii.limba) || "-"}} </span> <br>
-                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> vezi parcursul acestei cărți </span> </span>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> {{translate.tr("vezi parcursul acestei cărți")}} </span> </span>
                     </div>
-                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> Propune un schimb </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" data-toggle="modal" data-target="#modal2" (click)="tradeBook()"> {{translate.tr("Propune un schimb")}} </div>
                 </div>
             </div>
         </div>
@@ -131,9 +131,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 47px;">Închide</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 47px;">{{translate.tr("Închide")}}</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">")}}Trimite oferta")}} </button>
+                <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">{{translate.tr("Trimite oferta")}} </button>
             </div>
         </div>
     </div>
