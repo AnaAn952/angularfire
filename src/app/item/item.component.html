@@ -8,7 +8,7 @@
     <button class="custom-button" *ngIf="alege_catalog && !showDeselect" (click)="chooseBookTrade()"> Selecteaza </button>
     <button class="custom-button" *ngIf="alege_catalog && showDeselect" (click)="anuleazaAlegerea()"> Deselecteaza </button>
     <button class="custom-button" *ngIf="item && item.oferi_schimb" data-toggle="modal" data-target="#modalChosenSolicitate" id="chosenBooks_seeBooksInExchange" (click)="databaseService.seeBooksInExchange(item)">
-        Vezi cartile pe care le oferi la schimb
+        Cărțile pe care le oferi la schimb
     </button>
     <div *ngIf="item.status === 'indisponibil'" [ngClass]="{'indisponibil-myBooks': (category === 'myBooks' || category === 'chosenByMe'), 'indisponibil-modal': item.exchange || item.pe_asta }">
         {{translate.tr("Indisponibilă")}}

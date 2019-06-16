@@ -14,7 +14,7 @@
         </div>
         <img class="img" [src]="item.poza">
     </div>
-    <div *ngIf="item.organizator === userDataService.userData.email" class="editevent" (click)="editeazaEveniment()"> Editeza </div>
+    <div *ngIf="item.organizator === userDataService.userData.email" class="editevent" (click)="editeazaEveniment()"> Editeză </div>
 </div>
 
 <div class="modal fade" [id]="'modalParticipanti' + id" tabindex="-1" role="dialog" aria-labelledby="modallabelparticipanti" aria-hidden="true">
@@ -22,7 +22,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 200px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="modallabelparticipanti">
-                    Participanti
+                    Participanți
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

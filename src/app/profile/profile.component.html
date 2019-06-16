@@ -1,12 +1,12 @@
 <div class="profile">
     <div style="width: 100%; clear: left; margin-bottom: 50px;">
         <div style="width: 100%; margin-bottom: 35px;">
-            <div style="float: left"> {{translate.tr("Informatii personale")}}</div>
+            <div style="float: left"> {{translate.tr("Informații personale")}}</div>
             <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> {{translate.tr("Editează informatiile")}} </div>
         </div>
         <div class="profile-picture-div float-left" (click)="modalPozaProfil()">
             <div *ngIf="!userDataService.userData.profilePicture" class="profile-pic-add">
-                <div style="margin-top: 115px;"> {{translate.tr("Apasa pentru a alege o poza de profil")}} </div>
+                <div style="margin-top: 115px;"> {{translate.tr("Apasă pentru a alege o poză de profil")}} </div>
             </div>
             <div *ngIf="userDataService.userData.profilePicture" class="profile-pic-add">
                 <img style="margin-top: -1px;margin-left: -31px;width: 257px;height: 290px;" src="{{userDataService.userData.profilePicture}}">
@@ -18,13 +18,13 @@
             <div> <b>{{translate.tr("Telefon")}}: </b> {{userDataService.userData.telefon || "-"}} </div>
             <div> <b>{{translate.tr("Vârstă")}}: </b> {{userDataService.userData.varsta || "-"}} </div>
             <div> <b>{{translate.tr("Oraş")}}: </b> {{userDataService.userData.oras || "-"}} </div>
-            <div> <b>{{translate.tr("Limbă")}}: </b> {{userDataService.userData.limba || "romana"}} </div>
+            <div> <b>{{translate.tr("Limbă")}}: </b> {{userDataService.userData.limba || "română"}} </div>
             <div> <b>{{translate.tr("Ocupație")}}: </b> {{userDataService.userData.ocupatie || "-"}} </div>
         </div>
     </div>
     <div style="width: 100%; clear: right">
         <div style="width: 100%">
-            <div style="float: left">{{translate.tr("Cartile mele")}}</div>
+            <div style="float: left">{{translate.tr("Cărțile mele")}}</div>
             <div class="adaugaCarte grow" (click)="addBookOpen()"> {{translate.tr("Adaugă carte")}} </div>
         </div>
         <carousel *ngIf="myBooks.length>4" [items]="myBooks"></carousel>
@@ -37,9 +37,9 @@
 
     <div style="clear: left;">
         <select #categorie id="inputState" class="form-control select-custom" (change)="selectCategorie(categorie.value)">
-            <option value="4"> {{translate.tr("Carti solicitate de mine")}} </option>
-            <option value="5"> {{translate.tr("Carti ce mi-au fost solicitate")}} </option>
-            <option value="6"> {{translate.tr("Schimburi in desfasurare")}} </option>
+            <option value="4"> {{translate.tr("Cărți solicitate de mine")}} </option>
+            <option value="5"> {{translate.tr("Cărți ce mi-au fost solicitate")}} </option>
+            <option value="6"> {{translate.tr("Schimburi în desfășurare")}} </option>
             <option value="2"> {{translate.tr("Schimburi finalizate")}} </option>
             <option value="1" > {{translate.tr("Schimburi confirmate de mine")}} </option>
             <option value="3" > {{translate.tr("Schimburi raportate de mine")}}</option>
@@ -137,7 +137,7 @@
                         </ng-container>
                     </div>
                     <div *ngIf="databaseService.booksInModal.length == 0">
-                        Toate cartile sunt indisponibile in acest moment sau au fost sterse.
+                        Toate cărțile sunt indisponibaile în acest moment sau au fost șterse.
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -183,33 +183,33 @@
                         <div class="form-group">
                             <label for="exampleGen">{{translate.tr("Genul cărții")}}</label> <br>
                             <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="fictiune">{{translate.tr("Fictiune")}} </option>
+                                <option value="fictiune">{{translate.tr("Ficțiune")}} </option>
                                 <option value="istorie">{{translate.tr("Istorie")}} </option>
                                 <option value="geografie">{{translate.tr("Geografie")}} </option>
-                                <option value="stiinte"> {{translate.tr("Stiinte")}} </option>
+                                <option value="stiinte"> {{translate.tr("Științe")}} </option>
                                 <option value="enciclopedie"> {{translate.tr("Enciclopedii")}} </option>
-                                <option value="memorii si biografii"> {{translate.tr("Memorii si biografii")}} </option>
-                                <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie si dezvoltare personala")}} </option>
+                                <option value="memorii si biografii"> {{translate.tr("Memorii și biografii")}} </option>
+                                <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
                                 <option value="culinare"> {{translate.tr("Culinare")}} </option>
-                                <option value="pentru copii"> {{translate.tr("Carti pentru copii")}} </option>
+                                <option value="pentru copii"> {{translate.tr("Cărți pentru copii")}} </option>
                                 <option value="altele"> {{translate.tr("Altele")}} </option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleLanguage">{{translate.tr("Limba")}}</label> <br>
+                            <label for="exampleLanguage">{{translate.tr("Limbă")}}</label> <br>
                             <select #input4 id="exampleLanguage" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="engleza"> {{translate.tr("Engleza")}} </option>
-                                <option value="romana"> {{translate.tr("Romana")}} </option>
+                                <option value="engleză"> {{translate.tr("Engleză")}} </option>
+                                <option value="română"> {{translate.tr("Română")}} </option>
                                 <option value="altele"> {{translate.tr("Altele")}} </option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleStare">{{translate.tr("Starea cartii")}}</label> <br>
+                            <label for="exampleStare">{{translate.tr("Starea cărții")}}</label> <br>
                             <select #input8 id="exampleStare" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="foartebuna"> {{translate.tr("Foarte buna")}} </option>
-                                <option value="buna"> {{translate.tr("Buna")}} </option>
-                                <option value="uzata"> {{translate.tr("Uzata")}} </option>
-                                <option value="foarteuzata"> {{translate.tr("Foarte uzata")}} </option>
+                                <option value="Foarte bună"> {{translate.tr("Foarte bună")}} </option>
+                                <option value="Bună"> {{translate.tr("Bună")}} </option>
+                                <option value="Uzată"> {{translate.tr("Uzată")}} </option>
+                                <option value="Foarte uzată"> {{translate.tr("Foarte uzată")}} </option>
                             </select>
                         </div>
                         <button [disabled]="!input1.value || !input2.value || !input7.value" type="submit" class="btn btn-primary pull-right" (click)="submitBook(input1.value, input5.value, input4.value, input8.value, input7.value)">{{translate.tr("Adaugă")}}</button>
@@ -248,7 +248,7 @@
             <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 150px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modallabelinfo">
-                        {{translate.tr("Editeaza informatiile")}}
+                        {{translate.tr("Editează informațiile")}}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -279,8 +279,8 @@
                         <div class="form-group">
                             <label for="limba" class="col-lg-3 fl-editeaza">{{translate.tr("Limbă")}}</label>
                             <select #language class="form-control col-lg-8 fc-editeaza" id="limba" [value]="userDataService.userData.limba">
-                                <option value="engleza"> {{translate.tr("engleza")}} </option>
-                                <option value="romana"> {{translate.tr("romana")}} </option>
+                                <option value="engleză"> {{translate.tr("engleză")}} </option>
+                                <option value="română"> {{translate.tr("română")}} </option>
                             </select>
                         </div>
                         <button [disabled]="!name.value" type="submit" class="btn btn-primary pull-right" (click)="changeInfo(name.value, phone.value, age.value, town.value, ocupation.value, language.value)">{{translate.tr("Modifică")}}</button>
@@ -327,29 +327,29 @@
                     <div class="form-group">
                         <label for="exampleGene">{{translate.tr("Genul cărții")}}</label> <br>
                         <select #input50 id="exampleGene" [value]="databaseService.editMyBook.gen" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="fictiune"> {{translate.tr("Fictiune")}} </option>
+                            <option value="fictiune"> {{translate.tr("Ficțiune")}} </option>
                             <option value="istorie"> {{translate.tr("Istorie")}} </option>
                             <option value="geografie"> {{translate.tr("Geografie")}} </option>
-                            <option value="stiinte"> {{translate.tr("Stiinte")}} </option>
+                            <option value="stiinte"> {{translate.tr("Științe")}} </option>
                             <option value="enciclopedie"> {{translate.tr("Enciclopedie")}} </option>
-                            <option value="memorii si biografii"> {{translate.tr("Memorii si biografii")}} </option>
-                            <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie si dezvoltare personala")}} </option>
+                            <option value="memorii si biografii"> {{translate.tr("Memorii și biografii")}} </option>
+                            <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
                             <option value="culinare"> {{translate.tr("Culinare")}} </option>
                             <option value="pentru copii"> {{translate.tr("Pentru copii")}} </option>
                             <option value="altele"> {{translate.tr("Altele")}} </option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleLanguagee">{{translate.tr("Limba")}}</label>
+                        <label for="exampleLanguagee">{{translate.tr("Limbă")}}</label>
                         <input #input40 type="text" class="form-control" id="exampleLanguagee" [value]="databaseService.editMyBook.limba" placeholder="Introduceți limba">
                     </div>
                     <div class="form-group">
-                        <label for="exampleStaree">{{translate.tr("Starea cartii")}}</label> <br>
+                        <label for="exampleStaree">{{translate.tr("Starea cărții")}}</label> <br>
                         <select #input80 id="exampleStaree" [value]="databaseService.editMyBook.stareCarte" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="foartebuna"> {{translate.tr("Foarte buna")}} </option>
-                            <option value="buna"> {{translate.tr("Buna")}} </option>
-                            <option value="uzata"> {{translate.tr("Uzata")}} </option>
-                            <option value="foarteuzata"> {{translate.tr("Foarte uzata")}} </option>
+                            <option value="Foarte bună"> {{translate.tr("Foarte bună")}} </option>
+                            <option value="Bună"> {{translate.tr("Bună")}} </option>
+                            <option value="Uzată"> {{translate.tr("Uzată")}} </option>
+                            <option value="Foarte uzată"> {{translate.tr("Foarte uzată")}} </option>
                         </select>
                     </div>
                     <button [disabled]="!inputEditeaza1.value || !input70.value" type="submit" class="btn btn-primary pull-right" (click)="editMyBook(inputEditeaza1.value, input50.value, input40.value, input80.value, input70.value)">{{translate.tr("Modifică")}}</button>
@@ -394,10 +394,10 @@
                         <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
                         <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
                         <span> <b>Autor: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
-                        <span> <b>Starea cartii: </b> {{databaseService.itemModalDetalii.stareCarte || "-"}} </span> <br>
+                        <span> <b>Starea cărții: </b> {{databaseService.itemModalDetalii.stareCarte.toLowerCase() || "-"}} </span> <br>
                         <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
-                        <span> <b>Limba: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
-                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > Click </span>
+                        <span> <b>Limbă: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > vezi parcursul acestei cărți </span>
                     </div>
                     <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" (click)="tradeBook()"> {{databaseService.itemModalDetalii.pe_asta ? "Alege cartea" : "Propune un schimb"}} </div>
                 </div>
@@ -412,7 +412,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">
-                    Alege cartile pe care ai dori sa le oferi la schimb
+                    Alege cărțile pe care ai dori să le oferi la schimb
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -425,7 +425,7 @@
                     </ng-container>
                 </div>
                 <div *ngIf="myBooks.length == 0">
-                    Schimbul nu poate fi realizat deocamdata, deoarece nu exista carti disponibile.
+                    Schimbul nu poate fi realizat deocamdată, deoarece nu există cărți disponibile.
                 </div>
             </div>
             <div class="modal-footer">
@@ -450,17 +450,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                Te rugam sa completezi acest formular doar dupa ce ai intrat in posesia cartii sau daca doresti sa semnalezi o problema ce impiedica finalizarea schimbului. <br> <br>
+                Te rugăm să completezi acest formular doar după ce ai intrat în posesia cărții sau dacă dorești să semnalezi o problemă ce împiedică finalizarea schimbului. <br> <br>
                 <form id="acceptateform" #acceptateform>
                     <div class="form-group">
-                        <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> Ai intrat in posesia cartii? </label>
+                        <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> Ai intrat în posesia cărții? </label>
                         <select #select id="carte_primita" class="form-control col-lg-12 custom-select">
                             <option value="da"> Da </option>
                             <option value="nu"> Nu </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'da'" class="form-group">
-                        <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> In ce stare se afla cartea? </label>
+                        <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> În ce stare se află cartea? </label>
                         <select id="stare_carte" class="form-control col-lg-12 custom-select">
                             <option value="foarte_buna"> Foarte buna </option>
                             <option value="buna"> Buna </option>
@@ -469,16 +469,16 @@
                         </select>
                     </div>
                     <div *ngIf="select.value === 'nu'" class="form-group">
-                        <label for="raportare" class="col-lg-12" style="padding-left: 0 !important;"> Ce problema doresti sa semnalezi? </label>
+                        <label for="raportare" class="col-lg-12" style="padding-left: 0 !important;"> Ce problemă dorești să semnalezi? </label>
                         <select #select_raportare id="raportare" class="form-control col-lg-12 custom-select">
                             <option value="1"> Neseriozitate din partea celuilalt utilizator. </option>
-                            <option value="2"> O problema tehnica de pe site. </option>
-                            <option value="3"> O intarziere a coletului. (in cazul in care ati utilizat serviciile noastre de curierat) </option>
+                            <option value="2"> O problemă tehnică de pe site. </option>
+                            <option value="3"> O întârziere a coletului. </option>
                             <option value="4"> Altele </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'nu'" class="form-group">
-                        <label for="detalii" class="col-lg-12" style="padding-left: 0 !important;">Te rugam sa ne oferi mai multe detalii.</label>
+                        <label for="detalii" class="col-lg-12" style="padding-left: 0 !important;">Te rugăm să ne oferi mai multe detalii.</label>
                         <textarea id="detalii" name="message" rows="2" cols="59" style="margin-left: 1px"></textarea>
                     </div>
                     <button class="btn btn-primary pull-right" (click)="acceptateForm1()">Trimite</button>

@@ -4,8 +4,8 @@
     <div #going class="custom-div" (click)="goingEvents()"> Evenimente la care particip </div>
 </div>
 
-<div *ngIf="userDataService.userData.moderator && selectedItems == myItems" class="adaugaEveniment" (click)="addEventOpen()"> Adauga eveniment </div>
-<div *ngIf="userDataService.userData.moderator && selectedItems == myItems" class="adaugaPdf" (click)="addPdf()"> Adauga PDF </div>
+<div *ngIf="userDataService.userData.moderator && selectedItems == myItems" class="adaugaEveniment" (click)="addEventOpen()"> Adaugă eveniment </div>
+<div *ngIf="userDataService.userData.moderator && selectedItems == myItems" class="adaugaPdf" (click)="addPdf()"> Adaugă PDF </div>
 
 <div class="event">
     <div *ngFor="let item of selectedItems">
@@ -53,11 +53,11 @@
                         <input #inputev7 type="text" class="form-control" id="exampleSpecial" value="-">
                     </div>
                     <div class="form-group">
-                        <label for="exampleOras">Oras</label>
+                        <label for="exampleOras">Oraș</label>
                         <input #inputev8 type="text" class="form-control" id="exampleOras" placeholder="Intoduceti orasul">
                     </div>
                     <div class="form-group">
-                        <label for="exampleAdresa">Adresa</label>
+                        <label for="exampleAdresa">Adresă</label>
                         <input #inputev9 type="text" class="form-control" id="exampleAdresa" placeholder="Intoduceti adresa">
                     </div>
                     <div class="form-group">
@@ -84,7 +84,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -150px;margin-top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabelAdauga1">
-                    Editeaza evenimentul
+                    Editează evenimentul
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -119,11 +119,11 @@
                         <input #inputev7e type="text" class="form-control" id="exampleSpeciale" [value]="databaseService.editMyEvent.invitat">
                     </div>
                     <div class="form-group">
-                        <label for="exampleOrase">Oras</label>
+                        <label for="exampleOrase">Oraș</label>
                         <input #inputev8e type="text" class="form-control" id="exampleOrase" [value]="databaseService.editMyEvent.oras">
                     </div>
                     <div class="form-group">
-                        <label for="exampleAdresae">Adresa</label>
+                        <label for="exampleAdresae">Adresă</label>
                         <input #inputev9e type="text" class="form-control" id="exampleAdresae" [value]="databaseService.editMyEvent.adresa">
                     </div>
                     <div class="form-group">
@@ -137,7 +137,7 @@
                     <button [disabled]="!inputev1e.value || !inputev2e.value || !inputev3e.value || !inputev6e.value || !inputev8e.value || !inputev9e.value || !inputev11e.value"
                             type="submit" class="btn btn-primary pull-right"
                             (click)="editEvent(inputev1e.value, inputev2e.value, inputev6e.value, inputev7e.value, inputev8e.value, inputev9e.value, inputev11e.value, inputev10e.value)">
-                        Modifica</button>
+                        Modifică</button>
                 </form>
             </div>
         </div>
