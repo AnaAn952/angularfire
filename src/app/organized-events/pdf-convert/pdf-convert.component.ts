@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { PDFJSStatic } from 'pdfjs-dist';
 import { DatabaseService } from '../../services/database.service';
+import { TranslateService } from '../../services/translate.service';
 
 declare let require: any;
 declare let $: any;
@@ -18,6 +19,7 @@ export class PdfConvertComponent {
 
     constructor(
       public databaseService: DatabaseService,
+      public translate: TranslateService
     ) {}
 
     public updateazaInformatii(value: any) {
@@ -91,7 +93,7 @@ export class PdfConvertComponent {
             this.updateazaInformatii(value);
         });
         $("#modalPdf").modal('hide');
-        $("#inputPdf").val("");
+        $("#inputPdfReal").val("");
     }
 
 }

@@ -1,2 +1,9 @@
-<input #input id="inputPdf" type="file" accept="application/pdf" (change)="onFileChange($event)">
-<button class="btn btn-primary pull-right" style="margin-top: 50px" [disabled]="!src" (click)="adauga()"> Adaugă </button>
+<form>
+    <input #input id="inputPdf" type="button" [value]="translate.tr('Alege un fișier PDF')" (click)="input2.click();" [placeholder]="translate.tr('Alege un fișier PDF')">
+    <span *ngIf="input2.value"> {{input2.value.split("\\").pop()}} </span>
+
+    <input #input2 type="file" accept="application/pdf"  class="form-control" id="inputPdfReal" [placeholder]="translate.tr('Alege un fișier PDF')"
+           (change)="onFileChange($event)" style="display: none;">
+</form>
+
+<button class="btn btn-primary pull-right" style="margin-top: 15px" [disabled]="!src" (click)="adauga()"> Adaugă </button>
