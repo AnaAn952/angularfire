@@ -16,7 +16,7 @@ export class TranslateService {
     }
 
     public tr(value: any) {
-        if (this.userData.userData.limba === "engleza") {
+        if (this.userData.userData.limba === "engleză") {
             return this.trans[value];
         } else return value;
     }

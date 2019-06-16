@@ -3,6 +3,7 @@ import { EventsService } from '../services/fetch-books.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { DatabaseService } from '../services/database.service';
+import { TranslateService } from '../services/translate.service';
 
 declare let $: any;
 
@@ -34,6 +35,7 @@ export class BooksCatalogueComponent implements OnInit {
         private db: AngularFireDatabase,
         private userDataService: UserDataService,
         public databaseService: DatabaseService,
+        public translate: TranslateService,
     ) {
         this.dbRef = db.list("/cartile");
 

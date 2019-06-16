@@ -2,7 +2,7 @@
     <div style="width: 100%; clear: left; margin-bottom: 50px;">
         <div style="width: 100%; margin-bottom: 35px;">
             <div style="float: left"> {{translate.tr("Informații personale")}}</div>
-            <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> {{translate.tr("Editează informatiile")}} </div>
+            <div class="editeazaInformatii grow" (click)="editeazaInformatii()"> {{translate.tr("Editează informațiile")}} </div>
         </div>
         <div class="profile-picture-div float-left" (click)="modalPozaProfil()">
             <div *ngIf="!userDataService.userData.profilePicture" class="profile-pic-add">
@@ -331,11 +331,11 @@
                             <option value="istorie"> {{translate.tr("Istorie")}} </option>
                             <option value="geografie"> {{translate.tr("Geografie")}} </option>
                             <option value="științe"> {{translate.tr("Științe")}} </option>
-                            <option value="enciclopedie"> {{translate.tr("Enciclopedie")}} </option>
+                            <option value="enciclopedie"> {{translate.tr("Enciclopedii")}} </option>
                             <option value="memorii și biografii"> {{translate.tr("Memorii și biografii")}} </option>
                             <option value="psihologie și dezvoltare personală"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
                             <option value="culinare"> {{translate.tr("Culinare")}} </option>
-                            <option value="pentru copii"> {{translate.tr("Pentru copii")}} </option>
+                            <option value="pentru copii"> {{translate.tr("Cărți pentru copii")}} </option>
                             <option value="altele"> {{translate.tr("Altele")}} </option>
                         </select>
                     </div>
@@ -364,18 +364,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-custom-grey">
             <div class="modal-header">
-                <h5 class="modal-title" id="examplemodalstergelabel">Șterge cartea</h5>
+                <h5 class="modal-title" id="examplemodalstergelabel">{{translate.tr("Șterge cartea")}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Ești sigur(ă) că dorești să ștergi această carte?
+                {{translate.tr("Ești sigur(ă) că dorești să ștergi această carte?")}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 14.8rem; padding:9px;">Anulează</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 14.8rem; padding:9px;">{{translate.tr("Anulează")}}</button>
                 <div class="col-xs-7"></div>
-                <button type="button" class="btn btn-primary" style="padding: .5rem .72rem" (click)="databaseService.removeMyBook()">Da</button>
+                <button type="button" class="btn btn-primary" style="padding: .5rem .72rem" (click)="databaseService.removeMyBook()">{{translate.tr("Da")}}</button>
             </div>
         </div>
     </div>
@@ -391,15 +391,15 @@
                 </div>
                 <div class="col-lg-7">
                     <div>
-                        <span> <b>Titlu: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
-                        <span> <b>Utilizator: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
-                        <span> <b>Autor: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
-                        <span> <b>Starea cărții: </b> {{databaseService.itemModalDetalii.stareCarte.toLowerCase() || "-"}} </span> <br>
-                        <span> <b>Gen: </b> {{databaseService.itemModalDetalii.gen || "-"}} </span> <br>
-                        <span> <b>Limbă: </b> {{databaseService.itemModalDetalii.limba || "-"}} </span> <br>
-                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > vezi parcursul acestei cărți </span>
+                        <span> <b>{{translate.tr("Titlu")}}: </b> {{databaseService.itemModalDetalii.titlu}} </span> <br>
+                        <span> <b>{{translate.tr("Utilizator")}}: </b> {{databaseService.itemModalDetalii.proprietarCurent}} </span> <br>
+                        <span> <b>{{translate.tr("Autor")}}: </b> {{databaseService.itemModalDetalii.autor}} </span> <br>
+                        <span> <b>{{translate.tr("Starea cărții")}}: </b> {{databaseService.itemModalDetalii.stareCarte ? translate.tr(databaseService.itemModalDetalii.stareCarte).toLowerCase() : "-"}} </span> <br>
+                        <span> <b>{{translate.tr("Gen")}}: </b> {{translate.tr(databaseService.itemModalDetalii.gen) || "-"}} </span> <br>
+                        <span> <b>{{translate.tr("Limbă")}}: </b> {{translate.tr(databaseService.itemModalDetalii.limba) || "-"}} </span> <br>
+                        <span> <b> Book tracking: </b> </span> <span (click)="openAici()" > <span style="cursor: pointer;"> {{translate.tr("vezi parcursul acestei cărți")}} </span> </span>
                     </div>
-                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" (click)="tradeBook()"> {{databaseService.itemModalDetalii.pe_asta ? "Alege cartea" : "Propune un schimb"}} </div>
+                    <div *ngIf="databaseService.itemModalDetalii.proprietarCurent !== userDataService.userData.email" class="custom-div" (click)="tradeBook()"> {{databaseService.itemModalDetalii.pe_asta ? translate.tr("Alege cartea") : translate.tr("Propune un schimb")}} </div>
                 </div>
             </div>
         </div>
@@ -412,7 +412,7 @@
         <div class="modal-content" style="width: 767px;margin-left: -160px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">
-                    Alege cărțile pe care ai dori să le oferi la schimb
+                    {{translate.tr("Alege cărțile pe care ai dori să le oferi la schimb")}}.
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -425,13 +425,13 @@
                     </ng-container>
                 </div>
                 <div *ngIf="myBooks.length == 0">
-                    Schimbul nu poate fi realizat deocamdată, deoarece nu există cărți disponibile.
+                    {{translate.tr("Schimbul nu poate fi realizat deocamdată, deoarece nu există cărți disponibile")}}.
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">{{translate.tr("Închide")}}</button>
                 <div class="col-lg-7 col-md-7 col-xs-7"></div>
-                <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">Trimite oferta </button>
+                <button [disabled] = "!this.databaseService.tradeBooksForChosenBooks.length" type="button" class="btn btn-primary" (click)="databaseService.addChosenBookAndTradeBooks()">{{translate.tr("Trimite oferta")}} </button>
             </div>
         </div>
     </div>
@@ -443,42 +443,42 @@
         <div class="modal-content" style="width: 767px;margin-left: -120px;margin-top: 108px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalAcceptatee">
-                    Evaluează acest schimb
+                    {{translate.tr("Evaluează acest schimb")}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Te rugăm să completezi acest formular doar după ce ai intrat în posesia cărții sau dacă dorești să semnalezi o problemă ce împiedică finalizarea schimbului. <br> <br>
+                {{translate.tr("Te rugăm să completezi acest formular doar după ce ai intrat în posesia cărții sau dacă dorești să semnalezi o problemă ce împiedică finalizarea schimbului")}}. <br> <br>
                 <form id="acceptateform" #acceptateform>
                     <div class="form-group">
-                        <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> Ai intrat în posesia cărții? </label>
+                        <label for="carte_primita" class="col-lg-12" style="padding-left: 0 !important;"> {{translate.tr("Ai intrat în posesia cărții?")}} </label>
                         <select #select id="carte_primita" class="form-control col-lg-12 custom-select">
-                            <option value="da"> Da </option>
-                            <option value="nu"> Nu </option>
+                            <option value="da"> {{translate.tr("Da")}} </option>
+                            <option value="nu"> {{translate.tr("Nu")}} </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'da'" class="form-group">
-                        <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> În ce stare se află cartea? </label>
+                        <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> {{translate.tr("În ce stare se află cartea?")}} </label>
                         <select id="stare_carte" class="form-control col-lg-12 custom-select">
-                            <option value="Foarte bună"> Foarte bună </option>
-                            <option value="Bună"> Bună </option>
-                            <option value="Uzată"> Uzată </option>
-                            <option value="Foarte uzată"> Foarte uzată </option>
+                            <option value="Foarte bună"> {{translate.tr("Foarte bună")}} </option>
+                            <option value="Bună"> {{translate.tr("Bună")}} </option>
+                            <option value="Uzată"> {{translate.tr("Uzată")}} </option>
+                            <option value="Foarte uzată"> {{translate.tr("Foarte uzată")}} </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'nu'" class="form-group">
-                        <label for="raportare" class="col-lg-12" style="padding-left: 0 !important;"> Ce problemă dorești să semnalezi? </label>
+                        <label for="raportare" class="col-lg-12" style="padding-left: 0 !important;"> {{translate.tr("Ce problemă dorești să semnalezi?")}} </label>
                         <select #select_raportare id="raportare" class="form-control col-lg-12 custom-select">
-                            <option value="1"> Neseriozitate din partea celuilalt utilizator. </option>
-                            <option value="2"> O problemă tehnică de pe site. </option>
-                            <option value="3"> O întârziere a coletului. </option>
-                            <option value="4"> Altele </option>
+                            <option value="1"> {{translate.tr("Neseriozitate din partea celuilalt utilizator")}}. </option>
+                            <option value="2"> {{translate.tr("O problemă tehnică de pe site")}}. </option>
+                            <option value="3"> {{translate.tr("O întârziere a coletului")}}. </option>
+                            <option value="4"> {{translate.tr("Altele")}} </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'nu'" class="form-group">
-                        <label for="detalii" class="col-lg-12" style="padding-left: 0 !important;">Te rugăm să ne oferi mai multe detalii.</label>
+                        <label for="detalii" class="col-lg-12" style="padding-left: 0 !important;">{{translate.tr("Te rugăm să ne oferi mai multe detalii")}}.</label>
                         <textarea id="detalii" name="message" rows="2" cols="59" style="margin-left: 1px"></textarea>
                     </div>
                     <button class="btn btn-primary pull-right" (click)="acceptateForm1()">Trimite</button>

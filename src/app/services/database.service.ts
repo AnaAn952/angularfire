@@ -263,7 +263,7 @@ export class DatabaseService {
         this.elementSelectatDinPropuneri = item;
 
         this.modalChosenSolicitate.title = this.translation.tr("Detalii ofertă");
-        this.modalChosenSolicitate.body = this.translation.tr("Alege una dintre aceste cărti pentru a accepta schimbul") + ":";
+        this.modalChosenSolicitate.body = this.translation.tr("Alege una dintre aceste cărți pentru a accepta schimbul") + ":";
         this.modalChosenSolicitate.rightButton = this.translation.tr("Refuză oferta");
 
         let ids = item.cartiLaSchimb;

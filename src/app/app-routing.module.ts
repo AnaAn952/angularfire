@@ -24,6 +24,7 @@ const routes: Routes = [
     component: BooksCatalogueComponent,
     data: { needsLogin: true },
     canActivate: [ AccessGuard ],
+    resolve: {translate: TranslationsCanActivate},
   },
   {
     path: 'profile',
