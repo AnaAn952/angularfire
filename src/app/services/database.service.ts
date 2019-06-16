@@ -22,6 +22,7 @@ export class DatabaseService {
     public editMyEvent: any = {};
     public removePdfBooksNumber: any = 0;
     public removePdfBooksObject: any = {};
+    public itemsAcceptate: any = [];
 
     constructor(
         public db: AngularFireDatabase,

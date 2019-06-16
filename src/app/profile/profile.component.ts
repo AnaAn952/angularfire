@@ -326,4 +326,24 @@ export class ProfileComponent implements OnInit {
             $("#modalDetalii").modal("hide");
         }
     }
+
+    public acceptateForm1() {
+        let cartePrimitaId;
+        if (this.databaseService.itemsAcceptate[1].proprietarCurent !== this.userDataService.userData.email) {
+            cartePrimitaId = this.databaseService.itemsAcceptate[1].id;
+        } else {
+            cartePrimitaId = this.databaseService.itemsAcceptate[0].id;
+        }
+        let form = $("#acceptateform")[0].elements;
+        if (form[0].value === "da") {
+            this.databaseService.setBookQuality(cartePrimitaId, form[1].value);
+        } else {
+            this.databaseService.raporteaza(form[1].value, form[2].value, cartePrimitaId);
+            form[0].value = "da";
+            form[1].value = "1";
+            form[2].value = "";
+        }
+        $("#modalAcceptate").modal("hide");
+    }
+
 }

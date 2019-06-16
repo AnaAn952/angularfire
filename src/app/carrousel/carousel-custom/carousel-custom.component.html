@@ -9,12 +9,12 @@
                 <div class="carousel-inner row w-100 mx-auto" role="listbox">
                     <div class="carousel-item active carousel-item-custom">
                         <ng-container *ngIf="items[0][0] && items[0][1]">
-                            <two-items-container [itemArray]="items[0]"></two-items-container>
+                            <two-items-container [itemArray]="items[0]" [category]="'acceptate'"></two-items-container>
                         </ng-container>
                     </div>
                     <div *ngFor="let item of items | slice:1" class="carousel-item carousel-item-custom">
                         <ng-container *ngIf="item[0] && item[1]">
-                            <two-items-container [itemArray]="item"></two-items-container>
+                            <two-items-container [itemArray]="item" [category]="'acceptate'"></two-items-container>
                         </ng-container>
                     </div>
                 </div>
