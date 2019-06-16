@@ -33,38 +33,39 @@ export class GraphService {
 
             // creeaza noduri pentru toate cartile : id-ul = codul din baza de date
             for (let book of books) {
-                if (book.status !== "indisponibil" && book.status !== "sters") {
-                    let bookNode = this.graph.createNode('book', {id: book.id});
 
-                    // creeaza noduri pentru toti autorii : id-ul = numele
-                    if (!this.graph.nodes('author').query().filter({name__ilike: book.autor}).units().length) {
-                        if (book.autor !== '-') {
-                            this.graph.createNode('author', {name: book.autor});
+                let own = Object.keys(book.istorie).map((item: any) => book.istorie[item]).map((item: any) => item.proprietar);
+
+                let bookNode = this.graph.createNode('book', {id: book.id, status: book.status, owners: own});
+
+                // creeaza noduri pentru toti autorii : id-ul = numele
+                if (!this.graph.nodes('author').query().filter({name__ilike: book.autor}).units().length) {
+                    if (book.autor !== '-') {
+                        this.graph.createNode('author', {name: book.autor});
+                    }
+                }
+
+                // creeaza noduri pentru toti userii : id-ul = emailul
+                if (book.solicitanti) {
+                    for (let solicitant of Object.values(book.solicitanti)) {
+                        if (!this.graph.nodes('user').query().filter({email__ilike: solicitant}).units().length) {
+                            this.graph.createNode('user', {email: solicitant});
                         }
+
+                        // leaga cartea de solicitant
+                        let user = this.graph.nodes('user').query().filter({email__ilike: solicitant}).units()[0];
+                        this.graph.createEdge("book-user").link(bookNode, user).setDistance(2.5);
                     }
+                }
 
-                    // creeaza noduri pentru toti userii : id-ul = emailul
-                    if (book.solicitanti) {
-                        for (let solicitant of Object.values(book.solicitanti)) {
-                            if (!this.graph.nodes('user').query().filter({email__ilike: solicitant}).units().length) {
-                                this.graph.createNode('user', {email: solicitant});
-                            }
+                // leaga cartea de genul ei
+                let type = this.graph.nodes('type').query().filter({type__ilike: book.gen}).units()[0];
+                this.graph.createEdge("book-type").link(bookNode, type).setDistance(2);
 
-                            // leaga cartea de solicitant
-                            let user = this.graph.nodes('user').query().filter({email__ilike: solicitant}).units()[0];
-                            this.graph.createEdge("book-user").link(bookNode, user).setDistance(2.5);
-                        }
-                    }
-
-                    // leaga cartea de genul ei
-                    let type = this.graph.nodes('type').query().filter({type__ilike: book.gen}).units()[0];
-                    this.graph.createEdge("book-type").link(bookNode, type).setDistance(2);
-
-                    // leaga cartea de autorul ei
-                    if (book.autor !== "-") {
-                        let autor = this.graph.nodes('author').query().filter({name__ilike: book.autor}).units()[0];
-                        this.graph.createEdge("book-author").link(bookNode, autor).setDistance(1);
-                    }
+                // leaga cartea de autorul ei
+                if (book.autor !== "-") {
+                    let autor = this.graph.nodes('author').query().filter({name__ilike: book.autor}).units()[0];
+                    this.graph.createEdge("book-author").link(bookNode, autor).setDistance(1);
                 }
             }
 
@@ -75,16 +76,23 @@ export class GraphService {
 
             let currentUser = this.graph.nodes('user').query().filter({email__ilike: localStorage.getItem("email")}).units()[0];
 
+            console.log("the current user", currentUser);
+
             if (currentUser) {
                 let paths = this.graph.closest(currentUser, {
                     compare: function(node) {
-                        return node.entity === 'book';
+                        if (node.properties.owners && node.properties.owners.includes(localStorage.getItem("email"))) {
+                            return false;
+                        }
+                        return node.entity === 'book' && node.properties.status !== "indisponibil" && node.properties.status !== "sters";
                     },
                     minDepth: 3.5,
                     maxDepth: 7.5,
                 });
 
                 this.userData.recommendedBooksIds = [];
+
+                console.log("paths", paths);
 
                 for (let i = 0; i < paths.length; i++) {
                     if (paths[i] && this.userData.recommendedBooksIds.length < 4) {

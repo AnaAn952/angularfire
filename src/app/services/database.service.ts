@@ -153,6 +153,10 @@ export class DatabaseService {
             a.unsubscribe();
         });
 
+        // adaugam userul care a acceptat la solicitantii cartii
+        let cartee = this.db.list('/cartile/' +  chosenBook.id + '/solicitanti');
+        cartee.set(this.currentUser, localStorage.getItem("email"));
+
         $('#modalChosenSolicitate').modal('hide');
     }
 
