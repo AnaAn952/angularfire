@@ -27,7 +27,7 @@ export class GraphService {
             this.graph = new ug.Graph();
 
             // creeaza noduri pentru genuri : id-ul = genul
-            for (let type of ["fictiune", "istorie", "geografie", "stiinte", "enciclopedie", "memorii si biografii", "psihologie si dezvoltare personala", "culinare", "pentru copii"]) {
+            for (let type of ["ficțiune", "istorie", "geografie", "științe", "enciclopedie", "memorii și biografii", "psihologie și dezvoltare personală", "culinare", "pentru copii"]) {
                 this.graph.createNode('type', {type: type});
             }
 

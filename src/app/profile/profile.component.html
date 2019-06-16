@@ -109,7 +109,7 @@
     </div>
 
     <div style="width: 100%; clear: left;">
-        <div> {{translate.tr("Recomandari")}} </div>
+        <div> {{translate.tr("Recomandări")}} </div>
         <div style="margin-left: 34px">
             <ng-container *ngFor="let item of recomandate">
                 <catalogue-item [profile]="true" [allowedActiune]="true"[item]="item" [category]="'recomandate'"></catalogue-item>
@@ -183,13 +183,13 @@
                         <div class="form-group">
                             <label for="exampleGen">{{translate.tr("Genul cărții")}}</label> <br>
                             <select #input5 id="exampleGen" style="padding: 7px 0;background: white; width: 100%;">
-                                <option value="fictiune">{{translate.tr("Ficțiune")}} </option>
+                                <option value="ficțiune">{{translate.tr("Ficțiune")}} </option>
                                 <option value="istorie">{{translate.tr("Istorie")}} </option>
                                 <option value="geografie">{{translate.tr("Geografie")}} </option>
-                                <option value="stiinte"> {{translate.tr("Științe")}} </option>
+                                <option value="științe"> {{translate.tr("Științe")}} </option>
                                 <option value="enciclopedie"> {{translate.tr("Enciclopedii")}} </option>
-                                <option value="memorii si biografii"> {{translate.tr("Memorii și biografii")}} </option>
-                                <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
+                                <option value="memorii și biografii"> {{translate.tr("Memorii și biografii")}} </option>
+                                <option value="psihologie și dezvoltare personală"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
                                 <option value="culinare"> {{translate.tr("Culinare")}} </option>
                                 <option value="pentru copii"> {{translate.tr("Cărți pentru copii")}} </option>
                                 <option value="altele"> {{translate.tr("Altele")}} </option>
@@ -327,13 +327,13 @@
                     <div class="form-group">
                         <label for="exampleGene">{{translate.tr("Genul cărții")}}</label> <br>
                         <select #input50 id="exampleGene" [value]="databaseService.editMyBook.gen" style="padding: 7px 0;background: white; width: 100%;">
-                            <option value="fictiune"> {{translate.tr("Ficțiune")}} </option>
+                            <option value="ficțiune"> {{translate.tr("Ficțiune")}} </option>
                             <option value="istorie"> {{translate.tr("Istorie")}} </option>
                             <option value="geografie"> {{translate.tr("Geografie")}} </option>
-                            <option value="stiinte"> {{translate.tr("Științe")}} </option>
+                            <option value="științe"> {{translate.tr("Științe")}} </option>
                             <option value="enciclopedie"> {{translate.tr("Enciclopedie")}} </option>
-                            <option value="memorii si biografii"> {{translate.tr("Memorii și biografii")}} </option>
-                            <option value="psihologie si dezvoltare personala"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
+                            <option value="memorii și biografii"> {{translate.tr("Memorii și biografii")}} </option>
+                            <option value="psihologie și dezvoltare personală"> {{translate.tr("Psihologie și dezvoltare personală")}} </option>
                             <option value="culinare"> {{translate.tr("Culinare")}} </option>
                             <option value="pentru copii"> {{translate.tr("Pentru copii")}} </option>
                             <option value="altele"> {{translate.tr("Altele")}} </option>
@@ -462,10 +462,10 @@
                     <div *ngIf="select.value === 'da'" class="form-group">
                         <label for="stare_carte" class="col-lg-12" style="padding-left: 0 !important;"> În ce stare se află cartea? </label>
                         <select id="stare_carte" class="form-control col-lg-12 custom-select">
-                            <option value="foarte_buna"> Foarte buna </option>
-                            <option value="buna"> Buna </option>
-                            <option value="uzata"> Uzata </option>
-                            <option value="foarte_uzata"> Foarte uzata </option>
+                            <option value="Foarte bună"> Foarte bună </option>
+                            <option value="Bună"> Bună </option>
+                            <option value="Uzată"> Uzată </option>
+                            <option value="Foarte uzată"> Foarte uzată </option>
                         </select>
                     </div>
                     <div *ngIf="select.value === 'nu'" class="form-group">
