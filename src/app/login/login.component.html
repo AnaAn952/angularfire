@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 
 <button *ngIf="authService.userDetails" type="button" class="btn login-buttons" data-toggle="modal" data-target="#exampleModal2">
-    Deconectează-te
+    {{ this.userData.userData.limba === "engleză" ? "Logout" : "Deconectează-te" }}
 </button>
 
 <div *ngIf="!authService.userDetails && !allowRegisterForm && !reset" class="login-form">
@@ -35,18 +35,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-custom-grey">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Deconectează-te</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">{{translate.tr("Deconectează-te")}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Ești sigur(ă) că dorești să te deconectezi?
+                {{translate.tr("Ești sigur(ă) că dorești să te deconectezi?")}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 14.8rem; padding:9px;">Anulează</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 14.8rem; padding:9px;">{{translate.tr("Anulează")}}</button>
                 <div class="col-xs-7"></div>
-                <button type="button" class="btn btn-primary" style="padding: .5rem .72rem" (click)="logout()">Da</button>
+                <button type="button" class="btn btn-primary" style="padding: .5rem .72rem" (click)="logout()">{{translate.tr("Da")}}</button>
             </div>
         </div>
     </div>

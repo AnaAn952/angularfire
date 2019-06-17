@@ -5,6 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { UserDataService } from '../services/userData.service';
 import { EventsService } from '../services/fetch-books.service';
 import { DatabaseService } from '../services/database.service';
+import { TranslateService } from '../services/translate.service';
 
 declare let $:any;
 
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
         public db: AngularFireDatabase,
         public eventService: EventsService,
         public databaseService: DatabaseService,
+        public translate: TranslateService,
     ) {
         this.dbRef = db.list('/users');
     }
