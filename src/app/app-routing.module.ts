@@ -8,6 +8,7 @@ import { OrganizedEventsComponent } from './organized-events/organized-events.co
 import { LoginComponent } from './login/login.component';
 import { AccessGuard } from './services/access-guard';
 import { TranslationsCanActivate } from './services/translations-can-activate';
+import { TranslationsRes } from './services/translations-res';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    resolve: {translate: TranslationsRes},
   },
   {
     path: 'books',

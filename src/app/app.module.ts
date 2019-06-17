@@ -37,6 +37,7 @@ import { CarouselConfirmateComponent } from './carrousel/carousel-confirmate/car
 import { CarouselRaportateComponent } from './carrousel/carousel-raportate/carousel-raportate.component';
 import { TranslateService } from './services/translate.service';
 import { TranslationsCanActivate } from './services/translations-can-activate';
+import { TranslationsRes } from './services/translations-res';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { TranslationsCanActivate } from './services/translations-can-activate';
     GraphService,
     TranslateService,
     TranslationsCanActivate,
+    TranslationsRes,
   ],
   bootstrap: [AppComponent]
 })
