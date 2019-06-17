@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
                         email: this.user.email,
                         username: this.user.username,
                         profilePicture: this.user.profilePicture,
-                        limba: "romana"
+                        limba: "română"
                     });
                     this.allowRegisterForm = false;
                 })

@@ -5,27 +5,27 @@
 </button>
 
 <div *ngIf="!authService.userDetails && !allowRegisterForm && !reset" class="login-form">
-    <div class="login-title"> AUTENTIFICARE </div>
-    <div style="color: #057afc;" *ngIf="trimis"> Email-ul de resetare a fost trimis. </div>
+    <div class="login-title"> {{translate.ls("AUTENTIFICARE")}} </div>
+    <div style="color: #057afc;" *ngIf="trimis"> {{translate.ls("Email-ul de resetare a fost trimis")}}. </div>
     <form name="userform" method="post" #formCtrl1="ngForm">
         <div class="form-group">
-            <input type="email" id="exampleInputEmail1" name="example1" class="form-control" [(ngModel)]="user.email" placeholder="Adresă de email" required>
+            <input type="email" id="exampleInputEmail1" name="example1" class="form-control" [(ngModel)]="user.email" [placeholder]="translate.ls('Adresă de email')" required>
         </div>
         <div class="form-group">
-            <input type="password" id="exampleInputPassword1" name="example2" class="form-control" [(ngModel)]="user.password" placeholder="Parolă" required>
+            <input type="password" id="exampleInputPassword1" name="example2" class="form-control" [(ngModel)]="user.password" [placeholder]="translate.ls('Parolă')" required>
         </div>
-        <div style="color: red;" *ngIf="incorrectAuth"> Email-ul sau parola sunt incorecte. </div>
+        <div style="color: red;" *ngIf="incorrectAuth"> {{translate.ls("Email-ul sau parola sunt incorecte")}}. </div>
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="signInWithEmail()" [disabled]="formCtrl1.form.invalid">
-                Autentifică-te cu adresa de email
+                {{translate.ls("Autentifică-te cu adresa de email")}}
             </button>
         </div>
     </form>
     <div class="change-to" (click)="inregistrare()">
-        Nu ai cont? Înregistrează-te!
+        {{translate.ls("Nu ai cont? Înregistrează-te!")}}
     </div>
     <div class="change-to" (click)="showResetPassword()">
-        Ai uitat parola?
+        {{translate.ls("Ai uitat parola?")}}
     </div>
 </div>
 
@@ -53,48 +53,48 @@
 </div>
 
 <div *ngIf="allowRegisterForm && !authService.userDetails && !reset" class="register-form">
-    <div class="login-title"> ÎNREGISTRARE </div>
+    <div class="login-title"> {{translate.ls("ÎNREGISTRARE")}} </div>
     <form name="userform" method="post" #formCtrl="ngForm">
         <div class="form-group">
-            <input type="email" id="exampleInputEmail3" name="example1" class="form-control" [(ngModel)]="user.email" placeholder="Adresă de email" required>
+            <input type="email" id="exampleInputEmail3" name="example1" class="form-control" [(ngModel)]="user.email" [placeholder]="translate.ls('Adresă de email')" required>
         </div>
         <div class="form-group">
-            <input type="email" id="username" name="username" class="form-control" [(ngModel)]="user.username" placeholder="Nume utilizator" required>
+            <input type="email" id="username" name="username" class="form-control" [(ngModel)]="user.username" [placeholder]="translate.ls('Nume utilizator')" required>
         </div>
         <div class="form-group">
-            <input type="password" id="exampleInputPassword3" name="example2" class="form-control" [(ngModel)]="user.password" placeholder="Parolă" required>
+            <input type="password" id="exampleInputPassword3" name="example2" class="form-control" [(ngModel)]="user.password" [placeholder]="translate.ls('Parolă')" required>
         </div>
         <div class="form-group">
-            <input type="password" id="exampleInputPassword7" name="example3" class="form-control" [(ngModel)]="user.passwordAgain" placeholder="Reintroduceți parola" required>
+            <input type="password" id="exampleInputPassword7" name="example3" class="form-control" [(ngModel)]="user.passwordAgain" [placeholder]="translate.ls('Reintroduceți parola')" required>
         </div>
-        <div *ngIf="notMatch" style="color: red"> Cele două parole introduse nu sunt identice. </div>
-        <div *ngIf="alreadyInUse" style="color: red;"> Adresa de email este deja folosită. </div>
-        <div *ngIf="badlyFormated" style="color: red"> Adresa de email nu are format-ul corect. </div>
+        <div *ngIf="notMatch" style="color: red"> {{translate.ls('Cele două parole introduse nu sunt identice')}}. </div>
+        <div *ngIf="alreadyInUse" style="color: red;"> {{translate.ls('Adresa de email este deja folosită')}}. </div>
+        <div *ngIf="badlyFormated" style="color: red"> {{translate.ls('Adresa de email nu are format-ul corect')}}. </div>
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="createAccount()" [disabled]="formCtrl.form.invalid">
-                Creează cont
+                {{translate.ls('Creează cont')}}
             </button>
         </div>
     </form>
     <div class="change-to" (click)="alreadyRegistered()">
-        Ai deja cont? Autentifică-te!
+        {{translate.ls('Ai deja cont? Autentifică-te!')}}
     </div>
 </div>
 
 <div *ngIf="!allowRegisterForm && !authService.userDetails && reset" class="register-form">
-    <div class="login-title"> RESETARE PAROLA </div>
+    <div class="login-title"> {{translate.ls('RESETARE PAROLĂ')}} </div>
     <form>
         <div class="form-group">
-            <input #email1 type="text" id="exampleInputEmail34" name="example1" class="form-control" placeholder="Adresa de email">
+            <input #email1 type="text" id="exampleInputEmail34" name="example1" class="form-control" [placeholder]="translate.ls('Adresă de email')">
         </div>
-        <div style="color: red;" *ngIf="badReset">  Adresa de email nu are format-ul corect. </div>
+        <div style="color: red;" *ngIf="badReset"> {{translate.ls('Adresa de email nu are format-ul corect')}}. </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="resetPassword(email1.value)">
-                Trimite email de resetare a parolei
+                {{translate.ls('Trimite email-ul de resetare a parolei')}}
             </button>
         </div>
     </form>
     <div class="change-to" (click)="inapoi()">
-        Nu doresc sa resetez parola.
+        {{translate.ls('Nu doresc să resetez parola')}}.
     </div>
 </div>

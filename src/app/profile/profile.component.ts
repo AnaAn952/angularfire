@@ -230,6 +230,12 @@ export class ProfileComponent implements OnInit {
         if (language !== undefined) {
             info["limba"] = language;
             this.userDataService.userData.limba = language;
+
+            if (this.userDataService.userData.limba === "engleză") {
+                localStorage.setItem("language", "EN");
+            } else if (this.userDataService.userData.email) {
+                localStorage.setItem("language", "RO");
+            }
         }
 
         $("#modalInfo").modal("hide");

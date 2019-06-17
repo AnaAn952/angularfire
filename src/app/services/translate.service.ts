@@ -20,4 +20,10 @@ export class TranslateService {
             return this.trans[value];
         } else return value;
     }
+
+    public ls(value: any) {
+        if (localStorage.getItem("language") === "EN") {
+            return this.trans[value];
+        } else return value;
+    }
 }

@@ -81,6 +81,12 @@ export class UserDataService {
             this.userData.raportate = {};
         }
 
+        if (this.userData.limba === "engleză") {
+            localStorage.setItem("language", "EN");
+        } else if (this.userData.email) {
+            localStorage.setItem("language", "RO");
+        }
+
         this.eventService.searchChatUsers.emit();
     }
 
