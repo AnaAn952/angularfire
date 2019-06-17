@@ -36,10 +36,12 @@ const routes: Routes = [
   {
     path: 'events',
     component: OrganizedEventsComponent,
+    resolve: {translate: TranslationsCanActivate},
   },
   {
     path: 'chat',
     component: ChatComponent,
+    resolve: {translate: TranslationsCanActivate},
   },
   {
     path: '**',

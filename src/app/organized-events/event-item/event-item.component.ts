@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import * as firebase from 'firebase';
 import { DatabaseService } from '../../services/database.service';
 import { UserDataService } from '../../services/userData.service';
+import { TranslateService } from '../../services/translate.service';
 
 declare let $: any;
 
@@ -17,6 +18,7 @@ export class EventItemComponent {
     constructor(
         public databaseService: DatabaseService,
         public userDataService: UserDataService,
+        public translate: TranslateService,
     ) {
         this.id = Math.floor(Math.random() * 1000);
     }

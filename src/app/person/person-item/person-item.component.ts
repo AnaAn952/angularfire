@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TranslateService } from '../../services/translate.service';
 
 @Component({
     selector: 'person-item',
@@ -7,4 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class PersonItemComponent {
     @Input("item") item: any;
+
+    constructor(
+        public translate: TranslateService
+    ) {}
+
 }

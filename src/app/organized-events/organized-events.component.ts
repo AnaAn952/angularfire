@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseService } from '../services/database.service';
 import { UserDataService } from '../services/userData.service';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { TranslateService } from '../services/translate.service';
 
 declare let $: any;
 
@@ -28,10 +29,17 @@ export class OrganizedEventsComponent {
         public databaseService: DatabaseService,
         public userDataService: UserDataService,
         public storage: AngularFireStorage,
+        public translate: TranslateService,
     ) {
         let list = this.db.list('/events/');
         let a = list.valueChanges().subscribe((data: any) => {
-            this.items = data.reverse();
+            let items = data.reverse();
+            this.items.length = 0;
+
+            for (let item of items) {
+                this.items.push(item);
+            }
+
             if (this.firstTime === true) {
                 this.selectedItems = this.items;
                 this.firstTime = false;
@@ -62,7 +70,6 @@ export class OrganizedEventsComponent {
     myEvents() {
         this.changeColor("my");
         this.selectedItems = this.myItems;
-        console.log("my");
     }
 
     goingEvents() {
